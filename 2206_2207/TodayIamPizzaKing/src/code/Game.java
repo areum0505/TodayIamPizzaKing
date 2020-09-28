@@ -377,9 +377,9 @@ public class Game extends JFrame{
 	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 30, null);
 		if(isStartPage) {											// 지금이 시작페이지면			
-//			g.drawImage(startButtonImg, 957, 307, null);
-//			g.drawImage(settingButtonImg, 957, 416, null);
-//			g.drawImage(quitButtonImg, 957, 524, null);
+			g.drawImage(startButtonImg, 958, 300, 300, 125, null);
+			g.drawImage(settingButtonImg, 958, 453, 300, 125, null);
+			g.drawImage(quitButtonImg, 958, 600, 300, 125, null);
 		}
 		if(isSettingPage) {
 			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 40, null);
