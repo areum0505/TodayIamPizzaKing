@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Game extends JFrame{
-	private int width = 1280, height = 745;		// 가로, 세로
+	private int width = 1280, height = 750;		// 가로, 세로
 	private int count = 0;						
 	
 	private Image bufferImage;
@@ -375,34 +375,34 @@ public class Game extends JFrame{
 	}
 	
 	public void screenDraw(Graphics g) {
-		g.drawImage(backgroundImage, 0, 25, null);
+		g.drawImage(backgroundImage, 0, 30, null);
 		if(isStartPage) {											// 지금이 시작페이지면			
 //			g.drawImage(startButtonImg, 957, 307, null);
 //			g.drawImage(settingButtonImg, 957, 416, null);
 //			g.drawImage(quitButtonImg, 957, 524, null);
 		}
 		if(isSettingPage) {
-			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 35, null);
+			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 40, null);
 		}
 		if(isStageSelectPage) {										// 스테이지 선택페이지면
-			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 35, null);
+			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 40, null);
 			if(isEnter) {
-				g.drawImage(enterImg, 260, 120, null);
-				g.drawImage(explainImg, 260, 120, null);
-				g.drawImage(enterStageButtonImg, 560, 480, null);
+				g.drawImage(enterImg, 260, 125, null);
+				g.drawImage(explainImg, 260, 125, null);
+				g.drawImage(enterStageButtonImg, 560, 485, null);
 				g.setFont(new Font("둥근모꼴", Font.PLAIN, 45));
-				g.drawString(stageName, (width/2)-(stageName.length()/2*45)+30, 180);
+				g.drawString(stageName, (width/2)-(stageName.length()/2*45)+30, 185);
 			}
 			if(isBag) {
-				g.drawImage(enterImg, 260, 120, null);
+				g.drawImage(enterImg, 260, 125, null);
 				g.setFont(new Font("둥근모꼴", Font.PLAIN, 45));
-				g.drawString(stageName, (width/2)-(stageName.length()/2*45)+30, 180);
+				g.drawString(stageName, (width/2)-(stageName.length()/2*45)+30, 185);
 			}
 		}
 		if(isGamePage) {
 			g.drawImage(p.getImg(), 10, height-198-10, null);
 			if(isPause) {
-				g.drawImage(pauseImg, 260, 120, null);
+				g.drawImage(pauseImg, 260, 125, null);
 			}
 		}
 		this.repaint();
