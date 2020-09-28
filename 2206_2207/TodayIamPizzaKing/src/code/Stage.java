@@ -6,15 +6,15 @@ import javax.swing.ImageIcon;
 
 public class Stage {	
 	private Image stageBackground;																		// 각 스테이지마다 배경화면
-	private Image stage1Back = new ImageIcon("image/stage/stage1Back.png").getImage();
-	private Image stage2Back = new ImageIcon("image/stage/stage2Back.png").getImage();
-	private Image stage3Back = new ImageIcon("image/stage/stage3Back.png").getImage();
-	private Image stage4Back = new ImageIcon("image/stage/stage4Back.png").getImage();
-	private Image stage5Back = new ImageIcon("image/stage/stage5Back.png").getImage();
-	private Image stage6Back = new ImageIcon("image/stage/stage6Back.png").getImage();
+	private Image stage1Back = new ImageIcon("images/stage/stage1Back.png").getImage();
+	private Image stage2Back = new ImageIcon("images/stage/stage2Back.png").getImage();
+	private Image stage3Back = new ImageIcon("images/stage/stage3Back.png").getImage();
+	private Image stage4Back = new ImageIcon("images/stage/stage4Back.png").getImage();
+	private Image stage5Back = new ImageIcon("images/stage/stage5Back.png").getImage();
+	private Image stage6Back = new ImageIcon("images/stage/stage6Back.png").getImage();
 	
 	private Image stageExplain;
-	private Image stage1Ex = new ImageIcon("image/stage/stage1Explain.png").getImage();
+	private Image stage1Ex = new ImageIcon("images/stage/stage1Explain.png").getImage();
 	
 	private String stageName;				// 스테이지 이름 
 	

@@ -24,19 +24,19 @@ public class Game extends JFrame{
 	Player p;
 	
 	// 시작화면
-	private Image backgroundImage = new ImageIcon("image/main/mainBackground.png").getImage();			// 배경이미지
+	private Image backgroundImage = new ImageIcon("images/main/startBackground.png").getImage();			// 배경이미지
 	
 	private JButton startButton = new JButton();														// 시작화면의 버튼들
 	private JButton settingButton = new JButton();
 	private JButton quitButton = new JButton();
-	private Image startButtonImg = new ImageIcon("image/main/startButtonImg.png").getImage();			// 버튼들 이미지
-	private Image settingButtonImg = new ImageIcon("image/main/settingButtonImg.png").getImage();
-	private Image quitButtonImg = new ImageIcon("image/main/quitButtonImg.png").getImage();
+	private Image startButtonImg = new ImageIcon("images/main/startBtn.png").getImage();			// 버튼들 이미지
+	private Image settingButtonImg = new ImageIcon("images/main/settingBtn.png").getImage();
+	private Image quitButtonImg = new ImageIcon("images/main/quitBtn.png").getImage();
 	
 	// 선택화면	
 	private ArrayList<Stage> stageList = new ArrayList<>();												// 스테이지
 	
-	private Image stageSelectBackground = new ImageIcon("image/main/stageSelectBackground.png").getImage();
+	private Image stageSelectBackground = new ImageIcon("images/main/stageSelectBackground.png").getImage();
 	
 	private JButton stage1Button = new JButton();	// 치즈
 	private JButton stage2Button = new JButton();	// 양파
@@ -46,9 +46,9 @@ public class Game extends JFrame{
 	private JButton stage6Button = new JButton();	// 소스
 	private JButton bagButton = new JButton();		// 가방
 	
-	private Image enterImg = new ImageIcon("image/stage/enterImg.png").getImage();
+	private Image enterImg = new ImageIcon("images/stage/enterImg.png").getImage();
 	private Image explainImg;
-	private Image enterStageButtonImg = new ImageIcon("image/stage/enterStageButton.png").getImage();
+	private Image enterStageButtonImg = new ImageIcon("images/stage/enterStageButton.png").getImage();
 	private String stageName;
 	private boolean isEnter = false;
 	private boolean isBag = false;
@@ -62,7 +62,7 @@ public class Game extends JFrame{
 	private int attackCount = 0;
 	
 	private boolean isPause;
-	private Image pauseImg = new ImageIcon("image/stage/pauseImg.png").getImage();
+	private Image pauseImg = new ImageIcon("images/stage/pauseImg.png").getImage();
 	
 	private JButton gameQuitButton = new JButton();
 	private JButton gameContinueButton = new JButton();
@@ -88,8 +88,8 @@ public class Game extends JFrame{
 		
 		// 아이콘
 		Toolkit kit = Toolkit.getDefaultToolkit();
-		kit.getImage("image/main/icon.png");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("image/main/icon.png"));
+		kit.getImage("images/main/icon.png");
+		setIconImage(Toolkit.getDefaultToolkit().getImage("images/main/icon.png"));
 		
 		p = new Player();
 		
@@ -129,7 +129,7 @@ public class Game extends JFrame{
 				startButton.setVisible(false);
 				settingButton.setVisible(false);
 				quitButton.setVisible(false);
-				backgroundImage = new ImageIcon("image/main/setBackground.png").getImage();
+				backgroundImage = new ImageIcon("images/main/setBackground.png").getImage();
 			}
 		});
 		getContentPane().add(settingButton);
@@ -158,7 +158,7 @@ public class Game extends JFrame{
 				startButton.setVisible(true);
 				settingButton.setVisible(true);
 				quitButton.setVisible(true);
-				backgroundImage = new ImageIcon("image/main/mainBackground.png").getImage();
+				backgroundImage = new ImageIcon("images/main/startBackground.png").getImage();
 			}
 		});
 		getContentPane().add(backButton);	
@@ -382,10 +382,10 @@ public class Game extends JFrame{
 			g.drawImage(quitButtonImg, 958, 600, 300, 125, null);
 		}
 		if(isSettingPage) {
-			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 40, null);
+			g.drawImage(new ImageIcon("images/main/backButton.png").getImage(), 10, 40, null);
 		}
 		if(isStageSelectPage) {										// 스테이지 선택페이지면
-			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 40, null);
+			g.drawImage(new ImageIcon("images/main/backButton.png").getImage(), 10, 40, null);
 			if(isEnter) {
 				g.drawImage(enterImg, 260, 125, null);
 				g.drawImage(explainImg, 260, 125, null);
@@ -434,10 +434,10 @@ public class Game extends JFrame{
 							startButton.setVisible(true);
 							settingButton.setVisible(true);
 							quitButton.setVisible(true);
-							backgroundImage = new ImageIcon("image/main/mainBackground.png").getImage();
+							backgroundImage = new ImageIcon("images/main/startBackground.png").getImage();
 						}
 					} else if(isSettingPage){
-						backgroundImage = new ImageIcon("image/main/mainBackground.png").getImage();
+						backgroundImage = new ImageIcon("images/main/startBackground.png").getImage();
 						isSettingPage = false;
 						isStartPage = true;
 						backButton.setVisible(false);

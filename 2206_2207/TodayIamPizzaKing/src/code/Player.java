@@ -16,12 +16,12 @@ public class Player {
 	private int attackDamage = 1;
 
 	private Image img;
-	private Image standImage =  new ImageIcon("image/character/pizza.png").getImage();
-	private Image runIamge =  new ImageIcon("image/character/runPizza.png").getImage();
-	private Image leftAttackImage =  new ImageIcon("image/character/pizza.png").getImage();
-	private Image rightAttackImage =  new ImageIcon("image/character/pizza.png").getImage();
-	public Image leftEffect = new ImageIcon("image/character/pizza.png").getImage();
-	public Image rightEffect = new ImageIcon("image/character/pizza.png").getImage();
+	private Image standImage =  new ImageIcon("images/character/pizza.png").getImage();
+	private Image runIamge =  new ImageIcon("images/character/runPizza.png").getImage();
+	private Image leftAttackImage =  new ImageIcon("images/character/pizza.png").getImage();
+	private Image rightAttackImage =  new ImageIcon("images/character/pizza.png").getImage();
+	public Image leftEffect = new ImageIcon("images/character/pizza.png").getImage();
+	public Image rightEffect = new ImageIcon("images/character/pizza.png").getImage();
 
 	public Player() {
 		super();
