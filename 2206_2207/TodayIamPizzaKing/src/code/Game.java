@@ -436,7 +436,16 @@ public class Game extends JFrame{
 							quitButton.setVisible(true);
 							backgroundImage = new ImageIcon("image/main/mainBackground.png").getImage();
 						}
-					} else {
+					} else if(isSettingPage){
+						backgroundImage = new ImageIcon("image/main/mainBackground.png").getImage();
+						isSettingPage = false;
+						isStartPage = true;
+						backButton.setVisible(false);
+						startButton.setVisible(true);
+						settingButton.setVisible(true);
+						quitButton.setVisible(true);
+						
+					}	else {
 						System.exit(0);
 					}
 					break;
