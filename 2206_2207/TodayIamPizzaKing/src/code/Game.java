@@ -104,7 +104,7 @@ public class Game extends JFrame{
 
 		// 시작화면의 버튼들
 		startButton.setVisible(true);
-		startButton.setBounds(957, 281, 209, 65);
+		startButton.setBounds(953, 265, 300, 125);
 		startButton.setFocusable(false);
 		startButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -120,7 +120,7 @@ public class Game extends JFrame{
 		getContentPane().add(startButton);
 		
 		settingButton.setVisible(true);
-		settingButton.setBounds(957, 390, 209, 65);
+		settingButton.setBounds(953, 418, 300, 125);
 		settingButton.setFocusable(false);
 		settingButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
@@ -135,7 +135,7 @@ public class Game extends JFrame{
 		getContentPane().add(settingButton);
 		
 		quitButton.setVisible(true);
-		quitButton.setBounds(957, 498, 209, 65);
+		quitButton.setBounds(953, 565, 300, 125);
 		quitButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				System.exit(0);
@@ -377,9 +377,9 @@ public class Game extends JFrame{
 	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 25, null);
 		if(isStartPage) {											// 지금이 시작페이지면			
-			g.drawImage(startButtonImg, 957, 307, null);
-			g.drawImage(settingButtonImg, 957, 416, null);
-			g.drawImage(quitButtonImg, 957, 524, null);
+//			g.drawImage(startButtonImg, 957, 307, null);
+//			g.drawImage(settingButtonImg, 957, 416, null);
+//			g.drawImage(quitButtonImg, 957, 524, null);
 		}
 		if(isSettingPage) {
 			g.drawImage(new ImageIcon("image/main/backButton.png").getImage(), 10, 35, null);
