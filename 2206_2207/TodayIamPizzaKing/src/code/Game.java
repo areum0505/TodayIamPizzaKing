@@ -78,13 +78,13 @@ public class Game extends JFrame{
 	private JButton backButton = new JButton();
 	
 	public Game() {
-		setTitle("Today I'm Pizza King");	
-		setVisible(true);		
+		setTitle("Today I'm Pizza King");		
 		setSize(width, height);
 		setLocationRelativeTo(null);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
+		setVisible(true);	
 		
 		// æ∆¿Ãƒ‹
 		Toolkit kit = Toolkit.getDefaultToolkit();
@@ -107,6 +107,12 @@ public class Game extends JFrame{
 		startButton.setBounds(953, 265, 300, 125);
 		startButton.setFocusable(false);
 		startButton.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				startButtonImg = new ImageIcon("images/main/enteredStartBtn.png").getImage();
+			}
+			public void mouseExited(MouseEvent e) {
+				startButtonImg = new ImageIcon("images/main/startBtn.png").getImage();
+			}
 			public void mousePressed(MouseEvent e) {
 				isStartPage = false;
 				isStageSelectPage = true;
@@ -123,6 +129,12 @@ public class Game extends JFrame{
 		settingButton.setBounds(953, 418, 300, 125);
 		settingButton.setFocusable(false);
 		settingButton.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				settingButtonImg = new ImageIcon("images/main/enteredSettingBtn.png").getImage();
+			}
+			public void mouseExited(MouseEvent e) {
+				settingButtonImg = new ImageIcon("images/main/settingBtn.png").getImage();
+			}
 			public void mousePressed(MouseEvent e) {
 				isStartPage = false;
 				isSettingPage = true;
@@ -137,6 +149,12 @@ public class Game extends JFrame{
 		quitButton.setVisible(true);
 		quitButton.setBounds(953, 565, 300, 125);
 		quitButton.addMouseListener(new MouseAdapter() {
+			public void mouseEntered(MouseEvent e) {
+				quitButtonImg = new ImageIcon("images/main/enteredQuitBtn.png").getImage();
+			}
+			public void mouseExited(MouseEvent e) {
+				quitButtonImg = new ImageIcon("images/main/quitBtn.png").getImage();
+			}
 			public void mousePressed(MouseEvent e) {
 				System.exit(0);
 			}
