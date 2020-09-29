@@ -102,18 +102,20 @@ public class Game extends JFrame{
 		stageList.add(new Stage("피망"));
 		stageList.add(new Stage("소스"));
 
-		// 시작화면의 버튼들
+		// 시작화면
+		
+		// 시작버튼
 		startButton.setVisible(true);
 		startButton.setBounds(953, 265, 300, 125);
-		startButton.setFocusable(false);
+		startButton.setFocusable(false); // 이거 안하면 esc키가 안먹음
 		startButton.addMouseListener(new MouseAdapter() {
-			public void mouseEntered(MouseEvent e) {
+			public void mouseEntered(MouseEvent e) { // 마우스 오버
 				startButtonImg = new ImageIcon("images/main/enteredStartBtn.png").getImage();
 			}
-			public void mouseExited(MouseEvent e) {
+			public void mouseExited(MouseEvent e) { // 마우스를 벗어났을때
 				startButtonImg = new ImageIcon("images/main/startBtn.png").getImage();
 			}
-			public void mousePressed(MouseEvent e) {
+			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
 				isStartPage = false;
 				isStageSelectPage = true;
 				startButton.setVisible(false);
@@ -125,6 +127,7 @@ public class Game extends JFrame{
 		});
 		getContentPane().add(startButton);
 		
+		// 설정 버튼
 		settingButton.setVisible(true);
 		settingButton.setBounds(953, 418, 300, 125);
 		settingButton.setFocusable(false);
@@ -146,6 +149,7 @@ public class Game extends JFrame{
 		});
 		getContentPane().add(settingButton);
 		
+		// 나가기 버튼
 		quitButton.setVisible(true);
 		quitButton.setBounds(953, 565, 300, 125);
 		quitButton.addMouseListener(new MouseAdapter() {
@@ -189,8 +193,8 @@ public class Game extends JFrame{
 			public void mousePressed(MouseEvent e) {
 				stageName = stageList.get(0).getStageName();
 				explainImg = stageList.get(0).getStageExplain();
-				isEnter = true;
-				setStageButton(false);
+				isEnter = true; // 들어가는 화면
+				setStageButton(false); 
 				backButton.setVisible(false);
 				enterQuitButton.setVisible(true);
 				gameStartButton.setVisible(true);
