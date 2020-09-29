@@ -167,7 +167,7 @@ public class Game extends JFrame{
 		
 		// 뒤로가기 버튼
 		backButton.setVisible(true);
-		backButton.setBounds(10, 10, 50, 50);
+		backButton.setBounds(15, 15, 50, 50);
 		backButton.setFocusable(false);
 		backButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
