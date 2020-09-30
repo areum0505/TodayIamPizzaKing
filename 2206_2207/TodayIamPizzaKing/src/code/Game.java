@@ -344,7 +344,7 @@ public class Game extends JFrame{
 		
 		
 		gameQuitButton.setVisible(false);
-		gameQuitButton.setBounds(375, 455, 200, 60);
+		gameQuitButton.setBounds(400, 390, 225, 100);
 	    gameQuitButton.setFocusable(false);
 	    gameQuitButton.addMouseListener(new MouseAdapter() {
 	    public void mousePressed(MouseEvent e) {
@@ -360,7 +360,7 @@ public class Game extends JFrame{
 	    });
 	    getContentPane().add(gameQuitButton);
 	    gameContinueButton.setVisible(false);
-	    gameContinueButton.setBounds(755, 455, 200, 60);
+	    gameContinueButton.setBounds(700, 390, 225, 100);
 	    gameContinueButton.setFocusable(false);
 	    gameContinueButton.addMouseListener(new MouseAdapter() {
 	    public void mousePressed(MouseEvent e) {
