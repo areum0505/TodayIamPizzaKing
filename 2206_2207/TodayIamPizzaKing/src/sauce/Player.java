@@ -1,19 +1,23 @@
-package code;
+package sauce;
 
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class Player {
-	private int x = 75;
-	private int y = 330;
+public class Player extends Thread {	
+	private int x;
+	private int y;
 	
-	private int d = 0;	// player가 보는 방향 - 0 : 왼쪽, 1 : 오른쪽
+	public boolean up, down, left, right;	
+	
+	private int d;	// player가 보는 방향 - 0 : 왼쪽, 1 : 오른쪽
 	
 	public boolean jumping = false;
 	
 	private int hp = 3;
 	private int attackDamage = 1;
+	
+	private int count;
 
 	private Image img;
 	private Image standImage =  new ImageIcon("images/character/pizza.png").getImage();
@@ -25,6 +29,9 @@ public class Player {
 
 	public Player() {
 		super();
+		x = 20;
+		y = 760-198-20;
+		d = 0;
 		img = standImage;
 	}
 
@@ -68,6 +75,14 @@ public class Player {
 		this.attackDamage = attackDamage;
 	}
 	
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
 	public Image getImg() {
 		return img;
 	}
@@ -107,5 +122,46 @@ public class Player {
 	public void setRightAttackImage(Image rightAttackImage) {
 		this.rightAttackImage = rightAttackImage;
 	}
-
+	
+	public void moveLeft() {
+		x -= 10;
+		if(count % 3 == 1) {
+			img = standImage;
+		} else {
+			img = runIamge;
+		}
+	}
+	public void moveRight() {
+		x += 10;
+		if(count % 3 == 1) {
+			img = standImage;
+		} else {
+			img = runIamge;
+		}
+	}
+	public void jump() {
+		
+	}
+	public void attack() {
+		
+	}
+	
+	@Override
+	public void run() {
+		while(true) {
+			count++;
+			if(left) {
+				moveLeft();
+				System.out.println("left");
+			} else if (right) {
+				moveRight();
+				System.out.println("right");
+			}
+			try {
+				sleep(30);
+			} catch (Exception e) {
+				System.out.println("Player - " + e);
+			}
+		}
+	}
 }

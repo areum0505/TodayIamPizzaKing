@@ -14,9 +14,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import sauce.Player;
+
 public class Game extends JFrame{
-	private int width = 1280, height = 750;		// 가로, 세로
-	private int count = 0;						
+	private int width = 1280, height = 750;		// 가로, 세로					
 	
 	private Image bufferImage;
 	private Graphics screenGraphic;
@@ -192,7 +193,6 @@ public class Game extends JFrame{
 		stage1Button.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				stageName = stageList.get(0).getStageName();
-				explainImg = stageList.get(0).getStageExplain();
 				isEnter = true; // 들어가는 화면
 				setStageButton(false); 
 				backButton.setVisible(false);
@@ -268,6 +268,7 @@ public class Game extends JFrame{
 		stage6Button.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				stageName = stageList.get(5).getStageName();
+				explainImg = stageList.get(5).getStageExplain();
 				isEnter = true;
 				setStageButton(false);
 				backButton.setVisible(false);
@@ -335,6 +336,7 @@ public class Game extends JFrame{
 					break;
 				case "소스":
 					backgroundImage = stageList.get(5).getStageBackground();
+					p.start();
 					break;
 				}
 			}
@@ -422,7 +424,9 @@ public class Game extends JFrame{
 			}
 		}
 		if(isGamePage) {
-			g.drawImage(p.getImg(), 10, height-198-10, null);
+			if(stageName.equals("소스")) {
+				g.drawImage(p.getImg(), p.getX(), p.getY(), null);
+			}
 			if(isPause) {
 				g.drawImage(pauseImg, 260, 125, null);
 			}
@@ -434,6 +438,28 @@ public class Game extends JFrame{
 		addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {	// 키가 눌렸을 때
 				switch(e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					if(isGamePage && stageName == "소스") {
+						//p.moveLeft();
+						p.left = true;
+					}
+					break;
+				case KeyEvent.VK_RIGHT:
+					if(isGamePage && stageName == "소스") {
+						//p.moveRight();
+						p.right = true;
+					}
+					break;
+				case KeyEvent.VK_UP:
+					if(isGamePage && stageName == "소스") {
+						p.jump();
+					}
+					break;
+				case KeyEvent.VK_Z:
+					if(isGamePage && stageName == "소스") {
+						p.attack();
+					}
+					break;
 				case KeyEvent.VK_ESCAPE:
 					if(isGamePage) {
 						pause();
@@ -475,7 +501,17 @@ public class Game extends JFrame{
 			}
 			public void keyReleased(KeyEvent e) {	// 키가 떼졌을 때
 				switch(e.getKeyCode()) {
-				case KeyEvent.VK_ESCAPE:
+				case KeyEvent.VK_LEFT:
+					if(stageName == "소스") {
+						p.left = false;
+						p.setImg(p.getStandImage());
+					}
+					break;
+				case KeyEvent.VK_RIGHT:
+					if(stageName == "소스") {
+						p.right = false;
+						p.setImg(p.getStandImage());
+					}
 					break;
 				}
 			}
