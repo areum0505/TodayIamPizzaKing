@@ -1,7 +1,9 @@
 package code;
 
+import java.awt.AlphaComposite;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -14,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import sauce.Beam;
 import sauce.Boss;
 import sauce.Player;
 
@@ -62,8 +65,8 @@ public class Game extends JFrame{
 	private JButton gameQuitButton = new JButton();
 	private JButton gameContinueButton = new JButton();
 	
-	Boss boss = new Boss();
-	Player player = new Player(boss);
+	Boss boss;
+	Player player;
 		
 	// 페이지
 	private boolean isStartPage = true;		
@@ -329,8 +332,10 @@ public class Game extends JFrame{
 					break;
 				case "소스":
 					backgroundImage = stageList.get(5).getStageBackground();
-					player.start();
+					boss = new Boss();
+					player = new Player(boss);
 					boss.start();
+					player.start();
 					break;
 				}
 			}
@@ -400,6 +405,7 @@ public class Game extends JFrame{
 	
 	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 30, null);
+		Graphics2D g2 = (Graphics2D)g;
 		if(isStartPage) {											// 지금이 시작페이지면			
 			g.drawImage(startButtonImg, 958, 300, 300, 125, null);
 			g.drawImage(settingButtonImg, 958, 453, 300, 125, null);
@@ -425,8 +431,20 @@ public class Game extends JFrame{
 		}
 		if(isGamePage) {
 			if(stageName.equals("소스")) {
-				g.drawImage(player.getImg(), player.getX(), player.getY(), null);
 				g.drawImage(boss.getImg(), boss.getX(), boss.getY(), null);
+				if(boss.horizontal.isBeam()) {
+					g.drawImage(boss.horizontal.getImg(), boss.horizontal.getX(), boss.horizontal.getY(), null);
+				} else if (boss.vertical.get(0).isBeam()) {
+					for(int i = 0; i < 4; i++) {
+						Beam tempBeam = boss.vertical.get(i);
+						g.drawImage(tempBeam.getImg(), tempBeam.getX(), tempBeam.getY(), null);
+					}
+				}
+				
+				AlphaComposite a = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)player.getAlpha()/255);
+				g2.setComposite(a);
+				g.drawImage(player.getImg(), player.getX(), player.getY(), null);
+				
 			}
 			if(isPause) {
 				g.drawImage(pauseImg, 260, 125, null);
@@ -447,11 +465,11 @@ public class Game extends JFrame{
 					if(isGamePage && stageName == "소스") 
 						player.right = true;
 					break;
-				case KeyEvent.VK_UP:
+				case KeyEvent.VK_Z:
 					if(isGamePage && stageName == "소스") 
 						player.jump = true;
 					break;
-				case KeyEvent.VK_Z:
+				case KeyEvent.VK_X:
 					if(isGamePage && stageName == "소스") 
 						player.attack = true;
 					break;
@@ -510,13 +528,13 @@ public class Game extends JFrame{
 						player.setCount(0);
 					}
 					break;
-				case KeyEvent.VK_UP:
+				case KeyEvent.VK_Z:
 					if(stageName == "소스") {
 						player.jump = false;
 						player.setImg(player.getStandImage());
 					}
 					break;
-				case KeyEvent.VK_Z:
+				case KeyEvent.VK_X:
 					if(stageName == "소스") {
 						player.attack = false;
 						player.setImg(player.getStandImage());

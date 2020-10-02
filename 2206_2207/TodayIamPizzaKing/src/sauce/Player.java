@@ -10,7 +10,11 @@ public class Player extends Thread {
 	private int x;
 	private int y;
 	
+	private int alpha = 255;
+	
 	public boolean left, right, jump, attack;	
+	
+	private boolean isDead = false;
 	
 	private boolean jumping, falling;
 	private int[] jumpY = {30, 20, 10, 7, 5, 3, 1};		// 점프를 할 때의 높이 (점점 줄어듦)
@@ -30,8 +34,15 @@ public class Player extends Thread {
 	private Image runIamge =  new ImageIcon("images/character/runPizza.png").getImage();
 	private Image leftAttackImage =  new ImageIcon("images/character/leftAttackPizza.png").getImage();
 	private Image rightAttackImage =  new ImageIcon("images/character/rightAttackPizza.png").getImage();
+	private Image attackedImage =  new ImageIcon("images/character/attackedPizza.png").getImage();
+	private Image deadImage =  new ImageIcon("images/character/deadPizza.png").getImage();
 	public Image leftEffect = new ImageIcon("images/character/pizza.png").getImage();
 	public Image rightEffect = new ImageIcon("images/character/pizza.png").getImage();
+	
+	private int hitCount = 0;
+	private boolean isHit = false;
+	
+	private boolean unableMove = false;
 	
 	private Boss b;
 
@@ -46,32 +57,32 @@ public class Player extends Thread {
 
 	@Override
 	public void run() {
-		while(true) {
+		while(!isDead) {
 			count++;
-			if(left) {
+			check();
+			if(left && !unableMove) {
 				moveLeft();
 				d = 0;
-			} else if (right) {
+			} else if (right && !unableMove) {
 				moveRight();
 				d = 1;
-			} else if(jump) {
+			} else if(jump && !unableMove) {
 				jump();
-			} else if(attack) {
+			} else if(attack && !unableMove) {
 				attackCount++;
 				attack();
 				try {			// attack 할때 너무 빠른것 같아서 이거 추가했는데 이 방법은 아닌 것 같지만 다른 방법이 생각 안나서 썼음
 					sleep(70);
-				} catch (Exception e) {System.out.println(e);}
+				} catch (Exception e) {System.out.println("Player - run" + e);}
 			}
 			try {
 				sleep(30);
 			} catch (Exception e) {
-				System.out.println("Player - " + e);
+				System.out.println("Player - run " + e);
 			}
 			//System.out.println(count);
 		}
 	}
-	
 
 	public void moveLeft() {
 		if(x > 10) x -= 10;
@@ -99,14 +110,14 @@ public class Player extends Thread {
 			else y -= 1;
 			
 			if (attack) {
-				//attack();
+				attack();
 				break;
 			}
 			
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println("Player - jump" + e);
 			}
 			jumpCount++;
 		}
@@ -120,7 +131,7 @@ public class Player extends Thread {
 			try {
 				Thread.sleep(1);
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println("Player - jump" + e);
 			}
 			jumpCount--;
 		}
@@ -131,7 +142,7 @@ public class Player extends Thread {
 				img = leftAttackImage;
 				if(x - 200 < b.getX() && b.getX() < x) {
 					b.setHp(b.getHp() - attackDamage);
-					System.out.println("attack " + b.getHp());
+					// System.out.println("attack " + b.getHp());
 				}
 			} else {
 				img = standImage;
@@ -141,7 +152,7 @@ public class Player extends Thread {
 				img = rightAttackImage;
 				if(x < b.getX() && b.getX() < x + 200) {
 					b.setHp(b.getHp() - attackDamage);
-					System.out.println("attack " + b.getHp());
+					// System.out.println("attack " + b.getHp());
 				}
 			} else {
 				img = standImage;
@@ -150,6 +161,74 @@ public class Player extends Thread {
 		if(attackCount >= 3) {	// attackCount가 3이 넘어가면 0으로 바꿔줌
 			attackCount = 0;
 		}
+	}
+	public void check() {
+		if (!isHit && b.getX() < x + img.getWidth(null) && x < b.getX() + b.getImg().getWidth(null)) {
+			isHit = true;
+			System.out.println("소스에 닿음 " + hp);
+		} else if(!isHit && b.horizontal.isStart() && b.horizontal.getY() < y + img.getHeight(null)) {
+			isHit = true;
+			System.out.println("가로빔 " + hp);
+		} else if(!isHit && b.vertical.get(0).isStart()) {
+			for(int i = 0; i < 4; i++) {
+				Beam tempBeam = b.vertical.get(i);
+				if(tempBeam.getX() < x + img.getWidth(null) && x < tempBeam.getX() + tempBeam.getImg().getWidth(null)) {
+					isHit = true;
+					System.out.println("세로빔 " + hp);
+				}
+			}
+		}
+		
+		if(isHit) {
+			invincibility();
+			hitCount++;
+		}
+		
+		if(hp == 0) {
+			img = deadImage;
+			y = 760 - deadImage.getHeight(null) - 20;
+			isDead = true;
+		}
+	}
+	public void invincibility() {
+		if(hitCount == 0) {
+			new Thread(new Runnable() {	
+				@Override
+				public void run() {
+					unableMove = true;
+					hp -= 1;
+					x -= 20;
+					if(hp != 0) {
+						img = attackedImage;
+						try {
+							sleep(500);
+						} catch (Exception e) {
+							System.out.println("Player - invincibility" + e);
+						}
+						if(img == attackedImage) {
+							img = standImage;
+						}
+						unableMove = false;
+						for(int i = 0; i < 10; i++) {
+							if(alpha == 255) {
+								alpha = 150;
+							} else {
+								alpha = 255;
+							}
+							try {
+								sleep(250);
+							} catch (Exception e) {
+								System.out.println("Player - invincibility" + e);
+							}
+						}
+						alpha = 255;
+						isHit = false;
+						hitCount = 0;
+					}
+				}
+			}).start();
+		}
+		
 	}
 
 	public int getX() {
@@ -238,5 +317,11 @@ public class Player extends Thread {
 
 	public void setRightAttackImage(Image rightAttackImage) {
 		this.rightAttackImage = rightAttackImage;
+	}
+	public int getAlpha() {
+		return alpha;
+	}
+	public void setAlpha(int alpha) {
+		this.alpha = alpha;
 	}
 }
