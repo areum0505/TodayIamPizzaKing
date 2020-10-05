@@ -1,12 +1,9 @@
 package code;
 
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Game extends JFrame {
@@ -30,15 +27,10 @@ public class Game extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("images/main/icon.png"));
 		
 		add(startPanel);
-		add(stageSelectPanel);
-		
 		startPanel.setVisible(true);
-		startPanel.startButton.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
-				startPanel.setVisible(false);
-				stageSelectPanel.setVisible(true);
-			}
-		});
+		
+		add(stageSelectPanel);
+		stageSelectPanel.setVisible(false);
 		
 	}
 	

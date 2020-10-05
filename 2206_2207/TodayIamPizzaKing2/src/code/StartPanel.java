@@ -27,6 +27,12 @@ class StartPanel extends JPanel {
 		startButton.setBounds(953, 265, 300, 125);
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
+		startButton.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+				game.startPanel.setVisible(false);
+				game.stageSelectPanel.setVisible(true);
+			}
+		});
 		this.add(startButton);
 		
 		settingButton.setVisible(true);
