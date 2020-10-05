@@ -14,7 +14,7 @@ public class Stage {
 	private Image stage6Back = new ImageIcon("images/stage/stage6Back.png").getImage();
 	
 	private Image stageExplain;
-	private Image stage1Ex = new ImageIcon("images/stage/stage1Explain.png").getImage();
+	private Image stage6Ex = new ImageIcon("images/stage/stage1Explain.png").getImage();
 	
 	private String stageName;				// 스테이지 이름 
 	
@@ -27,13 +27,15 @@ public class Stage {
 		switch(stageName) {
 		case "치즈": 
 			stageBackground = stage1Back; 
-			stageExplain = stage1Ex;
 			break;
 		case "양파": stageBackground = stage2Back; break;
 		case "버섯": stageBackground = stage3Back; break;
 		case "페퍼로니": stageBackground = stage4Back; break;
 		case "피망": stageBackground = stage5Back; break;
-		case "소스": stageBackground = stage6Back; break;
+		case "소스": 
+			stageBackground = stage6Back; 
+			stageExplain = stage6Ex;
+			break;
 		}
 	}
 	public Image getStageBackground() {

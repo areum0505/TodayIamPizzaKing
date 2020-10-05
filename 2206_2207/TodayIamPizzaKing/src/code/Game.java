@@ -1,7 +1,9 @@
 package code;
 
+import java.awt.AlphaComposite;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
@@ -14,14 +16,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import sauce.Beam;
+import sauce.Boss;
+import sauce.Player;
+
 public class Game extends JFrame{
-	private int width = 1280, height = 750;		// 가로, 세로
-	private int count = 0;						
+	private int width = 1280, height = 750;		// 가로, 세로					
 	
 	private Image bufferImage;
 	private Graphics screenGraphic;
-	
-	Player p;
 	
 	// 시작화면
 	private Image backgroundImage = new ImageIcon("images/main/startBackground.png").getImage();			// 배경이미지
@@ -56,19 +59,17 @@ public class Game extends JFrame{
 	private JButton gameStartButton = new JButton();
 	
 	// 게임화면
-	private boolean jump, fall, attack;																	// 점프중인지, 떨어지는 중인지, 공격
-	private int[] jumpY = {15, 12, 10, 7, 5, 3, 1};																// 점프를 할 때의 높이 (점점 줄어듦)
-	int jumpCount = 0;
-	private int attackCount = 0;
-	
 	private boolean isPause;
 	private Image pauseImg = new ImageIcon("images/stage/pauseImg.png").getImage();
 	
 	private JButton gameQuitButton = new JButton();
 	private JButton gameContinueButton = new JButton();
 	
-	private boolean up, down, left, right;																// 키
+	private Image endGameImg = new ImageIcon("images/stage/endGameImg.png").getImage();
 	
+	Boss boss;
+	Player player;
+		
 	// 페이지
 	private boolean isStartPage = true;		
 	private boolean isSettingPage = false;
@@ -90,8 +91,6 @@ public class Game extends JFrame{
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		kit.getImage("images/main/icon.png");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("images/main/icon.png"));
-		
-		p = new Player();
 		
 		keyListener(); // 방향키 입력
 		
@@ -192,7 +191,6 @@ public class Game extends JFrame{
 		stage1Button.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				stageName = stageList.get(0).getStageName();
-				explainImg = stageList.get(0).getStageExplain();
 				isEnter = true; // 들어가는 화면
 				setStageButton(false); 
 				backButton.setVisible(false);
@@ -268,6 +266,7 @@ public class Game extends JFrame{
 		stage6Button.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				stageName = stageList.get(5).getStageName();
+				explainImg = stageList.get(5).getStageExplain();
 				isEnter = true;
 				setStageButton(false);
 				backButton.setVisible(false);
@@ -335,6 +334,10 @@ public class Game extends JFrame{
 					break;
 				case "소스":
 					backgroundImage = stageList.get(5).getStageBackground();
+					boss = new Boss();
+					player = new Player(boss);
+					boss.start();
+					player.start();
 					break;
 				}
 			}
@@ -348,6 +351,9 @@ public class Game extends JFrame{
 	    gameQuitButton.setFocusable(false);
 	    gameQuitButton.addMouseListener(new MouseAdapter() {
 	    public void mousePressed(MouseEvent e) {
+	    	if(stageName.equals("소스")) {
+	    		player.stop();
+	    	}
 			isGamePage = false;
 			isPause = false;
 			isStageSelectPage = true;
@@ -386,6 +392,9 @@ public class Game extends JFrame{
 		isPause = true;
 		gameQuitButton.setVisible(true);
 		gameContinueButton.setVisible(true);
+		if(stageName.equals("소스")) {
+			// 일시정지
+		}
 	}
 	
 	
@@ -398,6 +407,7 @@ public class Game extends JFrame{
 	
 	public void screenDraw(Graphics g) {
 		g.drawImage(backgroundImage, 0, 30, null);
+		Graphics2D g2 = (Graphics2D)g;
 		if(isStartPage) {											// 지금이 시작페이지면			
 			g.drawImage(startButtonImg, 958, 300, 300, 125, null);
 			g.drawImage(settingButtonImg, 958, 453, 300, 125, null);
@@ -422,9 +432,32 @@ public class Game extends JFrame{
 			}
 		}
 		if(isGamePage) {
-			g.drawImage(p.getImg(), 10, height-198-10, null);
 			if(isPause) {
 				g.drawImage(pauseImg, 260, 125, null);
+			}
+			if(stageName.equals("소스")) {
+				g.drawImage(boss.getImg(), boss.getX(), boss.getY(), null);
+				if(boss.horizontal.isBeam()) {
+					g.drawImage(boss.horizontal.getImg(), boss.horizontal.getX(), boss.horizontal.getY(), null);
+				} else if (boss.vertical.get(0).isBeam()) {
+					for(int i = 0; i < 4; i++) {
+						Beam tempBeam = boss.vertical.get(i);
+						g.drawImage(tempBeam.getImg(), tempBeam.getX(), tempBeam.getY(), null);
+					}
+				}
+				
+				AlphaComposite a = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)player.getAlpha()/255);
+				g2.setComposite(a);
+				g.drawImage(player.getImg(), player.getX(), player.getY(), null);
+				
+				if(player.isDead()) {
+					g.drawImage(endGameImg, 260, 125, null);
+					g.drawString("게임오버", (width/2)-(stageName.length()/2*45)+30, 185);
+				} else if(boss.isDead()) {
+					g.drawImage(endGameImg, 260, 125, null);
+					g.drawString("클리어", (width/2)-(stageName.length()/2*45)+30, 185);
+				}
+				
 			}
 		}
 		this.repaint();
@@ -434,6 +467,22 @@ public class Game extends JFrame{
 		addKeyListener(new KeyAdapter() {
 			public void keyPressed(KeyEvent e) {	// 키가 눌렸을 때
 				switch(e.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					if(isGamePage && stageName == "소스") 
+						player.left = true;
+					break;
+				case KeyEvent.VK_RIGHT:
+					if(isGamePage && stageName == "소스") 
+						player.right = true;
+					break;
+				case KeyEvent.VK_Z:
+					if(isGamePage && stageName == "소스") 
+						player.jump = true;
+					break;
+				case KeyEvent.VK_X:
+					if(isGamePage && stageName == "소스") 
+						player.attack = true;
+					break;
 				case KeyEvent.VK_ESCAPE:
 					if(isGamePage) {
 						pause();
@@ -475,7 +524,31 @@ public class Game extends JFrame{
 			}
 			public void keyReleased(KeyEvent e) {	// 키가 떼졌을 때
 				switch(e.getKeyCode()) {
-				case KeyEvent.VK_ESCAPE:
+				case KeyEvent.VK_LEFT:
+					if(stageName == "소스") {
+						player.left = false;
+						player.setImg(player.getStandImage());
+						player.setCount(0);
+					}
+					break;
+				case KeyEvent.VK_RIGHT:
+					if(stageName == "소스") {
+						player.right = false;
+						player.setImg(player.getStandImage());
+						player.setCount(0);
+					}
+					break;
+				case KeyEvent.VK_Z:
+					if(stageName == "소스") {
+						player.jump = false;
+						player.setImg(player.getStandImage());
+					}
+					break;
+				case KeyEvent.VK_X:
+					if(stageName == "소스") {
+						player.attack = false;
+						player.setImg(player.getStandImage());
+					}
 					break;
 				}
 			}
