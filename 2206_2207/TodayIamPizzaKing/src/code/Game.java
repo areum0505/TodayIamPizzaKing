@@ -65,6 +65,8 @@ public class Game extends JFrame{
 	private JButton gameQuitButton = new JButton();
 	private JButton gameContinueButton = new JButton();
 	
+	private Image endGameImg = new ImageIcon("images/stage/endGameImg.png").getImage();
+	
 	Boss boss;
 	Player player;
 		
@@ -387,12 +389,12 @@ public class Game extends JFrame{
 	}
 	
 	public void pause() {
-		if(stageName.equals("소스")) {
-			// 일시정지
-		}
 		isPause = true;
 		gameQuitButton.setVisible(true);
 		gameContinueButton.setVisible(true);
+		if(stageName.equals("소스")) {
+			// 일시정지
+		}
 	}
 	
 	
@@ -430,6 +432,9 @@ public class Game extends JFrame{
 			}
 		}
 		if(isGamePage) {
+			if(isPause) {
+				g.drawImage(pauseImg, 260, 125, null);
+			}
 			if(stageName.equals("소스")) {
 				g.drawImage(boss.getImg(), boss.getX(), boss.getY(), null);
 				if(boss.horizontal.isBeam()) {
@@ -445,9 +450,14 @@ public class Game extends JFrame{
 				g2.setComposite(a);
 				g.drawImage(player.getImg(), player.getX(), player.getY(), null);
 				
-			}
-			if(isPause) {
-				g.drawImage(pauseImg, 260, 125, null);
+				if(player.isDead()) {
+					g.drawImage(endGameImg, 260, 125, null);
+					g.drawString("게임오버", (width/2)-(stageName.length()/2*45)+30, 185);
+				} else if(boss.isDead()) {
+					g.drawImage(endGameImg, 260, 125, null);
+					g.drawString("클리어", (width/2)-(stageName.length()/2*45)+30, 185);
+				}
+				
 			}
 		}
 		this.repaint();

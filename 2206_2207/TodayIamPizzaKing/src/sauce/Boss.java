@@ -11,6 +11,8 @@ public class Boss extends Thread {
 	
 	private int hp;
 	
+	private boolean isDead = false;
+	
 	private Image img;
 	private Image standImage =  new ImageIcon("images/sauce/sauce.png").getImage();
 	private Image deadImage =  new ImageIcon("images/sauce/deadSauce.png").getImage();
@@ -38,13 +40,14 @@ public class Boss extends Thread {
 	@Override
 	public void run() {
 		t1 = System.currentTimeMillis();
-		while(true) {
+		while(!isDead) {
 			// System.out.println((t2 - t1)/1000.0);
 			
 			t2 = System.currentTimeMillis();
 			if(hp <= 0) {
 				img = deadImage;
 				y = 760 - deadImage.getHeight(null) - 20;
+				isDead = true;
 				break;
 			}
 			
@@ -115,4 +118,12 @@ public class Boss extends Thread {
 	public void setImg(Image img) {
 		this.img = img;
 	}
+
+	public boolean isDead() {
+		return isDead;
+	}
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
+	}
+	
 }

@@ -324,4 +324,10 @@ public class Player extends Thread {
 	public void setAlpha(int alpha) {
 		this.alpha = alpha;
 	}
+	public boolean isDead() {
+		return isDead;
+	}
+	public void setDead(boolean isDead) {
+		this.isDead = isDead;
+	}
 }
