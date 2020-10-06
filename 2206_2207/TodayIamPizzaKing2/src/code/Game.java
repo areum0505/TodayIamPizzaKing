@@ -1,8 +1,6 @@
 package code;
 
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
@@ -10,6 +8,7 @@ public class Game extends JFrame {
 	private int width = 1280, height = 750;
 	
 	public StartPanel startPanel = new StartPanel(this);
+	public SettingPanel settingPanel = new SettingPanel(this);
 	public StageSelectPanel stageSelectPanel = new StageSelectPanel(this);
 	
 	public Game() {
@@ -28,6 +27,9 @@ public class Game extends JFrame {
 		
 		add(startPanel);
 		startPanel.setVisible(true);
+		
+		add(settingPanel);
+		settingPanel.setVisible(false);
 		
 		add(stageSelectPanel);
 		stageSelectPanel.setVisible(false);
