@@ -11,6 +11,8 @@ public class Game extends JFrame {
 	public SettingPanel settingPanel = new SettingPanel(this);
 	public StageSelectPanel stageSelectPanel = new StageSelectPanel(this);
 	
+	public SaucePanel saucePanel = new SaucePanel(this);
+	
 	public Game() {
 		super("Today I'm Pizza King");
 		setSize(width, height);
@@ -33,6 +35,9 @@ public class Game extends JFrame {
 		
 		add(stageSelectPanel);
 		stageSelectPanel.setVisible(false);
+		
+		add(saucePanel);
+		saucePanel.setVisible(false);
 		
 	}
 	

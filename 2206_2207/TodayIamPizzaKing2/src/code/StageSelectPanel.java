@@ -28,7 +28,11 @@ public class StageSelectPanel extends JPanel{
 		sauceBtn.setBounds(165, 155, 275, 170);
 		sauceBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				game.stageSelectPanel.setVisible(false);
+				game.saucePanel.setVisible(true);
+				game.saucePanel.setFocusable(true);		
+				game.saucePanel.requestFocus();
+				game.saucePanel.startGame();
 			}
 		});
 		this.add(sauceBtn);
