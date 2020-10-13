@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import sauce.Exit;
 import sauce.Player;
 
 public class SaucePanel extends JPanel{
@@ -17,6 +18,8 @@ public class SaucePanel extends JPanel{
 	public JLabel avatar;
 	
 	private Player player;
+	
+	private Exit exit;
 
 	public SaucePanel(Game game) {
 		setLayout(null);
@@ -26,9 +29,11 @@ public class SaucePanel extends JPanel{
 		
 		player = new Player();
 		
+		exit = new Exit();
+		
 		avatar = new JLabel(player.getImg());
 		avatar.setVisible(true);
-		avatar.setBounds(100, 100, player.getImg().getIconWidth(), player.getImg().getIconHeight());
+		avatar.setBounds(30, 23, player.getImg().getIconWidth(), player.getImg().getIconHeight());
 		add(avatar);
 	}
 	
@@ -43,18 +48,21 @@ public class SaucePanel extends JPanel{
 			
 			switch(keyCode) {
 			case KeyEvent.VK_UP: 
-				avatar.setLocation(avatar.getX(), avatar.getY()-10); 
-				System.out.println("up");
+				if(avatar.getY() > 23) {
+					avatar.setLocation(avatar.getX(), avatar.getY()-143); 
+					player.setX(avatar.getX()); player.setY(avatar.getY());
+				}
 				break;
 			case KeyEvent.VK_DOWN: 
-				avatar.setLocation(avatar.getX(), avatar.getY()+10);
-				System.out.println("down");
+				if(avatar.getY() < 595) {
+					avatar.setLocation(avatar.getX(), avatar.getY()+143);
+					player.setX(avatar.getX()); player.setY(avatar.getY());
+				}
 				break;
 			case KeyEvent.VK_LEFT: 
-				player.setLeft(true, avatar);
+				
 				break;
 			case KeyEvent.VK_RIGHT:
-				player.setRight(true, avatar);
 				break;
 			}
 			
@@ -64,22 +72,7 @@ public class SaucePanel extends JPanel{
 		}
 		@Override
 		public void keyReleased(KeyEvent e) {
-			int keyCode = e.getKeyCode(); // 상, 하, 좌, 우 키는 유니코드 키가 아님
 			
-			switch(keyCode) {
-			case KeyEvent.VK_LEFT: 
-				player.setLeft(false, avatar);
-				avatar.setIcon(player.getStandImage());
-				break;
-			case KeyEvent.VK_RIGHT:
-				player.setRight(false, avatar);
-				avatar.setIcon(player.getStandImage());
-				break;
-			}
-			
-			avatar.getParent().repaint(); 	// 아바타의 위치가 변경되었으므로 다시 그리기
-											// 아바타가 있는 패널에는 이전의 위치에 있었던 아바타를 지워야 하기 때문에
-											// 아바타의 부모 패널에게 다시그리기를 지시함
 		}
 	}
 
@@ -88,5 +81,6 @@ public class SaucePanel extends JPanel{
 		super.paintComponent(g);
 		
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+		g.drawImage(exit.getImg(), exit.getX(), exit.getY(), exit.getImg().getWidth(null), exit.getImg().getHeight(null), null);
 	}
 }

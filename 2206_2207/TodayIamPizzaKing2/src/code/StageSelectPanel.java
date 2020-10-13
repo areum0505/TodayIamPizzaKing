@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import sauce.Player;
+
 public class StageSelectPanel extends JPanel{
 	private Image backgroundImage = new ImageIcon("images/main/stageSelectBackground.png").getImage();
 	
@@ -32,7 +34,6 @@ public class StageSelectPanel extends JPanel{
 				game.saucePanel.setVisible(true);
 				game.saucePanel.setFocusable(true);		
 				game.saucePanel.requestFocus();
-				game.saucePanel.startGame();
 			}
 		});
 		this.add(sauceBtn);
