@@ -34,6 +34,7 @@ public class StageSelectPanel extends JPanel{
 				game.saucePanel.setVisible(true);
 				game.saucePanel.setFocusable(true);		
 				game.saucePanel.requestFocus();
+				game.saucePanel.startGame();
 			}
 		});
 		this.add(sauceBtn);

@@ -14,6 +14,8 @@ import sauce.Player;
 
 public class SaucePanel extends JPanel{
 	private Image backgroundImage = new ImageIcon("images/stage/stage6Back.png").getImage();
+	private ImageIcon standImage =  new ImageIcon("images/character/pizza.png");
+	private ImageIcon runIamge =  new ImageIcon("images/character/runPizza.png");
 	
 	public JLabel avatar;
 	
@@ -24,21 +26,18 @@ public class SaucePanel extends JPanel{
 	public SaucePanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
-		
-		addKeyListener(new MyKeyListener()); // 키 리스너 등록
-		
-		player = new Player();
+				
+		avatar = new JLabel(standImage);
+		avatar.setBounds(30, 23, 92, 120);
+		add(avatar);
 		
 		exit = new Exit();
-		
-		avatar = new JLabel(player.getImg());
-		avatar.setVisible(true);
-		avatar.setBounds(30, 23, player.getImg().getIconWidth(), player.getImg().getIconHeight());
-		add(avatar);
 	}
 	
 	public void startGame() {
+		player = new Player(avatar);
 		player.start();
+		addKeyListener(new MyKeyListener()); // 키 리스너 등록
 	}
 	
 	class MyKeyListener extends KeyAdapter {
@@ -48,31 +47,31 @@ public class SaucePanel extends JPanel{
 			
 			switch(keyCode) {
 			case KeyEvent.VK_UP: 
-				if(avatar.getY() > 23) {
-					avatar.setLocation(avatar.getX(), avatar.getY()-143); 
-					player.setX(avatar.getX()); player.setY(avatar.getY());
-				}
+				player.up();
 				break;
 			case KeyEvent.VK_DOWN: 
-				if(avatar.getY() < 595) {
-					avatar.setLocation(avatar.getX(), avatar.getY()+143);
-					player.setX(avatar.getX()); player.setY(avatar.getY());
-				}
+				player.down();
 				break;
 			case KeyEvent.VK_LEFT: 
-				
+				player.left = true;
 				break;
 			case KeyEvent.VK_RIGHT:
+				player.right = true;
 				break;
 			}
-			
-			avatar.getParent().repaint(); 	// 아바타의 위치가 변경되었으므로 다시 그리기
-											// 아바타가 있는 패널에는 이전의 위치에 있었던 아바타를 지워야 하기 때문에
-											// 아바타의 부모 패널에게 다시그리기를 지시함
 		}
 		@Override
 		public void keyReleased(KeyEvent e) {
+			int keyCode = e.getKeyCode(); // 상, 하, 좌, 우 키는 유니코드 키가 아님
 			
+			switch(keyCode) {
+			case KeyEvent.VK_LEFT: 
+				player.left = false;
+				break;
+			case KeyEvent.VK_RIGHT:
+				player.right = false;
+				break;
+			}
 		}
 	}
 
