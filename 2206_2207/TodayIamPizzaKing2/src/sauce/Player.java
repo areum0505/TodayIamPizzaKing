@@ -29,7 +29,6 @@ public class Player extends Thread {
 	public void run() {
 		while(true) {
 			count++;
-			//System.out.println(count);
 			
 			if (left) {
 				left();
@@ -41,7 +40,7 @@ public class Player extends Thread {
 			avatar.getParent().repaint();
 		
 			try {
-				sleep(20);
+				sleep(25);
 			}catch(InterruptedException e) {
 				return;
 			}
@@ -62,11 +61,23 @@ public class Player extends Thread {
 		if(x > 10) {
 			x -= 5;
 		}
+		if(count % 3 == 1) {
+			img = standImage;
+		} else {
+			img = runIamge;
+		}
+		avatar.setIcon(img);
 	}
 	public void right() {
 		if(x < 1280 - avatar.getWidth() - 10) {
 			x += 5;
 		}
+		if(count % 3 == 1) {
+			img = standImage;
+		} else {
+			img = runIamge;
+		}
+		avatar.setIcon(img);
 	}
 
 	public int getX() {

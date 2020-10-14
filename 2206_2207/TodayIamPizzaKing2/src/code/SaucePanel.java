@@ -14,8 +14,7 @@ import sauce.Player;
 
 public class SaucePanel extends JPanel{
 	private Image backgroundImage = new ImageIcon("images/stage/stage6Back.png").getImage();
-	private ImageIcon standImage =  new ImageIcon("images/character/pizza.png");
-	private ImageIcon runIamge =  new ImageIcon("images/character/runPizza.png");
+	private ImageIcon pizzaImg =  new ImageIcon("images/character/pizza.png");
 	
 	public JLabel avatar;
 	
@@ -27,7 +26,8 @@ public class SaucePanel extends JPanel{
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 				
-		avatar = new JLabel(standImage);
+		avatar = new JLabel(pizzaImg);
+		avatar.setVisible(true);
 		avatar.setBounds(30, 23, 92, 120);
 		add(avatar);
 		
@@ -67,9 +67,13 @@ public class SaucePanel extends JPanel{
 			switch(keyCode) {
 			case KeyEvent.VK_LEFT: 
 				player.left = false;
+				player.setImg(pizzaImg);
+				player.setCount(0);
 				break;
 			case KeyEvent.VK_RIGHT:
 				player.right = false;
+				player.setImg(pizzaImg);
+				player.setCount(0);
 				break;
 			}
 		}
