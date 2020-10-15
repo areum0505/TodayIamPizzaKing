@@ -15,7 +15,7 @@ public class StageSelectPanel extends JPanel{
 	public JButton sauceBtn = new JButton();
 	public JButton cheeseBtn = new JButton();
 	public JButton onionBtn = new JButton();
-	public JButton paprikaBtn = new JButton();
+	public JButton pimangBtn = new JButton();
 	public JButton pepperoniBtn = new JButton();
 	public JButton mushroomBtn = new JButton();
 	public JButton BagBtn = new JButton();
@@ -33,6 +33,8 @@ public class StageSelectPanel extends JPanel{
 		});
 		this.add(sauceBtn);
 		
+		sauceBtn.setContentAreaFilled(false);
+		
 		cheeseBtn.setVisible(true);
 		cheeseBtn.setBounds(520, 45, 275, 160);
 		cheeseBtn.addMouseListener(new MouseAdapter() {
@@ -46,19 +48,21 @@ public class StageSelectPanel extends JPanel{
 		onionBtn.setBounds(875, 145, 270, 195);
 		onionBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				game.stageSelectPanel.setVisible(false);
+				game.onionMainPanel.setVisible(true);
 				
 			}
 		});
 		this.add(onionBtn);
 		
-		paprikaBtn.setVisible(true);
-		paprikaBtn.setBounds(155, 415, 265, 165);
-		paprikaBtn.addMouseListener(new MouseAdapter() {
+		pimangBtn.setVisible(true);
+		pimangBtn.setBounds(155, 415, 265, 165);
+		pimangBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				
 			}
 		});
-		this.add(paprikaBtn);
+		this.add(pimangBtn);
 		
 		pepperoniBtn.setVisible(true);
 		pepperoniBtn.setBounds(520, 505, 270, 165);
@@ -87,7 +91,27 @@ public class StageSelectPanel extends JPanel{
 		});
 		this.add(BagBtn);
 		
-		
+		sauceBtn.setBorderPainted(false);
+		sauceBtn.setContentAreaFilled(false);
+	
+		cheeseBtn.setBorderPainted(false);
+		cheeseBtn.setContentAreaFilled(false);
+	
+		onionBtn.setBorderPainted(false);
+		onionBtn.setContentAreaFilled(false);
+	
+		pimangBtn.setBorderPainted(false);
+		pimangBtn.setContentAreaFilled(false);
+	
+		pepperoniBtn.setBorderPainted(false);
+		pepperoniBtn.setContentAreaFilled(false);
+	
+		mushroomBtn.setBorderPainted(false);
+		mushroomBtn.setContentAreaFilled(false);
+	
+		BagBtn.setBorderPainted(false);
+		BagBtn.setContentAreaFilled(false);
+	
 	}
 	
 	@Override
