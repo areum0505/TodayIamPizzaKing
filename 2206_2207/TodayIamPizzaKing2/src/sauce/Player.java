@@ -13,16 +13,20 @@ public class Player extends Thread {
 	
 	private JLabel avatar;
 	
+	private int exitY;
+	
 	private ImageIcon img;
 	private ImageIcon standImage =  new ImageIcon("images/character/pizza.png");
 	private ImageIcon runIamge =  new ImageIcon("images/character/runPizza.png");
+	private ImageIcon clearImage =  new ImageIcon("images/character/happyPizza.png");
 	private ImageIcon deadImage =  new ImageIcon("images/character/deadPizza.png");
 	
-	public Player(JLabel avatar) {
+	public Player(JLabel avatar, int exitY) {
 		super();
 		x = avatar.getX();
 		y = avatar.getY();
 		this.avatar = avatar;
+		this.exitY = exitY;
 	}	
 
 	@Override
@@ -42,7 +46,7 @@ public class Player extends Thread {
 			try {
 				sleep(25);
 			}catch(InterruptedException e) {
-				return;
+				e.printStackTrace();
 			}
 		}
 	}
@@ -78,6 +82,14 @@ public class Player extends Thread {
 			img = runIamge;
 		}
 		avatar.setIcon(img);
+	}
+	
+	public void checkExit() {
+		if(1155 < x && (exitY < y && y < exitY + 133)) {
+			System.out.println("clear");
+			avatar.setIcon(clearImage);
+			stop();
+		}
 	}
 
 	public int getX() {

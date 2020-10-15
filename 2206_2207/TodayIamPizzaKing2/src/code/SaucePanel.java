@@ -4,11 +4,13 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import sauce.Beam;
 import sauce.Exit;
 import sauce.Player;
 
@@ -17,9 +19,8 @@ public class SaucePanel extends JPanel{
 	private ImageIcon pizzaImg =  new ImageIcon("images/character/pizza.png");
 	
 	public JLabel avatar;
-	
 	private Player player;
-	
+	private ArrayList<Beam> beamList = new ArrayList<>();	
 	private Exit exit;
 
 	public SaucePanel(Game game) {
@@ -31,12 +32,22 @@ public class SaucePanel extends JPanel{
 		avatar.setBounds(30, 23, 92, 120);
 		add(avatar);
 		
+		for(int i = 0; i < 4; i ++) {
+			Beam b = new Beam("horizontal");
+			beamList.add(b);
+			add(b);
+		}
+				
 		exit = new Exit();
 	}
 	
 	public void startGame() {
-		player = new Player(avatar);
+		player = new Player(avatar, exit.getExitY());
 		player.start();
+
+		Thread th = new Thread(beamList.get(0));
+		th.start();
+		
 		addKeyListener(new MyKeyListener()); // 키 리스너 등록
 	}
 	
@@ -46,7 +57,7 @@ public class SaucePanel extends JPanel{
 			int keyCode = e.getKeyCode(); // 상, 하, 좌, 우 키는 유니코드 키가 아님
 			
 			switch(keyCode) {
-			case KeyEvent.VK_UP: 
+			case KeyEvent.VK_UP:
 				player.up();
 				break;
 			case KeyEvent.VK_DOWN: 
@@ -58,6 +69,8 @@ public class SaucePanel extends JPanel{
 			case KeyEvent.VK_RIGHT:
 				player.right = true;
 				break;
+			case KeyEvent.VK_SPACE:
+				player.checkExit();
 			}
 		}
 		@Override
@@ -67,12 +80,12 @@ public class SaucePanel extends JPanel{
 			switch(keyCode) {
 			case KeyEvent.VK_LEFT: 
 				player.left = false;
-				player.setImg(pizzaImg);
+				avatar.setIcon(pizzaImg);
 				player.setCount(0);
 				break;
 			case KeyEvent.VK_RIGHT:
 				player.right = false;
-				player.setImg(pizzaImg);
+				avatar.setIcon(pizzaImg);
 				player.setCount(0);
 				break;
 			}
