@@ -45,8 +45,11 @@ public class SaucePanel extends JPanel{
 		player = new Player(avatar, exit.getExitY());
 		player.start();
 
-		Thread th = new Thread(beamList.get(0));
-		th.start();
+		for(Beam b : beamList) {
+			Thread th = new Thread(b);
+			th.start();
+		}
+		
 		
 		addKeyListener(new MyKeyListener()); // 키 리스너 등록
 	}

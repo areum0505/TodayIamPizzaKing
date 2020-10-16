@@ -7,16 +7,17 @@ import javax.swing.JLabel;
 
 public class Beam extends JLabel implements Runnable {
 	private String type;
-	private boolean isBeam = false;
-	private boolean isStart = false;
-
-	private int beamCount = 0;
 	
 	private int x, y;
 	
+	private boolean isBeam = false;
+	private boolean isStart = false;
+	private int beamCount = 0;
+	
+	private long t1, t2;
+	
 	private int[] beamY = {55, 197, 339, 481, 623};
 		
-	private ImageIcon img;
 	private ImageIcon emptyBeam =  new ImageIcon("images/sauce/emptyBeam.png");
 	private ImageIcon horizontalBeam =  new ImageIcon("images/sauce/horizontalBeam.png");
 	private ImageIcon preHorizontalBeam =  new ImageIcon("images/sauce/preHorizontalBeam.gif");
@@ -26,27 +27,36 @@ public class Beam extends JLabel implements Runnable {
 	public Beam(String type) {
 		this.type = type;
 		if(type.equals("horizontal")) {
-			img = emptyBeam;
 			x = 7;
 			y = beamY[(int)(Math.random()*5)];
 		} else {
-			img = emptyBeam;
 			x = (int)(Math.random()*1260+20);
 			y = 20;
 		}
 		setVisible(true);
-		setIcon(img);
-		setBounds(x, y, img.getIconWidth(), img.getIconHeight());
-		System.out.println(x + " " + y);
+		setIcon(emptyBeam);
+		setBounds(x, y, emptyBeam.getIconWidth(), emptyBeam.getIconHeight());
 	}
 	
 	@Override
 	public void run() {
+		t1 = System.currentTimeMillis();
 		while(true) {		
-			beam();
-			getParent().repaint();
+			t2 = System.currentTimeMillis();
+			if((t2 - t1)/1000.0 > 2) {
+				beam();
+			} 
+			if((t2 - t1)/1000.0 > 4) {
+				t1 = System.currentTimeMillis();
+				beamCount = 0;
+				if(type.equals("horizontal")) {
+					changeY();
+				} else {
+					changeX();
+				}
+			} 
 			try {
-				Thread.sleep(25);
+				Thread.sleep(150);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -54,16 +64,29 @@ public class Beam extends JLabel implements Runnable {
 	}
 	
 	public void beam() {
-		if(type.equals("horizontal")) {
-			img = horizontalBeam;
+		if(beamCount < 4) {
+			isBeam = true;
+			if(type.equals("horizontal")) setIcon(preHorizontalBeam);
+			else setIcon(preVerticalBeam);
+		} else {
+			isStart = true;
+			if(type.equals("horizontal")) setIcon(horizontalBeam);
+			else setIcon(verticalBeam);
 		}
+		if(beamCount > 4) {
+			isBeam = false;
+			isStart = false;
+			setIcon(emptyBeam);
+		}
+		beamCount++;
+		getParent().repaint();
 	}
 	
 	public void changeX() {
 		x = (int)(Math.random()*1260+20);
 	}
 	public void changeY() {
-		
+		y = beamY[(int)(Math.random()*5)];
 	}
 
 	public String getType() {
@@ -112,13 +135,5 @@ public class Beam extends JLabel implements Runnable {
 
 	public void setY(int y) {
 		this.y = y;
-	}
-
-	public ImageIcon getImg() {
-		return img;
-	}
-
-	public void setImg(ImageIcon img) {
-		this.img = img;
 	}
 }
