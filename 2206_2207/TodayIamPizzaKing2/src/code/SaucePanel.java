@@ -32,8 +32,13 @@ public class SaucePanel extends JPanel{
 		avatar.setBounds(30, 23, 92, 120);
 		add(avatar);
 		
-		for(int i = 0; i < 4; i ++) {
+		for(int i = 0; i < 3; i ++) {
 			Beam b = new Beam("horizontal");
+			beamList.add(b);
+			add(b);
+		}
+		for(int i = 3; i < 8; i ++) {
+			Beam b = new Beam("vertical");
 			beamList.add(b);
 			add(b);
 		}
