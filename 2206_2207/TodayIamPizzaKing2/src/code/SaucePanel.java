@@ -42,16 +42,22 @@ public class SaucePanel extends JPanel{
 			beamList.add(b);
 			add(b);
 		}
+		
+		for(Beam b : beamList) {
+			b.setBeamList(beamList);
+		}
 				
 		exit = new Exit();
 	}
 	
 	public void startGame() {
 		player = new Player(avatar, exit.getExitY());
+		player.setBeamList(beamList);
 		player.start();
 
 		for(Beam b : beamList) {
 			Thread th = new Thread(b);
+			b.setPlayer(player);
 			th.start();
 		}
 		
@@ -64,21 +70,23 @@ public class SaucePanel extends JPanel{
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode(); // 상, 하, 좌, 우 키는 유니코드 키가 아님
 			
+			if(player.isAlive()) {
 			switch(keyCode) {
-			case KeyEvent.VK_UP:
-				player.up();
-				break;
-			case KeyEvent.VK_DOWN: 
-				player.down();
-				break;
-			case KeyEvent.VK_LEFT: 
-				player.left = true;
-				break;
-			case KeyEvent.VK_RIGHT:
-				player.right = true;
-				break;
-			case KeyEvent.VK_SPACE:
-				player.checkExit();
+				case KeyEvent.VK_UP:
+					player.up();
+					break;
+				case KeyEvent.VK_DOWN: 
+					player.down();
+					break;
+				case KeyEvent.VK_LEFT: 
+					player.left = true;
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.right = true;
+					break;
+				case KeyEvent.VK_SPACE:
+					player.checkExit();
+				}
 			}
 		}
 		@Override
@@ -88,12 +96,14 @@ public class SaucePanel extends JPanel{
 			switch(keyCode) {
 			case KeyEvent.VK_LEFT: 
 				player.left = false;
-				avatar.setIcon(pizzaImg);
+				if(player.isAlive()) 
+					avatar.setIcon(pizzaImg);
 				player.setCount(0);
 				break;
 			case KeyEvent.VK_RIGHT:
 				player.right = false;
-				avatar.setIcon(pizzaImg);
+				if(player.isAlive()) 
+					avatar.setIcon(pizzaImg);
 				player.setCount(0);
 				break;
 			}

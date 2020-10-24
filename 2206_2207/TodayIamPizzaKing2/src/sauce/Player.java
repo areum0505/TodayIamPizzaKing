@@ -1,5 +1,7 @@
 package sauce;
 
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -8,12 +10,16 @@ public class Player extends Thread {
 	private int y;
 	
 	public boolean left, right;	
+		
+	private int floor;
 	
 	private int count = 0;
 	
 	private JLabel avatar;
 	
 	private int exitY;
+	
+	private ArrayList<Beam> beamList = new ArrayList<>();
 	
 	private ImageIcon img;
 	private ImageIcon standImage =  new ImageIcon("images/character/pizza.png");
@@ -25,6 +31,7 @@ public class Player extends Thread {
 		super();
 		x = avatar.getX();
 		y = avatar.getY();
+		floor = 0;
 		this.avatar = avatar;
 		this.exitY = exitY;
 	}	
@@ -44,7 +51,7 @@ public class Player extends Thread {
 			avatar.getParent().repaint();
 		
 			try {
-				sleep(25);
+				sleep(20);
 			}catch(InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -54,11 +61,13 @@ public class Player extends Thread {
 	public void up() {
 		if(y > 23) {
 			y -= 143;
+			floor--;
 		}
 	}
 	public void down() {
 		if(y < 595) {
 			y += 143;
+			floor++;
 		}
 	}
 	public void left() {
@@ -89,7 +98,18 @@ public class Player extends Thread {
 			System.out.println("clear");
 			avatar.setIcon(clearImage);
 			stop();
+			
+			for(int i = 0; i < beamList.size(); i++) {
+				beamList.get(i).setStop(true);
+			}
 		}
+	}
+	
+	public void dead() {
+		System.out.println("dead");
+		avatar.setIcon(deadImage);
+		stop();
+		
 	}
 
 	public int getX() {
@@ -106,6 +126,10 @@ public class Player extends Thread {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public int getFloor() {
+		return floor;
 	}
 
 	public int getCount() {
@@ -139,4 +163,13 @@ public class Player extends Thread {
 	public void setRunIamge(ImageIcon runIamge) {
 		this.runIamge = runIamge;
 	}
+
+	public ArrayList<Beam> getBeamList() {
+		return beamList;
+	}
+
+	public void setBeamList(ArrayList<Beam> beamList) {
+		this.beamList = beamList;
+	}
+	
 }
