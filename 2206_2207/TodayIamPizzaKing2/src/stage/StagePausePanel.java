@@ -51,11 +51,11 @@ public class StagePausePanel extends JPanel{
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				setVisible(false);
 				game.saucePanel.getPlayer().setPause(false);
 				for(Beam b : game.saucePanel.getBeam()) {
 					b.setPause(false);
 				}
+				setVisible(false);
 			}
 		});
 		this.add(continueButton);

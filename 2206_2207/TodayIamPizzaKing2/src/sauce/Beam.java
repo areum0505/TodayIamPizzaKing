@@ -13,11 +13,11 @@ public class Beam extends JLabel implements Runnable {
 	private boolean isBeam = false;
 	private boolean isStart = false;
 	private int beamCount = 0;
-	
-	private long t1, t2;
-	
+		
 	private int floor = 5;
 	private int[] beamY = {55, 197, 339, 481, 623};
+	
+	private int count = 0;
 	
 	private boolean stop = false;
 	private ArrayList<Beam> beamList = new ArrayList<>();
@@ -54,9 +54,23 @@ public class Beam extends JLabel implements Runnable {
 	
 	@Override
 	public void run() {
-		t1 = System.currentTimeMillis();
-		while(!stop) {		
+		while(!stop) {	
+			count++;
+			
 			check();
+		
+			if(count > 5) {
+				beam();
+			} 			
+			if(count > 12) {
+				beamCount = 0;
+				count = 0;
+				if(type.equals("horizontal")) {
+					changeY();
+				} else {
+					changeX();
+				}
+			} 
 			
 			if(pause) {
 				if(isBeam && !isStart) {
@@ -73,20 +87,7 @@ public class Beam extends JLabel implements Runnable {
 					}
 				}
 			}
-		
-			t2 = System.currentTimeMillis();
-			if((t2 - t1)/1000.0 > 1) {
-				beam();
-			} 
-			if((t2 - t1)/1000.0 > 2) {
-				t1 = System.currentTimeMillis();
-				beamCount = 0;
-				if(type.equals("horizontal")) {
-					changeY();
-				} else {
-					changeX();
-				}
-			} 
+			
 			try {
 				Thread.sleep(150);
 			} catch (InterruptedException e) {
@@ -96,7 +97,7 @@ public class Beam extends JLabel implements Runnable {
 	}
 	
 	public void beam() {
-		if(beamCount < 5) {
+		if(beamCount < 4) {
 			isBeam = true;
 			if(type.equals("horizontal")) setIcon(preHorizontalBeam);
 			else setIcon(preVerticalBeam);
