@@ -21,6 +21,8 @@ public class Beam extends JLabel implements Runnable {
 	
 	private boolean stop = false;
 	private ArrayList<Beam> beamList = new ArrayList<>();
+	
+	private boolean pause = false;
 
 	private Player p;
 
@@ -28,8 +30,10 @@ public class Beam extends JLabel implements Runnable {
 	private ImageIcon emptyVerticalBeam =  new ImageIcon("images/sauce/emptyVerticalBeam.png");
 	private ImageIcon horizontalBeam =  new ImageIcon("images/sauce/horizontalBeam.png");
 	private ImageIcon verticalBeam =  new ImageIcon("images/sauce/verticalBeam.png");
-	private ImageIcon preHorizontalBeam =  new ImageIcon("images/sauce/preHorizontalBeam.gif");
 	private ImageIcon preVerticalBeam =  new ImageIcon("images/sauce/preVerticalBeam.gif");
+	private ImageIcon preHorizontalBeam =  new ImageIcon("images/sauce/preHorizontalBeam.gif");
+	private ImageIcon doingVerticalBeam =  new ImageIcon("images/sauce/doingVerticalBeam.png");
+	private ImageIcon doingHorizontalBeam =  new ImageIcon("images/sauce/doingHorizontalBeam.png");
 	
 	public Beam(String type) {
 		setLayout(null);
@@ -53,6 +57,22 @@ public class Beam extends JLabel implements Runnable {
 		t1 = System.currentTimeMillis();
 		while(!stop) {		
 			check();
+			
+			if(pause) {
+				if(isBeam && !isStart) {
+					if(type.equals("horizontal"))
+						setIcon(doingHorizontalBeam);
+					else
+						setIcon(doingVerticalBeam);
+				}
+				while (pause) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
 		
 			t2 = System.currentTimeMillis();
 			if((t2 - t1)/1000.0 > 1) {
@@ -121,6 +141,14 @@ public class Beam extends JLabel implements Runnable {
 			}
 		}
 	}
+	
+	public void setEmptyImg() {
+		if(type.equals("horizontal")) {
+			setIcon(emptyHorizontalBeam);
+		} else {
+			setIcon(emptyVerticalBeam);
+		}
+	}
 
 	public String getType() {
 		return type;
@@ -176,6 +204,10 @@ public class Beam extends JLabel implements Runnable {
 	
 	public void setStop(boolean stop) {
 		this.stop = stop;
+	}
+	
+	public void setPause(boolean pause) {
+		this.pause = pause;
 	}
 	
 	public ArrayList<Beam> getBeamList() {

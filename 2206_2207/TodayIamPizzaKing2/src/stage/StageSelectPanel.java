@@ -1,4 +1,4 @@
-package code;
+package stage;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -9,7 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import sauce.Player;
+import code.Game;
 
 public class StageSelectPanel extends JPanel{
 	private Image backgroundImage = new ImageIcon("images/main/stageSelectBackground.png").getImage();

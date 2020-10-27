@@ -4,6 +4,9 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import stage.SaucePanel;
+import stage.StageSelectPanel;
+
 public class Game extends JFrame {
 	private int width = 1280, height = 750;
 	
@@ -38,7 +41,6 @@ public class Game extends JFrame {
 		
 		add(saucePanel);
 		saucePanel.setVisible(false);
-		
 	}
 	
 }

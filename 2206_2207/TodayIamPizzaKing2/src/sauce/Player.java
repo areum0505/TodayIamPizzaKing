@@ -19,6 +19,8 @@ public class Player extends Thread {
 	
 	private int exitY;
 	
+	private boolean pause = false;
+	
 	private ArrayList<Beam> beamList = new ArrayList<>();
 	
 	private ImageIcon img;
@@ -45,6 +47,16 @@ public class Player extends Thread {
 				left();
 			} else if (right) {
 				right();
+			}
+			
+			if(pause) {
+				while (pause) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 			
 			avatar.setLocation(x, y);
@@ -98,10 +110,13 @@ public class Player extends Thread {
 			System.out.println("clear");
 			avatar.setIcon(clearImage);
 			stop();
-			
 			for(int i = 0; i < beamList.size(); i++) {
 				beamList.get(i).setStop(true);
+				
 			}
+			
+			// panel
+			
 		}
 	}
 	
@@ -109,6 +124,8 @@ public class Player extends Thread {
 		System.out.println("dead");
 		avatar.setIcon(deadImage);
 		stop();
+		
+		// panel
 		
 	}
 
@@ -138,6 +155,10 @@ public class Player extends Thread {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+	
+	public void setPause(boolean pause) {
+		this.pause = pause;
 	}
 	
 	public ImageIcon getImg() {

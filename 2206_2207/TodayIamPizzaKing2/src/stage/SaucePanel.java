@@ -1,4 +1,4 @@
-package code;
+package stage;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -10,28 +10,50 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import code.Game;
 import sauce.Beam;
 import sauce.Exit;
 import sauce.Player;
 
 public class SaucePanel extends JPanel{
+	private Game game;
+	
+	public StageEndPanel endPanel;
+	public StagePausePanel pausePanel;
+	
 	private Image backgroundImage = new ImageIcon("images/stage/stage6Back.png").getImage();
 	private ImageIcon pizzaImg =  new ImageIcon("images/character/pizza.png");
 	
 	public JLabel avatar;
 	private Player player;
-	private ArrayList<Beam> beamList = new ArrayList<>();	
+	private ArrayList<Beam> beamList;	
 	private Exit exit;
 
 	public SaucePanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
+		
+		this.game = game;
+		
+		beamList = new ArrayList<>();
+		
+		pausePanel = new StagePausePanel(game);
+		endPanel = new StageEndPanel(this);
+		
+		add(endPanel);
+		endPanel.setVisible(false);
+		add(pausePanel);
+		pausePanel.setVisible(false);
 				
 		avatar = new JLabel(pizzaImg);
 		avatar.setVisible(true);
 		avatar.setBounds(30, 23, 92, 120);
 		add(avatar);
 		
+		addKeyListener(new MyKeyListener()); // 키 리스너 등록
+	}
+	
+	public void startGame() {
 		for(int i = 0; i < 3; i ++) {
 			Beam b = new Beam("horizontal");
 			beamList.add(b);
@@ -48,11 +70,10 @@ public class SaucePanel extends JPanel{
 		}
 				
 		exit = new Exit();
-	}
-	
-	public void startGame() {
+		
 		player = new Player(avatar, exit.getExitY());
 		player.setBeamList(beamList);
+		player.setX(30); player.setY(23);
 		player.start();
 
 		for(Beam b : beamList) {
@@ -60,9 +81,14 @@ public class SaucePanel extends JPanel{
 			b.setPlayer(player);
 			th.start();
 		}
-		
-		
-		addKeyListener(new MyKeyListener()); // 키 리스너 등록
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
+	
+	public ArrayList<Beam> getBeam() {
+		return beamList;
 	}
 	
 	class MyKeyListener extends KeyAdapter {
@@ -86,6 +112,14 @@ public class SaucePanel extends JPanel{
 					break;
 				case KeyEvent.VK_SPACE:
 					player.checkExit();
+					break;
+				case KeyEvent.VK_ESCAPE:
+					pausePanel.setVisible(true);
+					player.setPause(true);
+					for(Beam b : beamList) {
+						b.setPause(true);
+					}
+					break;
 				}
 			}
 		}
