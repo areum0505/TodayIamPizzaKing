@@ -1,11 +1,13 @@
 package code;
 
+import java.awt.Cursor;
+import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-import stage.SaucePanel;
-import stage.StageSelectPanel;
+import onion.OnionMainPanel;
 
 public class Game extends JFrame {
 	private int width = 1280, height = 750;
@@ -13,9 +15,7 @@ public class Game extends JFrame {
 	public StartPanel startPanel = new StartPanel(this);
 	public SettingPanel settingPanel = new SettingPanel(this);
 	public StageSelectPanel stageSelectPanel = new StageSelectPanel(this);
-	
-	public SaucePanel saucePanel = new SaucePanel(this);
-	
+	public OnionMainPanel onionMainPanel = new OnionMainPanel(this);
 	public Game() {
 		super("Today I'm Pizza King");
 		setSize(width, height);
@@ -30,6 +30,13 @@ public class Game extends JFrame {
 		kit.getImage("images/main/icon.png");
 		setIconImage(Toolkit.getDefaultToolkit().getImage("images/main/icon.png"));
 		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image cursorimage=tk.getImage("images/main/pizzaCursor.png");
+		Point point=new Point(20,20);
+		Cursor cursor=tk.createCustomCursor(cursorimage, point, "haha");
+		
+		this.setCursor(cursor);
+
 		add(startPanel);
 		startPanel.setVisible(true);
 		
@@ -39,8 +46,9 @@ public class Game extends JFrame {
 		add(stageSelectPanel);
 		stageSelectPanel.setVisible(false);
 		
-		add(saucePanel);
-		saucePanel.setVisible(false);
+		add(onionMainPanel);
+		onionMainPanel.setVisible(false);
 	}
+	
 	
 }
