@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import code.Game;
+
 public class Player extends Thread {	
 	private int x;
 	private int y;
@@ -29,13 +31,17 @@ public class Player extends Thread {
 	private ImageIcon clearImage =  new ImageIcon("images/character/happyPizza.png");
 	private ImageIcon deadImage =  new ImageIcon("images/character/deadPizza.png");
 	
-	public Player(JLabel avatar, int exitY) {
+	SauceEndPanel endPanel;
+	
+	public Player(JLabel avatar, int exitY, Game game) {
 		super();
 		x = avatar.getX();
 		y = avatar.getY();
 		floor = 0;
 		this.avatar = avatar;
 		this.exitY = exitY;
+		
+		endPanel = new SauceEndPanel(game);
 	}	
 
 	@Override
@@ -115,7 +121,7 @@ public class Player extends Thread {
 				
 			}
 			
-			// panel
+			endPanel.Clear();
 			
 		}
 	}
@@ -125,7 +131,7 @@ public class Player extends Thread {
 		avatar.setIcon(deadImage);
 		stop();
 		
-		// panel
+		endPanel.Dead();
 		
 	}
 

@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import onion.OnionMainPanel;
+import sauce.SaucePanel;
 
 public class Game extends JFrame {
 	private int width = 1280, height = 750;
@@ -16,6 +17,8 @@ public class Game extends JFrame {
 	public SettingPanel settingPanel = new SettingPanel(this);
 	public StageSelectPanel stageSelectPanel = new StageSelectPanel(this);
 	public OnionMainPanel onionMainPanel = new OnionMainPanel(this);
+	public SaucePanel saucePanel = new SaucePanel(this);
+	
 	public Game() {
 		super("Today I'm Pizza King");
 		setSize(width, height);
@@ -48,6 +51,9 @@ public class Game extends JFrame {
 		
 		add(onionMainPanel);
 		onionMainPanel.setVisible(false);
+		
+		add(saucePanel);
+		saucePanel.setVisible(false);
 	}
 	
 	

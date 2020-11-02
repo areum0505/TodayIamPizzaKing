@@ -1,4 +1,4 @@
-package stage;
+package sauce;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,9 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import code.Game;
-import sauce.Beam;
 
-public class StagePausePanel extends JPanel{
+public class SaucePausePanel extends JPanel{
 	Game game;
 	
 	private Image pauseImg = new ImageIcon("images/stage/pauseImg.png").getImage();
@@ -21,7 +20,7 @@ public class StagePausePanel extends JPanel{
 	JButton quitButton = new JButton();
 	JButton continueButton = new JButton();
 	
-	public StagePausePanel(Game game) {
+	public SaucePausePanel(Game game) {
 		setLayout(null);
 		setBounds((1280/2)-(pauseImg.getWidth(null)/2) , (720/2)-(pauseImg.getHeight(null)/2), 800, 500);
 		

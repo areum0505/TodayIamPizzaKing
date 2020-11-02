@@ -1,4 +1,4 @@
-package stage;
+package sauce;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,15 +11,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import code.Game;
-import sauce.Beam;
-import sauce.Exit;
-import sauce.Player;
 
 public class SaucePanel extends JPanel{
 	private Game game;
 	
-	public StageEndPanel endPanel;
-	public StagePausePanel pausePanel;
+	// public SauceEndPanel endPanel;
+	public SaucePausePanel pausePanel;
 	
 	private Image backgroundImage = new ImageIcon("images/stage/stage6Back.png").getImage();
 	private ImageIcon pizzaImg =  new ImageIcon("images/character/pizza.png");
@@ -27,7 +24,7 @@ public class SaucePanel extends JPanel{
 	public JLabel avatar;
 	private Player player;
 	private ArrayList<Beam> beamList;	
-	private Exit exit;
+	private Exit exit = new Exit();
 
 	public SaucePanel(Game game) {
 		setLayout(null);
@@ -37,11 +34,11 @@ public class SaucePanel extends JPanel{
 		
 		beamList = new ArrayList<>();
 		
-		pausePanel = new StagePausePanel(game);
-		endPanel = new StageEndPanel(this);
+		pausePanel = new SaucePausePanel(game);
+		// endPanel = new SauceEndPanel(this);
 		
-		add(endPanel);
-		endPanel.setVisible(false);
+		//add(endPanel);
+		//endPanel.setVisible(false);
 		add(pausePanel);
 		pausePanel.setVisible(false);
 				
@@ -54,6 +51,8 @@ public class SaucePanel extends JPanel{
 	}
 	
 	public void startGame() {
+		repaint();
+		
 		for(int i = 0; i < 3; i ++) {
 			Beam b = new Beam("horizontal");
 			beamList.add(b);
@@ -68,10 +67,8 @@ public class SaucePanel extends JPanel{
 		for(Beam b : beamList) {
 			b.setBeamList(beamList);
 		}
-				
-		exit = new Exit();
 		
-		player = new Player(avatar, exit.getExitY());
+		player = new Player(avatar, exit.getExitY(), game);
 		player.setBeamList(beamList);
 		player.setX(30); player.setY(23);
 		player.start();
