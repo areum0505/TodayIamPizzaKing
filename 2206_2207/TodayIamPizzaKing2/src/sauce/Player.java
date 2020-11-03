@@ -39,6 +39,7 @@ public class Player extends Thread {
 		y = avatar.getY();
 		floor = 0;
 		this.avatar = avatar;
+		avatar.setIcon(standImage);
 		this.exitY = exitY;
 		
 		endPanel = new SauceEndPanel(game);
@@ -47,6 +48,7 @@ public class Player extends Thread {
 	@Override
 	public void run() {
 		while(true) {
+			
 			count++;
 			
 			if (left) {
@@ -132,7 +134,6 @@ public class Player extends Thread {
 		stop();
 		
 		endPanel.Dead();
-		
 	}
 
 	public int getX() {
@@ -179,8 +180,8 @@ public class Player extends Thread {
 		return standImage;
 	}
 
-	public void setStandImage(ImageIcon standImage) {
-		this.standImage = standImage;
+	public void setStandImage() {
+		img = standImage;
 	}
 
 	public ImageIcon getRunIamge() {

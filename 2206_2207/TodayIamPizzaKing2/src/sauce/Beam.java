@@ -94,6 +94,7 @@ public class Beam extends JLabel implements Runnable {
 				e.printStackTrace();
 			}
 		}
+		setEmptyImg();
 	}
 	
 	public void beam() {

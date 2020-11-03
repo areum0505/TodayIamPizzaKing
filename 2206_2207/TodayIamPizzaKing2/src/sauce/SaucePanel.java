@@ -51,8 +51,6 @@ public class SaucePanel extends JPanel{
 	}
 	
 	public void startGame() {
-		repaint();
-		
 		for(int i = 0; i < 3; i ++) {
 			Beam b = new Beam("horizontal");
 			beamList.add(b);

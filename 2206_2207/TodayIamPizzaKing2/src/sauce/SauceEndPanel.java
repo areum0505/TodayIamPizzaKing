@@ -1,7 +1,5 @@
 package sauce;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.WindowConstants;
 
 import code.Game;
 
@@ -21,7 +20,7 @@ public class SauceEndPanel extends JDialog {
 		setSize(endImg.getIconWidth(), endImg.getIconHeight());
 		setLocationRelativeTo(null);	
 		setModal(true);
-		setUndecorated(true); //setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE)
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 		add(new JLabel(endImg));
 		pack();
 		
@@ -39,6 +38,7 @@ public class SauceEndPanel extends JDialog {
 	}	
 	
 	public void Clear() {
+		
 		setTitle("clear");
 		setVisible(true);
 	}
