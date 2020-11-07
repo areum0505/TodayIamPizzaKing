@@ -4,10 +4,12 @@ import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.print.Paper;
 
 import javax.swing.JFrame;
 
 import onion.OnionMainPanel;
+import pepperoni.PepperoniPanel;
 import sauce.SaucePanel;
 
 public class Game extends JFrame {
@@ -17,6 +19,7 @@ public class Game extends JFrame {
 	public SettingPanel settingPanel = new SettingPanel(this);
 	public StageSelectPanel stageSelectPanel = new StageSelectPanel(this);
 	public OnionMainPanel onionMainPanel = new OnionMainPanel(this);
+	public PepperoniPanel peperoniPanel = new PepperoniPanel(this);
 	public SaucePanel saucePanel = new SaucePanel(this);
 	
 	public Game() {
@@ -51,6 +54,9 @@ public class Game extends JFrame {
 		
 		add(onionMainPanel);
 		onionMainPanel.setVisible(false);
+		
+		add(peperoniPanel);
+		peperoniPanel.setVisible(false);
 		
 		add(saucePanel);
 		saucePanel.setVisible(false);
