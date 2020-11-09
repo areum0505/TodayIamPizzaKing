@@ -5,14 +5,18 @@ import javax.swing.JLabel;
 
 public class Pepperoni extends JLabel implements Runnable {
 	private int x, y;
-	private int d = 1;
+	private int d;
+	private int drop;
+	private int floor;
 	
 	private ImageIcon pepperoni =  new ImageIcon("images/pepperoni/pepperoni.png");
 	
-	public Pepperoni() {
+	public Pepperoni(int x, int d, int floor) {
 		setLayout(null);
 		
-		x = (1280/2)-(pepperoni.getIconWidth()/2);
+		this.x = x;
+		this.d = d;
+		this.floor = floor;
 		y = 50;
 		
 		setIcon(pepperoni);
@@ -23,15 +27,17 @@ public class Pepperoni extends JLabel implements Runnable {
 	
 	@Override
 	public void run() {
-		while(true) {	
-			if(d == 1) {
-				x += 5;
-			} else if(d == 0) {
-				x -= 5;
-			} else if(d == 2) {
+		while(true) {
+			if(drop != 1) {
+				if(d == 1) {
+					x += 5;
+				} else if(d == 0) {
+					x -= 5;
+				} 
+			} else {
 				y += 15;
-				if(y > 600)
-					d = 3;
+				if(y > floor) 
+					break;
 			}
 			
 			if(x < 380) {
@@ -51,8 +57,11 @@ public class Pepperoni extends JLabel implements Runnable {
 		}
 	}
 	
-	public void drop() {
-		d = 2;
+	public int[] drop() {
+		drop = 1;
+		floor -= 30;
+		int[] arr = {x, d, floor};
+		return arr;
 	}
 
 }

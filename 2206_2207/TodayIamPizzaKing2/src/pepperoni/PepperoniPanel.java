@@ -14,6 +14,11 @@ public class PepperoniPanel extends JPanel{
 	private Game game;
 	
 	private Pepperoni pepperoni;
+	private Thread th;
+	
+	private int x;
+	private int d;
+	private int floor;
 	
 	private Image backgroundImage = new ImageIcon("images/stage/stage4Back.png").getImage();
 
@@ -23,13 +28,17 @@ public class PepperoniPanel extends JPanel{
 		
 		this.game = game;
 		
+		x = (1280/2)-62;
+		d = 1;
+		floor = 600;
+		
 		addKeyListener(new MyKeyListener());
 	}
 	
 	public void startGame() {
-		pepperoni = new Pepperoni();
+		pepperoni = new Pepperoni(x, d, floor);
 		add(pepperoni);
-		Thread th = new Thread(pepperoni);
+		th = new Thread(pepperoni);
 		th.start();
 	}
 	
@@ -40,7 +49,14 @@ public class PepperoniPanel extends JPanel{
 			
 			switch(keyCode) {
 			case KeyEvent.VK_SPACE:
-				pepperoni.drop();
+				int[] arr = pepperoni.drop();
+				x = arr[0];
+				d = arr[1];
+				floor = arr[2];
+				pepperoni = new Pepperoni(x, d, floor);
+				add(pepperoni);
+				th = new Thread(pepperoni);
+				th.start();
 				break;
 			}
 		}
