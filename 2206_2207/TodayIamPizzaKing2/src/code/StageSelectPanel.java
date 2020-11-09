@@ -72,7 +72,11 @@ public class StageSelectPanel extends JPanel{
 		pepperoniBtn.setBounds(520, 505, 270, 165);
 		pepperoniBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				game.stageSelectPanel.setVisible(false);
+				game.peperoniPanel.setVisible(true);
+				game.peperoniPanel.setFocusable(true);		
+				game.peperoniPanel.requestFocus();
+				game.peperoniPanel.startGame();
 			}
 		});
 		this.add(pepperoniBtn);

@@ -15,7 +15,6 @@ import code.Game;
 public class SaucePanel extends JPanel{
 	private Game game;
 	
-	// public SauceEndPanel endPanel;
 	public SaucePausePanel pausePanel;
 	
 	private Image backgroundImage = new ImageIcon("images/stage/stage6Back.png").getImage();
@@ -35,10 +34,6 @@ public class SaucePanel extends JPanel{
 		beamList = new ArrayList<>();
 		
 		pausePanel = new SaucePausePanel(game);
-		// endPanel = new SauceEndPanel(this);
-		
-		//add(endPanel);
-		//endPanel.setVisible(false);
 		add(pausePanel);
 		pausePanel.setVisible(false);
 				

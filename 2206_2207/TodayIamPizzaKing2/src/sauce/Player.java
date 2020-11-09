@@ -123,7 +123,7 @@ public class Player extends Thread {
 				
 			}
 			
-			endPanel.Clear();
+			endPanel.Success();
 			
 		}
 	}
@@ -133,7 +133,7 @@ public class Player extends Thread {
 		avatar.setIcon(deadImage);
 		stop();
 		
-		endPanel.Dead();
+		endPanel.Fail();
 	}
 
 	public int getX() {
