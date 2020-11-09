@@ -53,7 +53,7 @@ public class StageSelectPanel extends JPanel{
 		onionBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
-				game.onionMainPanel.setVisible(true);
+				game.onionPanel.setVisible(true);
 				
 			}
 		});
@@ -85,7 +85,8 @@ public class StageSelectPanel extends JPanel{
 		mushroomBtn.setBounds(875, 430, 250, 155);
 		mushroomBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				game.stageSelectPanel.setVisible(false);
+				game.mushroomPanel.setVisible(true);
 			}
 		});
 		this.add(mushroomBtn);
