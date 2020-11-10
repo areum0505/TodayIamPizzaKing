@@ -1,7 +1,11 @@
 package pepperoni;
 
+import java.util.ArrayList;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+
+import code.Game;
 
 public class Pepperoni extends JLabel implements Runnable {
 	private static int count = 0;
@@ -13,23 +17,25 @@ public class Pepperoni extends JLabel implements Runnable {
     private boolean stop = false;
 
     private ImageIcon pepperoni =  new ImageIcon("images/pepperoni/pepperoni.png");
-    private ImageIcon leftPepperoni =  new ImageIcon("images/pepperoni/leftfall.gif");
-    private ImageIcon rightPepperoni =  new ImageIcon("images/pepperoni/rightfall.gif");
+    
+    private Game game;
     
     private Thread prevTh;
     private PepperoniPanel pp;
     
-    public Pepperoni(int x, int d, int floor, Thread prevTh, PepperoniPanel pp) {
+    private PepperoniEnd pepperoniEnd;
+    
+    public Pepperoni(int x, int d, int floor, Thread prevTh, PepperoniPanel pp, Game game) {
     	this.prevTh = prevTh;
-    	Init(x, d, floor, pp);
-        
+    	Init(x, d, floor, pp, game);
+    	
         setVisible(true);
 	}
-    public Pepperoni(int x, int d, int floor, PepperoniPanel pp) {
-        Init(x, d, floor, pp);
+    public Pepperoni(int x, int d, int floor, PepperoniPanel pp, Game game) {
+        Init(x, d, floor, pp, game);
 	}
     
-    public void Init(int x, int d, int floor, PepperoniPanel pp) {
+    public void Init(int x, int d, int floor, PepperoniPanel pp, Game game) {
     	setLayout(null);
     	
     	count++;
@@ -40,6 +46,9 @@ public class Pepperoni extends JLabel implements Runnable {
         y = 50;
         
         this.pp = pp;
+        this.game = game;
+        
+        pepperoniEnd = new PepperoniEnd(game);
         
         setIcon(pepperoni);
         setBounds(x, y, pepperoni.getIconWidth(), pepperoni.getIconHeight());
@@ -49,7 +58,8 @@ public class Pepperoni extends JLabel implements Runnable {
     
     public int[] drop() {
         stop = true;
-        floor -= 30;
+        if(count <= 10)
+        	floor -= 30;
         int[] arr = {x, d, floor};
         return arr;
     }
@@ -118,7 +128,7 @@ public class Pepperoni extends JLabel implements Runnable {
 	}
 	
 	public void checkPepperoni() {
-		if(!(540 < x && x < 655)) {
+		if(!(535 < x && x < 655)) {
 			while(true) {
 				if(y > 655)
 					break;
@@ -132,11 +142,35 @@ public class Pepperoni extends JLabel implements Runnable {
 	            }
 	            
 			}
+			count -= 1;
+			pp.setStop();
 			pp.setSadface();
+			pepperoniEnd.Fail();
+		} else {
+			if(count > 10) {
+				ArrayList<Pepperoni> pepperonis = pp.getPepperonis();
+				for(int i = 0; i < pepperonis.size()-1; i++) {
+					Pepperoni temp = pepperonis.get(i);
+					temp.setLocation(temp.getX(), temp.getY()+30);
+					// System.out.print(temp.getX() + ", " + temp.getY() + "\t");
+					getParent().repaint();
+					
+				}
+				System.out.println();
+			}
 		}
 	}
 	
 	public int getCount() {
 		return count;
+	}
+	public void setCount() {
+		count = 0;
+	}
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
+	public int getFloor() {
+		return floor;
 	}
 }

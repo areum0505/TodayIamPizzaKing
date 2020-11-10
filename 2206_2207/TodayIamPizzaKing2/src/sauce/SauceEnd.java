@@ -11,12 +11,12 @@ import javax.swing.WindowConstants;
 
 import code.Game;
 
-public class SauceEndPanel extends JDialog {
+public class SauceEnd extends JDialog {
 	private JButton ok;
 	
 	private ImageIcon endImg = new ImageIcon("images/stage/endImg.png");
 	
-	public SauceEndPanel(Game game) {
+	public SauceEnd(Game game) {
 		setSize(endImg.getIconWidth(), endImg.getIconHeight());
 		setLocationRelativeTo(null);	
 		setModal(true);

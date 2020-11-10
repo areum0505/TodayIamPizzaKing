@@ -31,7 +31,7 @@ public class Player extends Thread {
 	private ImageIcon clearImage =  new ImageIcon("images/character/happyPizza.png");
 	private ImageIcon deadImage =  new ImageIcon("images/character/deadPizza.png");
 	
-	SauceEndPanel endPanel;
+	SauceEnd endPanel;
 	
 	public Player(JLabel avatar, int exitY, Game game) {
 		super();
@@ -42,7 +42,7 @@ public class Player extends Thread {
 		avatar.setIcon(standImage);
 		this.exitY = exitY;
 		
-		endPanel = new SauceEndPanel(game);
+		endPanel = new SauceEnd(game);
 	}	
 
 	@Override
