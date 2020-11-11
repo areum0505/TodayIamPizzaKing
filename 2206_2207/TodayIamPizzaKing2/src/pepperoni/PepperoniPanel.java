@@ -11,22 +11,24 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import code.Game;
+import code.Main;
 
 public class PepperoniPanel extends JPanel {
 	private Image backgroundImage = new ImageIcon("images/stage/stage4Back.png").getImage();
 	private Image backgroundImage1 = new ImageIcon("images/stage/stage4Back1.png").getImage();
-	private Image plateImage = new ImageIcon("images/pepperoni/plate.png").getImage();
+	private Image plate = new ImageIcon("images/pepperoni/plate.png").getImage();
 	private ImageIcon happyPizza = new ImageIcon("images/pepperoni/happyPizza.png");
 	private ImageIcon sadPizza = new ImageIcon("images/pepperoni/sadPizza.png");
 	
-
 	private Game game;
+	
+	private PepperoniPause pausePanel;
 	
 	private JLabel pepperoniCount;
 	private JLabel pizzaFace;
-	private JLabel plate;
 	
 	private boolean isSpace = false;
+	private boolean backUp = false, plateUp = false;
 	
     private Pepperoni pepperoni;
     private ArrayList<Pepperoni> pepperonis;
@@ -73,7 +75,19 @@ public class PepperoniPanel extends JPanel {
         prevTh = th;
 	}
 	
-	public void draw() {
+	public void reset() {
+		x = (1280/2)-62;
+        d = 1;
+        floor = 665;
+        backUp = false;
+        plateUp = false;
+		removeAll();
+		setFirst();
+		pepperoni.setCount();
+		draw();
+	}
+	
+	public void draw() {		
 		pepperoniCount = new JLabel();
 		pepperoniCount.setFont(pepperoniCount.getFont().deriveFont(65.0f));
 		pepperoniCount.setBounds(1100, 50, 150, 100);
@@ -82,6 +96,10 @@ public class PepperoniPanel extends JPanel {
 		pizzaFace = new JLabel(happyPizza);
 		pizzaFace.setBounds(50, 50, happyPizza.getIconWidth(), happyPizza.getIconHeight());
 		add(pizzaFace);
+		
+		pausePanel = new PepperoniPause(game);
+		add(pausePanel);
+		pausePanel.setVisible(false);
 	}
 	
 	public ArrayList<Pepperoni> getPepperonis() {
@@ -100,14 +118,18 @@ public class PepperoniPanel extends JPanel {
 		th.stop();
 	}
 	
-	public void reset() {
-		x = (1280/2)-62;
-        d = 1;
-        floor = 665;
-		removeAll();
-		setFirst();
-		pepperoni.setCount();
-		draw();
+	public void setBackUp(boolean b) {
+		backUp = b;
+	}
+	public void setPlateUp(boolean b) {
+		plateUp = b;
+	}
+	
+	public Pepperoni getPepperoni() {
+		return pepperoni;
+	}
+	public Thread getTh() {
+		return th;
 	}
 	
 	class MyKeyListener extends KeyAdapter {
@@ -129,6 +151,10 @@ public class PepperoniPanel extends JPanel {
 	                t1 = t2;
             	}
                 break;
+            case KeyEvent.VK_ESCAPE:
+            	pausePanel.setVisible(true);
+				pepperoni.setPause(true);
+            	break;
             }
 		}
 		@Override
@@ -147,14 +173,14 @@ public class PepperoniPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		if(pepperoni.getCount() <= 11)
+		if(!backUp)
 			g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 		else
 			g.drawImage(backgroundImage1, 0, 0, getWidth(), getHeight(), null);
 		
-		if(pepperoni.getCount() <= 10)
-			g.drawImage(plateImage, 528+20, 650, plateImage.getWidth(null), plateImage.getHeight(null), null);
-		else if(pepperoni.getCount() == 11)
-			g.drawImage(plateImage, 528+20, 680, plateImage.getWidth(null), plateImage.getHeight(null), null);
+		if(pepperoni != null && !plateUp && pepperoni.getCount() <= 11)
+			g.drawImage(plate, 528+20, 650, plate.getWidth(null), plate.getHeight(null), null);
+		else if(plateUp)
+			g.drawImage(plate, 528+20, 680, plate.getWidth(null), plate.getHeight(null), null);
 	}
 }

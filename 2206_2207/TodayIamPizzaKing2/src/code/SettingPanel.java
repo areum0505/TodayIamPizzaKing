@@ -26,6 +26,8 @@ public class SettingPanel extends JPanel{
 		backButton.setContentAreaFilled(false);
 		backButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+				Music buttonClick = new Music("buttonClick1.mp3", false);
+				buttonClick.start();
 				game.settingPanel.setVisible(false);
 				game.startPanel.setVisible(true);
 			}

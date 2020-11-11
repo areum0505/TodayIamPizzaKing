@@ -15,6 +15,7 @@ public class Pepperoni extends JLabel implements Runnable {
     private int floor;
     
     private boolean stop = false;
+    private boolean pause = false;
 
     private ImageIcon pepperoni =  new ImageIcon("images/pepperoni/pepperoni.png");
     
@@ -65,11 +66,11 @@ public class Pepperoni extends JLabel implements Runnable {
     }
 	
 	@Override
-	public void run() {
+	public void run() {		
 		if(count > 1)
 			waitPepperoni();
 		movePepperoni();
-		dropPepperoni();
+		dropPepperoni();	
 		checkPepperoni();
 	}
 	
@@ -78,14 +79,23 @@ public class Pepperoni extends JLabel implements Runnable {
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
 	
 	public void movePepperoni() {
-		while(!stop) {    
+		while(!stop) {   
+			if(pause) {
+				while (pause) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
             if(d == 1) {
                 x += (5+count);
             } else if(d == 0) {
@@ -102,7 +112,7 @@ public class Pepperoni extends JLabel implements Runnable {
             getParent().repaint();
             
             try {
-                Thread.sleep(25);
+                Thread.sleep(15);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -110,7 +120,7 @@ public class Pepperoni extends JLabel implements Runnable {
 	}
 	
 	public void dropPepperoni() {
-		while(stop) {
+		while(stop) {			
         	y += 15;
         	if(y > floor) 
         		stop = false;
@@ -129,8 +139,10 @@ public class Pepperoni extends JLabel implements Runnable {
 	
 	public void checkPepperoni() {
 		if(!(535 < x && x < 655)) {
-			while(true) {
-				if(y > 655)
+			while(true) {				
+				if(y > 655 && count <= 12)
+					break;
+				else if(count > 12 && y > 720)
 					break;
 				y += 15;
 				setLocation(x, y);
@@ -154,10 +166,23 @@ public class Pepperoni extends JLabel implements Runnable {
 					temp.setLocation(temp.getX(), temp.getY()+30);
 					// System.out.print(temp.getX() + ", " + temp.getY() + "\t");
 					getParent().repaint();
-					
 				}
 				System.out.println();
 			}
+		}
+		
+		if(count > 11 ) {
+			pp.setBackUp(true);
+		}
+		if(count == 11) {
+			pp.setPlateUp(true);
+		} else {
+			pp.setPlateUp(false);
+		}
+		
+		if(count > 15) {
+			pp.setStop();
+			pepperoniEnd.Success();
 		}
 	}
 	
@@ -172,5 +197,9 @@ public class Pepperoni extends JLabel implements Runnable {
 	}
 	public int getFloor() {
 		return floor;
+	}
+	
+	public void setPause(boolean b) {
+		pause = b;
 	}
 }

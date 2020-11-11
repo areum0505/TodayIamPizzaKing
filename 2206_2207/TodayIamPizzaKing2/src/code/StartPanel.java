@@ -41,6 +41,8 @@ class StartPanel extends JPanel {
 				startButton.setIcon(startButtonImg);
 			}
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+				Music buttonClick = new Music("buttonClick1.mp3", false);
+				buttonClick.start();
 				game.startPanel.setVisible(false);
 				game.stageSelectPanel.setVisible(true);
 			}
@@ -59,6 +61,8 @@ class StartPanel extends JPanel {
 				settingButton.setIcon(settingButtonImg);
 			}
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+				Music buttonClick = new Music("buttonClick1.mp3", false);
+				buttonClick.start();
 				game.startPanel.setVisible(false);
 				game.settingPanel.setVisible(true);
 
@@ -78,6 +82,8 @@ class StartPanel extends JPanel {
 				quitButton.setIcon(quitButtonImg);
 			}
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+				Music buttonClick = new Music("buttonClick1.mp3", false);
+				buttonClick.start();
 				System.exit(0);
 			}
 		});
