@@ -24,26 +24,14 @@ public class StageSelectPanel extends JPanel{
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 		
-		sauceBtn.setVisible(true);
-		sauceBtn.setBounds(165, 155, 275, 170);
-		sauceBtn.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.setVisible(false);
-				game.saucePanel.setVisible(true);
-				game.saucePanel.setFocusable(true);		
-				game.saucePanel.requestFocus();
-				game.saucePanel.startGame();
-			}
-		});
-		this.add(sauceBtn);
-		
 		sauceBtn.setContentAreaFilled(false);
 		
 		cheeseBtn.setVisible(true);
 		cheeseBtn.setBounds(520, 45, 275, 160);
 		cheeseBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				game.stageSelectPanel.setVisible(false);
+				game.cheesePanel.setVisible(true);
 			}
 		});
 		this.add(cheeseBtn);
@@ -90,6 +78,19 @@ public class StageSelectPanel extends JPanel{
 			}
 		});
 		this.add(mushroomBtn);
+		
+		sauceBtn.setVisible(true);
+		sauceBtn.setBounds(165, 155, 275, 170);
+		sauceBtn.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				game.stageSelectPanel.setVisible(false);
+				game.saucePanel.setVisible(true);
+				game.saucePanel.setFocusable(true);		
+				game.saucePanel.requestFocus();
+				game.saucePanel.startGame();
+			}
+		});
+		this.add(sauceBtn);
 		
 		BagBtn.setVisible(true);
 		BagBtn.setBounds(520, 270, 275, 173);
