@@ -34,22 +34,16 @@ class onionLabel extends JLabel{
 		g.fillRect(0, 0, width, this.getHeight());
 	}
 	synchronized public void fill() { //바가 증가하는 메서드 
-		/*
-		 * if(barSize >= maxBarSize) { try { wait(); //다 그렸으면 줄어들때까지 기다리기
-		 * 
-		 * }catch (InterruptedException e) { // TODO: handle exception return; } }else {
-		 */
-		barSize+=60;
-		repaint();  //repaint() - Method in class java.awt.Component, Repaints this component. 
+		
+		barSize+=100;
+		repaint();  
 	
 		
 	}
 	synchronized public void consume() { //바가 감소하는 메서드 
-		/*
-		 * if(barSize == 0) { try { wait(); //0이면 커질 때까지 기다리기 }catch
-		 * (InterruptedException e) { // TODO: handle exception return; } }
-		 */
-		barSize-=20;
+		if(barSize>=50) {
+			barSize-=50;
+		}
 		repaint();
 	}
 	
@@ -120,15 +114,15 @@ public class OnionPanel extends JPanel implements ActionListener{
 		lspScore.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 30));
 		lspScore.setBounds(600, 70, 500, 50);
 		
-		btnRock = new JButton();
-		btnRock.setBounds(174, 592, 250, 85);
-		btnRock.setBorderPainted(false);
-		btnRock.setContentAreaFilled(false);
-		
 		btnScissors = new JButton();
-		btnScissors.setBounds(514, 592, 250, 85);
+		btnScissors.setBounds(174, 592, 250, 85);
 		btnScissors.setBorderPainted(false);
 		btnScissors.setContentAreaFilled(false);
+		
+		btnRock = new JButton();
+		btnRock.setBounds(514, 592, 250, 85);
+		btnRock.setBorderPainted(false);
+		btnRock.setContentAreaFilled(false);
 		
 		btnPaper = new JButton();
 		btnPaper.setBounds(855, 592, 250, 85);
@@ -205,7 +199,7 @@ public class OnionPanel extends JPanel implements ActionListener{
 			loseCheck();
 		}else if((com==1 && user==3) || (com==2 && user==1) || (com==3 && user==2)){
 			win++;
-			gameScore+=60;
+			gameScore+=100;
 			lspResult.setText("이겼다!");
 			bar.fill();
 			
@@ -213,7 +207,9 @@ public class OnionPanel extends JPanel implements ActionListener{
 			System.out.println("피자 이김");
 		}else if((com==1 && user==2) || (com==2 && user==3) || (com==3 && user==1)){
 			lose++;
-			gameScore-=20;
+			if(gameScore>=50) {
+				gameScore-=50;
+			}
 			lspResult.setText("졌다");
 			loseCheck();
 			System.out.println("피자 졌음");

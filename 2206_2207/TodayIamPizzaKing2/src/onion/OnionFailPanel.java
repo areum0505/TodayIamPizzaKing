@@ -9,11 +9,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import code.Game;
+
 public class OnionFailPanel extends JPanel {
 	
 	private Image pauseImg = new ImageIcon("images/stage/pauseImg.png").getImage();
 	
-	public OnionFailPanel(Onion onion) {
+	public OnionFailPanel(Game game) {
 		
 		setLayout(null);
 		setBounds((1280/2)-(pauseImg.getWidth(null)/2) , (720/2)-(pauseImg.getHeight(null)/2), 800, 500);

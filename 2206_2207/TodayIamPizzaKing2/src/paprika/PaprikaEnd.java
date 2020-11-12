@@ -1,4 +1,4 @@
-package pepperoni;
+package paprika;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,14 +9,12 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
-import code.Game;
-
-public class PepperoniEnd extends JDialog {
+class PaprikaEnd extends JDialog {
+	
+	private ImageIcon endImg = new ImageIcon("images/paprika/endImg.png");
 	private JButton ok;
 	
-	private ImageIcon endImg = new ImageIcon("images/stage/endImg.png");
-	
-	public PepperoniEnd(Game game) {
+	public PaprikaEnd(code.Game game) {
 		setSize(endImg.getIconWidth(), endImg.getIconHeight());
 		setLocationRelativeTo(null);	
 		setModal(true);
@@ -31,13 +29,11 @@ public class PepperoniEnd extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				game.pepperoniPanel.setVisible(false);
-				game.pepperoniPanel.reset();
+				game.paprikaPanel.setVisible(false);
 				game.stageSelectPanel.setVisible(true);
 			}
 		});
-	}	
-	
+	}
 	public void Success() {
 		
 		setTitle("success");
@@ -48,4 +44,5 @@ public class PepperoniEnd extends JDialog {
 		setTitle("fail");
 		setVisible(true);
 	}
-}
+	
+}	

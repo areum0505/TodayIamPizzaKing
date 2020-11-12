@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import mushroom.MushroomPanel;
 import onion.OnionPanel;
+import paprika.PaprikaPanel;
 import pepperoni.PepperoniPanel;
 import sauce.SaucePanel;
 
@@ -22,7 +23,7 @@ public class Game extends JFrame {
 	public MushroomPanel mushroomPanel = new MushroomPanel(this); 
 	public PepperoniPanel pepperoniPanel = new PepperoniPanel(this);
 	public SaucePanel saucePanel = new SaucePanel(this);
-	
+	public PaprikaPanel paprikaPanel = new PaprikaPanel(this);
 	
 	public Game() {
 		super("Today I'm Pizza King");
@@ -67,6 +68,11 @@ public class Game extends JFrame {
 		saucePanel.setVisible(false);
 		
 		
+		
+		
+		
+		add(paprikaPanel);
+		paprikaPanel.setVisible(false);
 		
 	}
 }

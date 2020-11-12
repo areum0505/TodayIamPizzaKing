@@ -31,6 +31,8 @@ public class SettingPanel extends JPanel{
 			}
 		});
 		add(backButton);
+		
+		
 	}
 	
 	@Override

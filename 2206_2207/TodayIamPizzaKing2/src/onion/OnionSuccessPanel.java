@@ -12,8 +12,8 @@ public class OnionSuccessPanel extends JPanel{
 	
 	private Image pauseImg = new ImageIcon("images/stage/pauseImg.png").getImage();
 	
-	public OnionSuccessPanel(Onion onion) {
-		// TODO Auto-generated constructor stub
+	public OnionSuccessPanel(Game game) {
+		// TODO Auto-generated constructor stu
 		setLayout(null);
 		setBounds((1280/2)-(pauseImg.getWidth(null)/2) , (720/2)-(pauseImg.getHeight(null)/2), 800, 500);
 		

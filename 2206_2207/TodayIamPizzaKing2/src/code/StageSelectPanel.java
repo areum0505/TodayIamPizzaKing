@@ -63,7 +63,9 @@ public class StageSelectPanel extends JPanel{
 		pimangBtn.setBounds(155, 415, 265, 165);
 		pimangBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				game.stageSelectPanel.setVisible(false);
+				game.paprikaPanel.setVisible(true);
+				game.paprikaPanel.requestFocus();
 			}
 		});
 		this.add(pimangBtn);
