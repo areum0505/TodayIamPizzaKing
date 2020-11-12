@@ -15,7 +15,6 @@ import code.Game;
 public class SaucePanel extends JPanel{
 	private Game game;
 	
-	// public SauceEndPanel endPanel;
 	public SaucePausePanel pausePanel;
 	
 	private Image backgroundImage = new ImageIcon("images/stage/stage6Back.png").getImage();

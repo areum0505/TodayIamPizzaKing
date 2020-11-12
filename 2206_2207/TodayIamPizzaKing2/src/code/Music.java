@@ -14,6 +14,8 @@ public class Music extends Thread{
     private FileInputStream fis;
     private BufferedInputStream bis;
     
+    private boolean isPause = false;
+    
     public Music(String name, boolean isLoop) { // 곡의 제목,무한반복여부
         try {
             this.isLoop = isLoop;
@@ -55,6 +57,5 @@ public class Music extends Thread{
         }
         
     } // run
-    
 }
  
