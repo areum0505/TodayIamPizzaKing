@@ -1,4 +1,4 @@
-package pepperoni;
+package cheese;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,12 +11,12 @@ import javax.swing.WindowConstants;
 
 import code.Game;
 
-public class PepperoniEnd extends JDialog {
+public class CheeseEnd extends JDialog{
 	private JButton ok;
 	
 	private ImageIcon endImg = new ImageIcon("images/stage/endImg.png");
 	
-	public PepperoniEnd(Game game) {
+	public CheeseEnd(Game game) {
 		setSize(endImg.getIconWidth(), endImg.getIconHeight());
 		setLocationRelativeTo(null);	
 		setModal(true);
@@ -31,8 +31,8 @@ public class PepperoniEnd extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				game.pepperoniPanel.setVisible(false);
-				game.pepperoniPanel.reset();
+				game.cheesePanel.setVisible(false);
+				game.cheesePanel.reset();
 				game.stageSelectPanel.setVisible(true);
 			}
 		});

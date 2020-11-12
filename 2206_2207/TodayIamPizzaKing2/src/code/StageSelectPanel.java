@@ -34,6 +34,8 @@ public class StageSelectPanel extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
 				game.cheesePanel.setVisible(true);
+				game.cheesePanel.setFocusable(true);		
+				game.cheesePanel.requestFocus();
 				game.cheesePanel.startGame();
 			}
 		});

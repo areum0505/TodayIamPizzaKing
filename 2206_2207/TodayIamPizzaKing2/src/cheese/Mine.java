@@ -16,15 +16,19 @@ public class Mine extends JLabel {
 		setIcon(mine);
 		
 		Random random = new Random();
-		x = random.nextInt(1155);
-		if(143 < x)
+		x = random.nextInt(1280);
+		if(150 > x)
 			x += 143;
-		y = random.nextInt(565);
+		else if(1000 < x)
+			x -= 300;
+		y = random.nextInt(720);
 		if(y < 10)
-			y += 10;
+			y += 20;
+		else if(y > 600)
+			y -= 120;
         setBounds(x, y, mine.getIconWidth(), mine.getIconHeight());
         
-        setVisible(true);
+        setVisible(false);
 	}
 
 	public int getX() {
