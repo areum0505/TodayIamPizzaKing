@@ -1,7 +1,9 @@
 package code;
 
+import java.awt.AWTException;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Robot;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -32,6 +34,7 @@ public class StageSelectPanel extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
 				game.cheesePanel.setVisible(true);
+				game.cheesePanel.startGame();
 			}
 		});
 		this.add(cheeseBtn);
