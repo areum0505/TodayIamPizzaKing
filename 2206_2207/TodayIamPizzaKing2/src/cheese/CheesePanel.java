@@ -12,6 +12,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,6 +25,8 @@ public class CheesePanel extends JPanel {
 	private ImageIcon pizzaImg = new ImageIcon("images/cheese/pizza.png");
 	
 	private JLabel pizza;
+	private ArrayList<Mine> mineList;
+	private Exit exit;
 	
 	private Game game;
 	
@@ -34,14 +37,19 @@ public class CheesePanel extends JPanel {
 		this.game = game;
 		
 		pizza = new JLabel(pizzaImg);
-		pizza.setBounds(50, 50, pizzaImg.getIconWidth(), pizzaImg.getIconHeight());
-		add(pizza);		
+		pizza.setSize(pizzaImg.getIconWidth(), pizzaImg.getIconHeight());
+		add(pizza);	
 		
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		Image cursorimage = tk.getImage("images/cheese/emptyCursor.png");//커서로 사용할 이미지
-		Point point=new Point(0,0);
-		Cursor cursor=tk.createCustomCursor(cursorimage, point, "cheese");
-		setCursor(cursor);
+		mineList = new ArrayList<Mine>();
+		for(int i = 0; i < 15; i++) {
+			mineList.add(new Mine());
+			add(mineList.get(i));
+		}
+		
+		exit = new Exit();
+		add(exit);
+		
+		setCursorImage(true);
 		
 		addMouseMotionListener(new MyMouseListener());
 	}
@@ -49,7 +57,6 @@ public class CheesePanel extends JPanel {
 	public void startGame() {
 		setMouseCursor(550, 700);
 		pizza.setLocation(getMousePosition().x - pizza.getWidth()/2, getMousePosition().y - pizza.getHeight()/2);
-		getParent().repaint();
 	}
 	
 	public void setMouseCursor(int x, int y) {
@@ -59,6 +66,64 @@ public class CheesePanel extends JPanel {
 		} catch (AWTException e1) {
 			e1.printStackTrace();
 		}
+	}
+	
+	public void setCursorImage(boolean isEmpty) {
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Image cursorimage;
+		if(isEmpty)
+			cursorimage = tk.getImage("images/cheese/emptyCursor.png");
+		else
+			cursorimage = tk.getImage("images/main/pizzaCursor.png");
+		Point point = new Point(0,0);
+		Cursor cursor = tk.createCustomCursor(cursorimage, point, "haha");
+		setCursor(cursor);
+	}
+	
+	public void checkMine(int x, int y) {
+		for(Mine m : mineList) {
+//			if( x - 25 < m.getX() + m.getWidth() && 
+//					x + 25 + pizza.getWidth() > m.getX() && 
+//					y - 25 < m.getY() + m.getHeight() && 
+//					pizza.getHeight() < y + 25 && y  + 25 > m.getY() ) {
+//				if(m.isVisible())
+//					m.setVisible(false);
+//				else
+//					m.setVisible(true);
+//			}
+			
+
+		}
+	}
+	public void checkExit(int x, int y) {
+		if(1155 < x && (exit.getY() < y && y < exit.getY() + 133)) {
+			System.out.println("clear");
+		}
+	}
+	
+	boolean checkUp(int x, int y, Mine m) {
+		if(y - 25 < m.getY()+m.getHeight() && m.getY()+m.getHeight() < y - 1)
+			return true;
+		else
+			return false;
+	}
+	boolean checkRight(int x, int y, Mine m) {
+		if(x + pizza.getWidth() + 1 < m.getX() && m.getX() < x + pizza.getWidth() + 25)
+			return true;
+		else
+			return false;
+	}
+	boolean checkDown(int x, int y, Mine m) {
+		if(y + pizza.getHeight() + 1 < m.getY() && m.getY() < y + pizza.getHeight() + 25)
+			return true;
+		else
+			return false;
+	}
+	boolean checkLeft(int x, int y, Mine m) {
+		if(x - 25 < m.getX() + m.getWidth() && m.getX() + m.getWidth() < x - 1)
+			return true;
+		else
+			return false;
 	}
 	
 	@Override
@@ -80,6 +145,9 @@ public class CheesePanel extends JPanel {
 			
 			pizza.setLocation(x, y);
 			getParent().repaint();
+			
+			checkMine(x, y);
+			checkExit(x, y);
 		}
 	}
 }

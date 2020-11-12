@@ -29,8 +29,6 @@ public class Pepperoni extends JLabel implements Runnable {
     public Pepperoni(int x, int d, int floor, Thread prevTh, PepperoniPanel pp, Game game) {
     	this.prevTh = prevTh;
     	Init(x, d, floor, pp, game);
-    	
-        setVisible(true);
 	}
     public Pepperoni(int x, int d, int floor, PepperoniPanel pp, Game game) {
         Init(x, d, floor, pp, game);
