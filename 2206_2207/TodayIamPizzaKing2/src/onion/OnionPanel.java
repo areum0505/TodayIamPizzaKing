@@ -33,17 +33,20 @@ class onionLabel extends JLabel{
 		if(width==0) return; //크기가 0인 경우 바를 그릴 수없음
 		g.fillRect(0, 0, width, this.getHeight());
 	}
-	synchronized public void fill() { //바가 증가하는 메서드 
+	public void fill() { //바가 증가하는 메서드 
 		
 		barSize+=100;
 		repaint();  
 	
-		
 	}
-	synchronized public void consume() { //바가 감소하는 메서드 
+	public void consume() { //바가 감소하는 메서드 
 		if(barSize>=50) {
 			barSize-=50;
 		}
+		repaint();
+	}
+	public void clear() {
+		barSize = 0;
 		repaint();
 	}
 	
@@ -51,7 +54,7 @@ class onionLabel extends JLabel{
 
 class onionLifeLabel extends JLabel{
 		
-	private int barSize = 0; //현재 그릴 바의 크기
+	
 	private int width = 50; //바의 최대 크기 
 	
 	ImageIcon noHeart = new ImageIcon("images/onion/noHeart.png");
@@ -74,6 +77,10 @@ class onionLifeLabel extends JLabel{
 		repaint();
 	}	
 	
+	public void clear() {
+		width=50;
+		repaint();
+	}
 }
 
 public class OnionPanel extends JPanel implements ActionListener{
@@ -95,7 +102,8 @@ public class OnionPanel extends JPanel implements ActionListener{
 	onionLifeLabel life1, life2, life3;
 	JLabel lspScore,lspVS, lspCom, lspUser, lspResult;
 	JButton btnRock, btnScissors, btnPaper;
-	OnionResultPanel onionResultPanel;
+
+	OnionEnd onionEnd;
 	
 	int win=0;
 	int draw=0;
@@ -108,7 +116,6 @@ public class OnionPanel extends JPanel implements ActionListener{
 		setBounds(0, 0, 1280, 720);
 		setBackground(Color.white);
 		
-		onionResultPanel = new OnionResultPanel(game);
 		
 		lspScore = new JLabel("0승 0무 0패");
 		lspScore.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 30));
@@ -182,7 +189,7 @@ public class OnionPanel extends JPanel implements ActionListener{
 		add(lspUser);
 		add(lspResult);
 		
-
+		onionEnd = new OnionEnd(game);
 		
 		
 	}
@@ -223,7 +230,7 @@ public class OnionPanel extends JPanel implements ActionListener{
 	
 	public void chkOnionResult() {
 		if(gameScore>=300) {
-			onionResultPanel.setVisible(true);
+			onionEnd.Success();
 		}
 		System.out.println("실행됨");
 	}
@@ -233,10 +240,22 @@ public class OnionPanel extends JPanel implements ActionListener{
 		case 1: life1.heartDead(); break;
 		case 2: life2.heartDead(); break;
 		case 3: life3.heartDead(); 
-				onionResultPanel.setVisible(true);
+				onionEnd.Fail();
 				break;
 		
 		}
+	}
+	public void reset() {
+		gameScore = 0; 
+		win=0;
+		draw=0;
+		lose=0;
+		gameScore=0;
+
+		bar.clear();
+		life1.clear();
+		life2.clear();
+		life3.clear();
 	}
 	public void actionPerformed(ActionEvent e) {
 		
@@ -246,21 +265,20 @@ public class OnionPanel extends JPanel implements ActionListener{
 			lspUser.setIcon(pizzaIcon[0]);
 			chkResult(1);
 			chkOnionResult();
-			
 			System.out.println(gameScore);
+		
 		}else if(ob == btnScissors){
 			lspUser.setIcon(pizzaIcon[1]);
 			chkResult(2);
 			chkOnionResult();
-		
 			System.out.println(gameScore);
 			
 		}else if(ob == btnPaper){
 			lspUser.setIcon(pizzaIcon[2]);
 			chkResult(3);
 			chkOnionResult();
-		
 			System.out.println(gameScore);
+		
 		}
 	}
 	@Override

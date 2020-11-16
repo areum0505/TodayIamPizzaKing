@@ -1,30 +1,22 @@
-package onion;
+package mushroom;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import code.Game;
 
-public class OnionResultPanel extends JDialog{
+class MushroomEnd extends JDialog {
 	
+	private ImageIcon endImg = new ImageIcon("images/paprika/endImg.png");
 	private JButton ok;
 	
-	private ImageIcon endImg = new ImageIcon("images/stage/endImg.png");
-	
-	public OnionResultPanel(Game game) {
-		// TODO Auto-generated constructor stub
+	public MushroomEnd(Game game) {
 		setSize(endImg.getIconWidth(), endImg.getIconHeight());
 		setLocationRelativeTo(null);	
 		setModal(true);
@@ -39,12 +31,20 @@ public class OnionResultPanel extends JDialog{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				game.onionPanel.setVisible(false);
+				game.mushroomPanel.setVisible(false);
 				game.stageSelectPanel.setVisible(true);
 			}
 		});
-		
-		
 	}
-
-}
+	public void Success() {
+		
+		setTitle("success");
+		setVisible(true);
+	}
+	
+	public void Fail() {
+		setTitle("fail");
+		setVisible(true);
+	}
+	
+}	

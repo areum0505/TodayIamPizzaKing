@@ -21,23 +21,21 @@ class Bar extends JLabel {
 	int width, height;
 	
 	public Bar() {
-		this.width = 100;
+		this.width = 500;
 		this.height = 500;
-		setBounds(700,100,width,height);
-		setOpaque(true); 
-		setBackground(Color.black);
-	}
+		setBounds(250,100,width,height);
 	
+	}
 }
 class ChoiceBar extends JLabel{
 	int width, height;
 	
 	public ChoiceBar() {
-		this.width = 100;
-		this.height = 10;
-		setBounds(700,110,width,height);
+		this.width = 10;
+		this.height = 500;
+		setBounds(250,100,width,height);
 		setOpaque(true); 
-		setBackground(Color.white);
+	
 	}
 }
 class EnemyBar extends JLabel{
@@ -47,11 +45,11 @@ class EnemyBar extends JLabel{
 	int ran = ((int)(Math.random()*3)+1)*20;
 	
 	public EnemyBar() {
-		this.width = 100;
-		this.height = ran;
+		this.width = ran;
+		this.height = 500;
 		setSize(width,height);
 		setOpaque(true); 
-		setBackground(Color.CYAN);
+		setBackground(Color.red);
 	}
 
 	public int getWidth() {
@@ -69,13 +67,11 @@ class EnemyBar extends JLabel{
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public void reset() {
+	public void clear() {
 		int ran = ((int)(Math.random()*3)+1)*30;
-		this.width = 100;
-		this.height = ran;
+		this.width = ran;
+		this.height = 500;
 		setSize(width,height);
-		setOpaque(true); 
-		setBackground(Color.CYAN);
 	}
 }
 class Game implements Runnable {
@@ -84,6 +80,7 @@ class Game implements Runnable {
 	private ChoiceBar choiceBar;
 	EnemyBar enemy1, enemy2, enemy3; 
 	JLabel knife;
+	public boolean running = true;
 	
 	public Game(Bar bar, ChoiceBar choiceBar, JLabel knife) {
 		this.bar = bar;
@@ -93,15 +90,15 @@ class Game implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(true) {
+		while(running) {
 			moveChoiceBar();
 		}
 	}
 	public void moveChoiceBar() {	
-			while(choiceBar.getY()<=bar.getY()+480) { 
+			while(choiceBar.getX()<=bar.getX()+500) { 
 				try {
-					int x = choiceBar.getX();
-					int y = choiceBar.getY()+10;
+					int x = choiceBar.getX()+10;
+					int y = choiceBar.getY();
 				
 					
 						choiceBar.setLocation(x,y);
@@ -115,10 +112,10 @@ class Game implements Runnable {
 					e.printStackTrace();
 				}
 			}
-			while(choiceBar.getY()>=bar.getY()) {
+			while(choiceBar.getX()>=bar.getX()) {
 				try {
-					int x = choiceBar.getX();
-					int y = choiceBar.getY()-10;
+					int x = choiceBar.getX()-10;
+					int y = choiceBar.getY();
 				
 						choiceBar.setLocation(x,y);
 						choiceBar.getParent().repaint();
@@ -134,14 +131,16 @@ class Game implements Runnable {
 	}
 	
 	
-	
 }
 
 
 public class PaprikaPanel extends JPanel{
-	private Image backgroundImage = new ImageIcon("images/mushroom/mushroomBackground.png").getImage();
-	private ImageIcon knifeIcon = new ImageIcon("images/paprika/knife.png");
-	private ImageIcon paprikaIcon = new ImageIcon("images/paprika/paprika.png");
+	private Image backgroundImage = new ImageIcon("images/paprika/paprikaBackground.png").getImage();
+	private ImageIcon knifeIcon = new ImageIcon("images/paprika/newKnife.png");
+	
+	private ImageIcon redPap = new ImageIcon("images/paprika/redPaprika90.png");
+	private ImageIcon yellowPap = new ImageIcon("images/paprika/yellowPaprika90.png");
+	private ImageIcon greenPap = new ImageIcon("images/paprika/greenPaprika90.png");
 	
 	JLabel paprika, score;
 
@@ -157,32 +156,41 @@ public class PaprikaPanel extends JPanel{
 	int win=0;
 	Thread td;
 	Game g;
-	
+	Thread prevTh;
 	private PaprikaEnd paprikaEnd;
+	private PaprikaPause paprikaPause;
 	
 	public PaprikaPanel(code.Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 		
-		paprika = new JLabel(paprikaIcon);
-		paprika.setBounds(50,100, paprikaIcon.getIconWidth(), paprikaIcon.getIconHeight());
-		add(paprika);
+		paprikaEnd = new PaprikaEnd(game);
+		paprikaPause = new PaprikaPause(game);
+		add(paprikaPause);
+		paprikaPause.setVisible(false);
 		
-		knife.setBounds(700,100,200,150);
+		knife.setBounds(500,300,knifeIcon.getIconWidth(),knifeIcon.getIconHeight());
 		add(knife);
 		add(choiceBar);
 		
-		enemy1.setLocation(700, 150);
+		enemy1.setLocation(250, 100);
 		add(enemy1);
-		enemy2.setLocation(700, 300);
+		enemy2.setLocation(450, 100);
 		add(enemy2);
-		enemy3.setLocation(700, 450);
+		enemy3.setLocation(700, 100);
 		add(enemy3);
 		
-		add(bar);
+		paprika = new JLabel();
+		paprika.setIcon(redPap);
+		paprika.setBounds(250,140, redPap.getIconWidth(), redPap.getIconHeight());
+		add(paprika);
+		
+		
+		//add(bar);
 		
 		score = new JLabel("000");
 		score.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 30));
+		score.setForeground(Color.red);
 		score.setBounds(1100, 70, 500, 50);
 		
 		add(score);
@@ -191,7 +199,6 @@ public class PaprikaPanel extends JPanel{
 		td = new Thread(g);
 		td.start();
 		
-		paprikaEnd = new PaprikaEnd(game);
 		
 		setVisible(true);
 		addKeyListener(new MyKeyListener());
@@ -206,51 +213,86 @@ public class PaprikaPanel extends JPanel{
 			switch(keyCode) {
 				case KeyEvent.VK_SPACE:
 					System.out.println("스페이스 누름");
+				
 					crashCheck();
 					break;
 				case KeyEvent.VK_ESCAPE:
-					System.exit(0);
+					g.running = false;
+					paprikaPause.setVisible(true);
+				
 					break;
-				case KeyEvent.VK_LEFT:
-					System.out.println("왼쪽");
-					break;
+				
 			}
 		}
 	}
-	public void crashCheck() {
-		int ran = ((int)(Math.random()*3)+1)*30;
+	
+	public void reset() {
+		win = 0;
+		g.running = true;
+	}
+	public void paprikaCheck() {
 		
+		if(win>=600) {
+			paprika.setIcon(greenPap);
+			paprika.setBounds(250,140, greenPap.getIconWidth(), greenPap.getIconHeight());
+			score.setForeground(Color.green);
+			enemy1.setBackground(Color.green);
+			enemy2.setBackground(Color.green);
+			enemy3.setBackground(Color.green);
+			
+		}else if(win>=300) {
+			paprika.setIcon(yellowPap);
+			paprika.setBounds(250,140, yellowPap.getIconWidth(), yellowPap.getIconHeight());
+			score.setForeground(Color.yellow);
+			enemy1.setBackground(Color.yellow);
+			enemy2.setBackground(Color.yellow);
+			enemy3.setBackground(Color.yellow);
+		}
+	}
+	public void crashCheck() {
 		
 		if (enemy1.getX()+ enemy1.getWidth() > choiceBar.getX() && choiceBar.getX() + choiceBar.getWidth()>enemy1.getX()&& enemy1.getY()+enemy1.getHeight()>choiceBar.getY()&& choiceBar.getY()+ choiceBar.getHeight()>enemy1.getY()) {
 			win+=100;
+			scoreCheck();
 			System.out.println(win);
 			score.setText(Integer.toString(win));
-			enemy1.setBackground(Color.BLUE);
-			enemy1.reset();
-			enemy1.setLocation(700,150);
+			paprikaCheck();
+			enemy1.clear();
+			enemy1.setLocation(250,100);
 		}
 		else if (enemy2.getX()+ enemy2.getWidth() > choiceBar.getX() && choiceBar.getX() + choiceBar.getWidth()>enemy2.getX()&& enemy2.getY()+enemy2.getHeight()>choiceBar.getY()&& choiceBar.getY()+ choiceBar.getHeight()>enemy2.getY()) {
 			win+=100;
+			scoreCheck();
 			System.out.println(win);
 			score.setText(Integer.toString(win));
-			enemy2.setBackground(Color.BLUE);
-			enemy2.reset();
-			enemy2.setLocation(700,300);
+			enemy2.clear();
+			paprikaCheck();
+			enemy2.setLocation(450,100);
 		}
 		else if (enemy3.getX()+ enemy3.getWidth() > choiceBar.getX() && choiceBar.getX() + choiceBar.getWidth()>enemy3.getX()&& enemy3.getY()+enemy3.getHeight()>choiceBar.getY()&& choiceBar.getY()+ choiceBar.getHeight()>enemy3.getY()) {
 			win+=100;
 			System.out.println(win);
 			score.setText(Integer.toString(win));
-			enemy3.setBackground(Color.BLUE);
-			enemy3.reset();
-			enemy3.setLocation(700,450);
+			scoreCheck();
+			paprikaCheck();
+			enemy3.clear();
+			enemy3.setLocation(700,100);
 			
 		}else {
-			td.stop();
-			System.out.println("오잉");
-			paprikaEnd.Fail();
+				g.running = false;
+				paprikaEnd.Fail();
+			
 		}
-	}	// 플레이어와 코인 충돌 체크
+	}
+	public void scoreCheck() {
+		if(win==900) {
+			g.running=false;
+			System.out.println("피망클리어");
+			score.setText(Integer.toString(win));
+			paprikaEnd.Success();
+			
+		}
+	}
 	
 	@Override
 	public void paintComponent(Graphics g) {

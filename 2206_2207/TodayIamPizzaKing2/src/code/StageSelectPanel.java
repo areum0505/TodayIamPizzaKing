@@ -12,7 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class StageSelectPanel extends JPanel{
-	private Image backgroundImage = new ImageIcon("images/main/stageSelectBackground.png").getImage();
+	private Image backgroundImage = new ImageIcon("images/stage/stageSelectBackground.png").getImage();
 	
 	public JButton sauceBtn = new JButton();
 	public JButton cheeseBtn = new JButton();
@@ -25,11 +25,10 @@ public class StageSelectPanel extends JPanel{
 	public StageSelectPanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
-		
-		sauceBtn.setContentAreaFilled(false);
+
 		
 		cheeseBtn.setVisible(true);
-		cheeseBtn.setBounds(520, 45, 275, 160);
+		cheeseBtn.setBounds(979, 558, 202, 116);
 		cheeseBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
@@ -42,7 +41,7 @@ public class StageSelectPanel extends JPanel{
 		this.add(cheeseBtn);
 		
 		onionBtn.setVisible(true);
-		onionBtn.setBounds(875, 145, 270, 195);
+		onionBtn.setBounds(857, 131, 202, 156);
 		onionBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
@@ -53,7 +52,7 @@ public class StageSelectPanel extends JPanel{
 		this.add(onionBtn);
 		
 		pimangBtn.setVisible(true);
-		pimangBtn.setBounds(155, 415, 265, 165);
+		pimangBtn.setBounds(515, 64, 256, 136);
 		pimangBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
@@ -64,7 +63,7 @@ public class StageSelectPanel extends JPanel{
 		this.add(pimangBtn);
 		
 		pepperoniBtn.setVisible(true);
-		pepperoniBtn.setBounds(520, 505, 270, 165);
+		pepperoniBtn.setBounds(960, 353, 202, 133);
 		pepperoniBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
@@ -77,17 +76,20 @@ public class StageSelectPanel extends JPanel{
 		this.add(pepperoniBtn);
 		
 		mushroomBtn.setVisible(true);
-		mushroomBtn.setBounds(875, 430, 250, 155);
+		mushroomBtn.setBounds(176, 157, 222, 160);
 		mushroomBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
 				game.mushroomPanel.setVisible(true);
+				game.mushroomPanel.setFocusable(true);	
+				game.mushroomPanel.requestFocus();
+				game.mushroomPanel.startGame();
 			}
 		});
 		this.add(mushroomBtn);
 		
 		sauceBtn.setVisible(true);
-		sauceBtn.setBounds(165, 155, 275, 170);
+		sauceBtn.setBounds(103, 394, 202, 266);
 		sauceBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
@@ -100,7 +102,7 @@ public class StageSelectPanel extends JPanel{
 		this.add(sauceBtn);
 		
 		BagBtn.setVisible(true);
-		BagBtn.setBounds(520, 270, 275, 173);
+		BagBtn.setBounds(482, 273, 315, 447);
 		BagBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				
