@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import bag.Bag;
 import cheese.CheesePanel;
 import mushroom.MushroomPanel;
 import onion.OnionPanel;
@@ -27,6 +28,8 @@ public class Game extends JFrame {
 	public PepperoniPanel pepperoniPanel = new PepperoniPanel(this);
 	public SaucePanel saucePanel = new SaucePanel(this);
 	public PaprikaPanel paprikaPanel = new PaprikaPanel(this);
+	
+	public Bag bag = new Bag();
 	
 	public Game() {
 		super("Today I'm Pizza King");
@@ -72,10 +75,6 @@ public class Game extends JFrame {
 		
 		add(saucePanel);
 		saucePanel.setVisible(false);
-		
-		
-		
-		
 		
 		add(paprikaPanel);
 		paprikaPanel.setVisible(false);
