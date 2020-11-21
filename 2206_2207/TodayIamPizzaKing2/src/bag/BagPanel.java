@@ -14,16 +14,19 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import code.Game;
+
 public class BagPanel extends JPanel {
 	private Image backgroundImage = new ImageIcon("images/stage/endImg.png").getImage();
 
 	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
 
-	private JButton backButton = new JButton(backButtonImg);
+	private JButton backButton;
+	private JButton makeButton;
 	
 	private JLabel sauceLabel, mushLabel, papLabel, onionLabel, pepperLabel, cheeseLabel;
 
-	public BagPanel() {
+	public BagPanel(Game game) {
 		setLayout(null);
 		setBounds(250, 110, 800, 500);
 
@@ -52,6 +55,7 @@ public class BagPanel extends JPanel {
 		cheeseLabel.setVisible(false);
 		add(cheeseLabel);
 		
+		backButton = new JButton(backButtonImg);
 		backButton.setVisible(true);
 		backButton.setBounds(800-64, 0, 64, 64);
 		backButton.setBorderPainted(false);
@@ -62,6 +66,19 @@ public class BagPanel extends JPanel {
 			}
 		});
 		add(backButton);
+		
+		makeButton = new JButton("¸¸µé±â");
+		makeButton.setVisible(true);
+		makeButton.setBounds(325, 425, 150, 55);
+		makeButton.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				setVisible(false);
+				game.resultPanel.make();
+				game.stageSelectPanel.setVisible(false);
+				game.resultPanel.setVisible(true);
+			}
+		});
+		add(makeButton);
 
 	}
 	

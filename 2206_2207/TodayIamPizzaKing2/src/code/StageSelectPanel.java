@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import bag.BagPanel;
 
-public class StageSelectPanel extends JPanel{
+public class StageSelectPanel extends JPanel{	
 	private Image backgroundImage = new ImageIcon("images/stage/stageSelectBackground.png").getImage();
 	
 	public JButton sauceBtn = new JButton();
@@ -22,12 +22,13 @@ public class StageSelectPanel extends JPanel{
 	public JButton mushroomBtn = new JButton();
 	public JButton BagBtn = new JButton();
 	
-	private BagPanel bagPanel = new BagPanel(); 
+	private BagPanel bagPanel; 
 	
 	public StageSelectPanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 		
+		bagPanel = new BagPanel(game);
 		bagPanel.setVisible(false);
 		add(bagPanel);
 		

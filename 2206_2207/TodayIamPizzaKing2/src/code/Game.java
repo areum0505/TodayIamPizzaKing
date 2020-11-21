@@ -22,6 +22,7 @@ public class Game extends JFrame {
 	public StartPanel startPanel = new StartPanel(this);
 	public SettingPanel settingPanel = new SettingPanel(this);
 	public StageSelectPanel stageSelectPanel = new StageSelectPanel(this);
+	public ResultPanel resultPanel = new ResultPanel(this);
 	
 	public CheesePanel cheesePanel = new CheesePanel(this);
 	public OnionPanel onionPanel = new OnionPanel(this);
@@ -29,8 +30,6 @@ public class Game extends JFrame {
 	public PepperoniPanel pepperoniPanel = new PepperoniPanel(this);
 	public SaucePanel saucePanel = new SaucePanel(this);
 	public PaprikaPanel paprikaPanel = new PaprikaPanel(this);
-	
-	
 	
 	public Game() {
 		super("Today I'm Pizza King");
@@ -61,6 +60,9 @@ public class Game extends JFrame {
 		
 		add(stageSelectPanel);
 		stageSelectPanel.setVisible(false);
+		
+		add(resultPanel);
+		resultPanel.setVisible(false);
 		
 		add(cheesePanel);
 		cheesePanel.setVisible(false);
