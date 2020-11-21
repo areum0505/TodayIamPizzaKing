@@ -30,9 +30,8 @@ class PaprikaEnd extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				game.paprikaPanel.setVisible(false);
-				
 				game.stageSelectPanel.setVisible(true);
-				
+				game.paprikaPanel.reset();
 			}
 		});
 	}

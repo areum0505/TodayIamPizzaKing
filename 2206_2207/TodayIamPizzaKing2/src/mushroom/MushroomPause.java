@@ -1,4 +1,4 @@
-package paprika;
+package mushroom;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -7,11 +7,12 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import code.Game;
 
-public class PaprikaPause extends JPanel{
+public class MushroomPause extends JPanel{
 	Game game;
 	
 	private Image pauseImg = new ImageIcon("images/stage/pauseImg.png").getImage();
@@ -19,7 +20,7 @@ public class PaprikaPause extends JPanel{
 	JButton quitButton = new JButton();
 	JButton continueButton = new JButton();
 	
-	public PaprikaPause(Game game) {
+	public MushroomPause(Game game) {
 		setLayout(null);
 		setBounds((1280/2)-(pauseImg.getWidth(null)/2) , (720/2)-(pauseImg.getHeight(null)/2), 800, 500);
 		
@@ -31,10 +32,9 @@ public class PaprikaPause extends JPanel{
 		quitButton.setContentAreaFilled(false);
 		quitButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.paprikaPanel.td.stop();
-				game.paprikaPanel.win = 0;
 				game.stageSelectPanel.setVisible(true);
-				game.paprikaPanel.setVisible(false);
+				game.mushroomPanel.setVisible(false);
+				
 				setVisible(false);
 			}
 		});
@@ -46,7 +46,8 @@ public class PaprikaPause extends JPanel{
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.paprikaPanel.startGame();
+				
+				
 				setVisible(false);
 			}
 		});

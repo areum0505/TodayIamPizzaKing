@@ -1,4 +1,4 @@
-package paprika;
+package onion;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import code.Game;
 
-public class PaprikaPause extends JPanel{
+public class OnionPause extends JPanel{
 	Game game;
 	
 	private Image pauseImg = new ImageIcon("images/stage/pauseImg.png").getImage();
@@ -19,7 +19,7 @@ public class PaprikaPause extends JPanel{
 	JButton quitButton = new JButton();
 	JButton continueButton = new JButton();
 	
-	public PaprikaPause(Game game) {
+	public OnionPause(Game game) {
 		setLayout(null);
 		setBounds((1280/2)-(pauseImg.getWidth(null)/2) , (720/2)-(pauseImg.getHeight(null)/2), 800, 500);
 		
@@ -31,10 +31,10 @@ public class PaprikaPause extends JPanel{
 		quitButton.setContentAreaFilled(false);
 		quitButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.paprikaPanel.td.stop();
-				game.paprikaPanel.win = 0;
+				
 				game.stageSelectPanel.setVisible(true);
-				game.paprikaPanel.setVisible(false);
+				game.onionPanel.setVisible(false);
+				game.onionPanel.reset();
 				setVisible(false);
 			}
 		});
@@ -46,7 +46,7 @@ public class PaprikaPause extends JPanel{
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.paprikaPanel.startGame();
+				
 				setVisible(false);
 			}
 		});

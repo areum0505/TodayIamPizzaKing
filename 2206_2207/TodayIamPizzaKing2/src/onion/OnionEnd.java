@@ -32,8 +32,8 @@ class OnionEnd extends JDialog {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				game.onionPanel.setVisible(false);
 				game.onionPanel.reset();
+				game.onionPanel.setVisible(false);
 				game.stageSelectPanel.setVisible(true);
 			}
 		});
@@ -41,6 +41,7 @@ class OnionEnd extends JDialog {
 	public void Success() {
 		setTitle("success");
 		setVisible(true);
+		
 		
 	}
 	

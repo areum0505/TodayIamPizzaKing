@@ -73,10 +73,6 @@ public class Game extends JFrame {
 		add(saucePanel);
 		saucePanel.setVisible(false);
 		
-		
-		
-		
-		
 		add(paprikaPanel);
 		paprikaPanel.setVisible(false);
 		

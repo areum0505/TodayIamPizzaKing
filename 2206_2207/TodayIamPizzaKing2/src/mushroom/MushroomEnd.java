@@ -11,6 +11,7 @@ import javax.swing.WindowConstants;
 
 import code.Game;
 
+
 class MushroomEnd extends JDialog {
 	
 	private ImageIcon endImg = new ImageIcon("images/paprika/endImg.png");

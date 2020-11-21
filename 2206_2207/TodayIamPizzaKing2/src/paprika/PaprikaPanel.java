@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import code.Music;
+
 class Bar extends JLabel {
 	
 	int width, height;
@@ -42,7 +44,7 @@ class EnemyBar extends JLabel{
 	
 	int width, height;
 	
-	int ran = ((int)(Math.random()*3)+1)*20;
+	int ran = ((int)(Math.random()*3)+1)*15;
 	
 	public EnemyBar() {
 		this.width = ran;
@@ -68,7 +70,7 @@ class EnemyBar extends JLabel{
 		this.height = height;
 	}
 	public void clear() {
-		int ran = ((int)(Math.random()*3)+1)*30;
+		int ran = ((int)(Math.random()*3)+1)*15;
 		this.width = ran;
 		this.height = 500;
 		setSize(width,height);
@@ -80,7 +82,6 @@ class Game implements Runnable {
 	private ChoiceBar choiceBar;
 	EnemyBar enemy1, enemy2, enemy3; 
 	JLabel knife;
-	public boolean running = true;
 	
 	public Game(Bar bar, ChoiceBar choiceBar, JLabel knife) {
 		this.bar = bar;
@@ -90,7 +91,7 @@ class Game implements Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(running) {
+		while(true) {
 			moveChoiceBar();
 		}
 	}
@@ -185,26 +186,30 @@ public class PaprikaPanel extends JPanel{
 		paprika.setBounds(250,140, redPap.getIconWidth(), redPap.getIconHeight());
 		add(paprika);
 		
-		
-		//add(bar);
-		
 		score = new JLabel("000");
 		score.setFont(new Font("³ª´®°íµñ ExtraBold", Font.BOLD, 30));
 		score.setForeground(Color.red);
 		score.setBounds(1100, 70, 500, 50);
-		
 		add(score);
-		
-		g = new Game(bar, choiceBar, knife);
-		td = new Thread(g);
-		td.start();
-		
 		
 		setVisible(true);
 		addKeyListener(new MyKeyListener());
 	}
+	public void startGame() {
+		
+		win=0;
+		score.setText("000");
+		g = new Game(bar, choiceBar, knife);
+		td = new Thread(g);
+		td.start();
+		System.out.println(win);
+		paprikaCheck();
 	
-
+		
+	}
+	public void reset() {
+		win=0;
+	}
 	class MyKeyListener extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
@@ -212,23 +217,17 @@ public class PaprikaPanel extends JPanel{
 			
 			switch(keyCode) {
 				case KeyEvent.VK_SPACE:
-					System.out.println("½ºÆäÀÌ½º ´©¸§");
-				
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
 					crashCheck();
 					break;
 				case KeyEvent.VK_ESCAPE:
-					g.running = false;
+					td.stop();
 					paprikaPause.setVisible(true);
-				
 					break;
 				
 			}
 		}
-	}
-	
-	public void reset() {
-		win = 0;
-		g.running = true;
 	}
 	public void paprikaCheck() {
 		
@@ -247,6 +246,13 @@ public class PaprikaPanel extends JPanel{
 			enemy1.setBackground(Color.yellow);
 			enemy2.setBackground(Color.yellow);
 			enemy3.setBackground(Color.yellow);
+		}else {
+			paprika.setIcon(redPap);
+			paprika.setBounds(250,140, redPap.getIconWidth(), redPap.getIconHeight());
+			score.setForeground(Color.red);
+			enemy1.setBackground(Color.red);
+			enemy2.setBackground(Color.red);
+			enemy3.setBackground(Color.red);
 		}
 	}
 	public void crashCheck() {
@@ -279,18 +285,21 @@ public class PaprikaPanel extends JPanel{
 			enemy3.setLocation(700,100);
 			
 		}else {
-				g.running = false;
+				td.stop();
 				paprikaEnd.Fail();
-			
+				win=0;
+				score.setText("000");
 		}
 	}
 	public void scoreCheck() {
 		if(win==900) {
-			g.running=false;
+			td.stop();
 			System.out.println("ÇÇ¸ÁÅ¬¸®¾î");
 			score.setText(Integer.toString(win));
 			paprikaEnd.Success();
-			
+			reset();
+			System.out.println(win);
+			score.setText("000");
 		}
 	}
 	

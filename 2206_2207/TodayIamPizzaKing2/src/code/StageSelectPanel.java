@@ -4,12 +4,15 @@ import java.awt.AWTException;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Robot;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class StageSelectPanel extends JPanel{
 	private Image backgroundImage = new ImageIcon("images/stage/stageSelectBackground.png").getImage();
@@ -21,6 +24,7 @@ public class StageSelectPanel extends JPanel{
 	public JButton pepperoniBtn = new JButton();
 	public JButton mushroomBtn = new JButton();
 	public JButton BagBtn = new JButton();
+	public JButton BackBtn = new JButton();
 	
 	public StageSelectPanel(Game game) {
 		setLayout(null);
@@ -46,7 +50,9 @@ public class StageSelectPanel extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
 				game.onionPanel.setVisible(true);
-				
+				game.onionPanel.setFocusable(true);
+				game.onionPanel.requestFocus();
+
 			}
 		});
 		this.add(onionBtn);
@@ -57,7 +63,9 @@ public class StageSelectPanel extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(false);
 				game.paprikaPanel.setVisible(true);
+				game.paprikaPanel.setFocusable(true);		
 				game.paprikaPanel.requestFocus();
+				game.paprikaPanel.startGame();
 			}
 		});
 		this.add(pimangBtn);
@@ -110,6 +118,16 @@ public class StageSelectPanel extends JPanel{
 		});
 		this.add(BagBtn);
 		
+		BackBtn.setVisible(true);
+		BackBtn.setBounds(30, 30, 60, 60);
+		BackBtn.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				game.stageSelectPanel.setVisible(false);
+				game.startPanel.setVisible(true);
+			}
+		});
+		this.add(BackBtn);
+		
 		sauceBtn.setBorderPainted(false);
 		sauceBtn.setContentAreaFilled(false);
 	
@@ -130,6 +148,9 @@ public class StageSelectPanel extends JPanel{
 	
 		BagBtn.setBorderPainted(false);
 		BagBtn.setContentAreaFilled(false);
+		
+		BackBtn.setBorderPainted(false);
+		BackBtn.setContentAreaFilled(false);
 	
 	}
 	
