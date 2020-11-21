@@ -8,6 +8,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -235,8 +238,17 @@ public class MushroomPanel extends JPanel{
 	public void checkScore() {
 		if(winScore == 200) {
 			targetThread.stop();
-			mushroomEnd.Success();
 			
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("¹ö¼¸ ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			mushroomEnd.Success();
 		}
 	}
 	@Override

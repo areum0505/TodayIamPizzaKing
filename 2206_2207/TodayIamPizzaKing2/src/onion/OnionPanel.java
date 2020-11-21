@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -230,6 +233,15 @@ public class OnionPanel extends JPanel implements ActionListener{
 	
 	public void chkOnionResult() {
 		if(gameScore>=300) {
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("¾çÆÄ ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			onionEnd.Success();
 		}
 		System.out.println("½ÇÇàµÊ");

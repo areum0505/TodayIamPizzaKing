@@ -1,20 +1,13 @@
 package code;
 
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public class StartPanel extends JPanel {
 	private Image backgroundImage = new ImageIcon("images/main/startBackground.png").getImage(); // 배경이미지
@@ -30,24 +23,9 @@ public class StartPanel extends JPanel {
 	public JButton settingButton = new JButton(settingButtonImg);
 	public JButton quitButton = new JButton(quitButtonImg);
 
-	public static String name;
-	private JLabel nameLabel;
-	private JTextField playerName;
-
 	public StartPanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
-
-		nameLabel = new JLabel("이름을 입력해 주세요");
-		nameLabel.setVisible(true);
-		nameLabel.setBounds(975, 100, 280, 38);
-		nameLabel.setFont(new Font("나눔바른고딕", Font.PLAIN, 30));
-		this.add(nameLabel);
-		playerName = new JTextField();
-		playerName.setVisible(true);
-		playerName.setBounds(1000, 150, 200, 60);
-		playerName.setFont(new Font("나눔바른고딕", Font.BOLD, 35));
-		this.add(playerName);
 
 		startButton.setVisible(true);
 		startButton.setBounds(953, 265, 300, 125);
@@ -63,14 +41,6 @@ public class StartPanel extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
-				if (playerName.getText().trim().length() == 0) {
-					JOptionPane op = new JOptionPane();
-					op.showMessageDialog(null, "이름을 입력해주세요");
-					return;
-				} else {
-					
-				}
-
 				Music buttonClick = new Music("buttonClick1.mp3", false);
 				buttonClick.start();
 				game.startPanel.setVisible(false);

@@ -1,5 +1,9 @@
 package sauce;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -124,6 +128,15 @@ public class Player extends Thread {
 			for (int i = 0; i < beamList.size(); i++) {
 				beamList.get(i).setStop(true);
 
+			}
+			
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("¼Ò½º ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 
 			endPanel.Clear();

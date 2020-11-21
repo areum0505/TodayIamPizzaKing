@@ -1,15 +1,15 @@
 package code;
 
-import java.awt.AWTException;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Robot;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import bag.BagPanel;
 
 public class StageSelectPanel extends JPanel{
 	private Image backgroundImage = new ImageIcon("images/stage/stageSelectBackground.png").getImage();
@@ -22,10 +22,14 @@ public class StageSelectPanel extends JPanel{
 	public JButton mushroomBtn = new JButton();
 	public JButton BagBtn = new JButton();
 	
+	private BagPanel bagPanel = new BagPanel(); 
+	
 	public StageSelectPanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
-
+		
+		bagPanel.setVisible(false);
+		add(bagPanel);
 		
 		cheeseBtn.setVisible(true);
 		cheeseBtn.setBounds(979, 558, 202, 116);
@@ -105,7 +109,8 @@ public class StageSelectPanel extends JPanel{
 		BagBtn.setBounds(482, 273, 315, 447);
 		BagBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				bagPanel.check();
+				bagPanel.setVisible(true);
 			}
 		});
 		this.add(BagBtn);
