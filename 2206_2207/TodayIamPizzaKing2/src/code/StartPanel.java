@@ -1,30 +1,28 @@
 package code;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-class StartPanel extends JPanel {
-	private Image backgroundImage = new ImageIcon("images/main/startBackground.png").getImage();			// 배경이미지
-	
-	private ImageIcon startButtonImg = new ImageIcon("images/main/startBtn.png");			// 버튼들 이미지
+public class StartPanel extends JPanel {
+	private Image backgroundImage = new ImageIcon("images/main/startBackground.png").getImage(); // 배경이미지
+
+	private ImageIcon startButtonImg = new ImageIcon("images/main/startBtn.png"); // 버튼들 이미지
 	private ImageIcon settingButtonImg = new ImageIcon("images/main/settingBtn.png");
 	private ImageIcon quitButtonImg = new ImageIcon("images/main/quitBtn.png");
-	private ImageIcon enteredStartButtonImg = new ImageIcon("images/main/enteredStartBtn.png");			// 버튼들 이미지
+	private ImageIcon enteredStartButtonImg = new ImageIcon("images/main/enteredStartBtn.png"); // 버튼들 이미지
 	private ImageIcon enteredSettingButtonImg = new ImageIcon("images/main/enteredSettingBtn.png");
 	private ImageIcon enteredQuitButtonImg = new ImageIcon("images/main/enteredQuitBtn.png");
-	
-	public JButton startButton = new JButton(startButtonImg);										// 시작화면의 버튼들
+
+	public JButton startButton = new JButton(startButtonImg); // 시작화면의 버튼들
 	public JButton settingButton = new JButton(settingButtonImg);
 	public JButton quitButton = new JButton(quitButtonImg);
-	
+
 	public StartPanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
@@ -37,10 +35,12 @@ class StartPanel extends JPanel {
 			public void mouseEntered(MouseEvent e) {
 				startButton.setIcon(enteredStartButtonImg);
 			}
+
 			public void mouseExited(MouseEvent e) {
 				startButton.setIcon(startButtonImg);
 			}
-			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+
+			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
 				Music buttonClick = new Music("buttonClick1.mp3", false);
 				buttonClick.start();
 				game.startPanel.setVisible(false);
@@ -48,7 +48,7 @@ class StartPanel extends JPanel {
 			}
 		});
 		this.add(startButton);
-		
+
 		settingButton.setVisible(true);
 		settingButton.setBounds(953, 418, 300, 125);
 		settingButton.setBorderPainted(false);
@@ -57,10 +57,12 @@ class StartPanel extends JPanel {
 			public void mouseEntered(MouseEvent e) {
 				settingButton.setIcon(enteredSettingButtonImg);
 			}
+
 			public void mouseExited(MouseEvent e) {
 				settingButton.setIcon(settingButtonImg);
 			}
-			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+
+			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
 				Music buttonClick = new Music("buttonClick1.mp3", false);
 				buttonClick.start();
 				game.startPanel.setVisible(false);
@@ -69,7 +71,7 @@ class StartPanel extends JPanel {
 			}
 		});
 		this.add(settingButton);
-		
+
 		quitButton.setVisible(true);
 		quitButton.setBounds(953, 565, 300, 125);
 		quitButton.setBorderPainted(false);
@@ -78,10 +80,12 @@ class StartPanel extends JPanel {
 			public void mouseEntered(MouseEvent e) {
 				quitButton.setIcon(enteredQuitButtonImg);
 			}
+
 			public void mouseExited(MouseEvent e) {
 				quitButton.setIcon(quitButtonImg);
 			}
-			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때 
+
+			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
 				Music buttonClick = new Music("buttonClick1.mp3", false);
 				buttonClick.start();
 				System.exit(0);
@@ -89,7 +93,7 @@ class StartPanel extends JPanel {
 		});
 		this.add(quitButton);
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

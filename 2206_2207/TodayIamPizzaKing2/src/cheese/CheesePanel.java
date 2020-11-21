@@ -15,6 +15,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -110,6 +113,15 @@ public class CheesePanel extends JPanel {
 
 	public void checkExit(int x, int y) {
 		if (1155 < x && (exit.getY() < y && y < exit.getY() + 133)) {
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("ДЎБо ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			endPanel.Success();
 		}
 	}

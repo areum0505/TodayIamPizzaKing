@@ -5,7 +5,15 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+>>>>>>> origin/master
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -146,6 +154,74 @@ public class MushroomPanel extends JPanel {
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	class BulletThread extends Thread {
+		JComponent target;
+		Pizza pizza;
+		Thread targetThread;
+	
+		public BulletThread(Pizza pizza, JComponent target, Thread targetThread) {
+			this.pizza = pizza;
+			this.target = target;
+			this.targetThread = targetThread;
+		}
+		@Override
+		public void run() {
+			while(true) {
+				
+				if(hit()) {
+					targetThread.interrupt();
+					System.out.println("¸íÁßÇÔ");
+					winScore+=100;
+					scoreLabel.setText(Integer.toString(winScore));
+					return;
+				}
+				
+				try {
+					sleep(20);
+				}
+				catch(InterruptedException e) {}
+			}
+		}
+		
+		boolean hit() {
+			if(targetContains(pizza.getX(), pizza.getY()) || 
+					targetContains(pizza.getX() + pizza.getWidth() - 1, pizza.getY()) ||
+					targetContains(pizza.getX() + pizza.getWidth() - 1, pizza.getY()+pizza.getHeight() - 1) ||
+					targetContains(pizza.getX(), pizza.getY()+pizza.getHeight() - 1))
+				return true;
+			else
+				return false;					
+		}
+		
+		boolean targetContains(int x, int y) {
+			if(((target.getX() <= x) && (target.getX() + target.getWidth() - 1 >= x)) &&
+					((target.getY() <= y)&& (target.getY() + target.getHeight() - 1 >= y))) {
+				return true;
+			}
+			else
+				return false;
+			
+		}
+	}
+	public void checkScore() {
+		if(winScore == 200) {
+			targetThread.stop();
+			
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("¹ö¼¸ ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			mushroomEnd.Success();
+		}
+	}
+>>>>>>> origin/master
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

@@ -7,11 +7,17 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+<<<<<<< HEAD
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+=======
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+>>>>>>> origin/master
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
@@ -255,7 +261,20 @@ public class OnionPanel extends JPanel{
 	}
 
 	public void chkOnionResult() {
+<<<<<<< HEAD
 		if (gameScore >= 300) {
+=======
+		if(gameScore>=300) {
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("¾çÆÄ ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+>>>>>>> origin/master
 			onionEnd.Success();
 		}
 		System.out.println("½ÇÇàµÊ");

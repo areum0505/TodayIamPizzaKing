@@ -7,6 +7,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import bag.Bag;
+import bag.BagPanel;
 import cheese.CheesePanel;
 import mushroom.MushroomPanel;
 import onion.OnionPanel;
@@ -20,6 +22,7 @@ public class Game extends JFrame {
 	public StartPanel startPanel = new StartPanel(this);
 	public SettingPanel settingPanel = new SettingPanel(this);
 	public StageSelectPanel stageSelectPanel = new StageSelectPanel(this);
+	public ResultPanel resultPanel = new ResultPanel(this);
 	
 	public CheesePanel cheesePanel = new CheesePanel(this);
 	public OnionPanel onionPanel = new OnionPanel(this);
@@ -57,6 +60,9 @@ public class Game extends JFrame {
 		
 		add(stageSelectPanel);
 		stageSelectPanel.setVisible(false);
+		
+		add(resultPanel);
+		resultPanel.setVisible(false);
 		
 		add(cheesePanel);
 		cheesePanel.setVisible(false);

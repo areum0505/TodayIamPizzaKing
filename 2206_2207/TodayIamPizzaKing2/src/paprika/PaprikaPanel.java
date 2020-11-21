@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -296,10 +299,24 @@ public class PaprikaPanel extends JPanel{
 			td.stop();
 			System.out.println("피망클리어");
 			score.setText(Integer.toString(win));
+<<<<<<< HEAD
 			paprikaEnd.Success();
 			reset();
 			System.out.println(win);
 			score.setText("000");
+=======
+			
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("파프리카 ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			paprikaEnd.Success();
+>>>>>>> origin/master
 		}
 	}
 	

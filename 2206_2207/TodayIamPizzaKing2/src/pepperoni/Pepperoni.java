@@ -1,5 +1,8 @@
 package pepperoni;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -180,6 +183,16 @@ public class Pepperoni extends JLabel implements Runnable {
 		
 		if(count > 15) {
 			pp.setStop();
+			
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
+				bw.write("페퍼로니 ");
+				bw.flush();
+				bw.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			pepperoniEnd.Success();
 		}
 	}
