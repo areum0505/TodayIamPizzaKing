@@ -299,12 +299,11 @@ public class PaprikaPanel extends JPanel{
 			td.stop();
 			System.out.println("피망클리어");
 			score.setText(Integer.toString(win));
-<<<<<<< HEAD
+
 			paprikaEnd.Success();
 			reset();
 			System.out.println(win);
 			score.setText("000");
-=======
 			
 			try {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
@@ -316,7 +315,7 @@ public class PaprikaPanel extends JPanel{
 			}
 			
 			paprikaEnd.Success();
->>>>>>> origin/master
+
 		}
 	}
 	

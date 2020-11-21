@@ -5,15 +5,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-<<<<<<< HEAD
+
 import java.util.ArrayList;
-=======
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
->>>>>>> origin/master
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -104,27 +103,12 @@ public class MushroomPanel extends JPanel {
 	}
 	void plus() {
 		scoreLabel.setText(String.valueOf(score += 100));
-		scoreCheck();
+		checkScore();
 	}
 	void minus() {
 		scoreLabel.setText(String.valueOf(score -= 100));
-		scoreCheck();
+		checkScore();
 	}
-	void scoreCheck() {
-		if(score>=500) {
-			for (FriendMush f_Mush : f_MushList) {
-				f_Mush.setStop(true);
-			}
-			for (EnemyMush e_Mush : e_MushList) {
-				e_Mush.setStop(true);
-			}	
-			pizzaMan.setStop(true);
-			mushroomEnd.setVisible(true);
-			score = 0;
-			scoreLabel.setText("000");
-		}
-	}
-
 	class MyKeyListener extends KeyAdapter {
 
 		@Override
@@ -153,61 +137,18 @@ public class MushroomPanel extends JPanel {
 			}
 		}
 	}
-
-<<<<<<< HEAD
-=======
-	class BulletThread extends Thread {
-		JComponent target;
-		Pizza pizza;
-		Thread targetThread;
-	
-		public BulletThread(Pizza pizza, JComponent target, Thread targetThread) {
-			this.pizza = pizza;
-			this.target = target;
-			this.targetThread = targetThread;
-		}
-		@Override
-		public void run() {
-			while(true) {
-				
-				if(hit()) {
-					targetThread.interrupt();
-					System.out.println("¸íÁßÇÔ");
-					winScore+=100;
-					scoreLabel.setText(Integer.toString(winScore));
-					return;
-				}
-				
-				try {
-					sleep(20);
-				}
-				catch(InterruptedException e) {}
-			}
-		}
-		
-		boolean hit() {
-			if(targetContains(pizza.getX(), pizza.getY()) || 
-					targetContains(pizza.getX() + pizza.getWidth() - 1, pizza.getY()) ||
-					targetContains(pizza.getX() + pizza.getWidth() - 1, pizza.getY()+pizza.getHeight() - 1) ||
-					targetContains(pizza.getX(), pizza.getY()+pizza.getHeight() - 1))
-				return true;
-			else
-				return false;					
-		}
-		
-		boolean targetContains(int x, int y) {
-			if(((target.getX() <= x) && (target.getX() + target.getWidth() - 1 >= x)) &&
-					((target.getY() <= y)&& (target.getY() + target.getHeight() - 1 >= y))) {
-				return true;
-			}
-			else
-				return false;
-			
-		}
-	}
 	public void checkScore() {
-		if(winScore == 200) {
-			targetThread.stop();
+		if(score == 200) {
+			for (FriendMush f_Mush : f_MushList) {
+				f_Mush.setStop(true);
+			}
+			for (EnemyMush e_Mush : e_MushList) {
+				e_Mush.setStop(true);
+			}	
+			pizzaMan.setStop(true);
+			mushroomEnd.setVisible(true);
+			score = 0;
+			scoreLabel.setText("000");
 			
 			try {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
@@ -221,7 +162,6 @@ public class MushroomPanel extends JPanel {
 			mushroomEnd.Success();
 		}
 	}
->>>>>>> origin/master
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);

@@ -2,11 +2,10 @@ package code;
 
 import java.awt.Graphics;
 import java.awt.Image;
-<<<<<<< HEAD
+
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
-=======
->>>>>>> origin/master
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
