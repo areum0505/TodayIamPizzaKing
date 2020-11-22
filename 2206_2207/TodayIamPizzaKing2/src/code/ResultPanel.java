@@ -136,14 +136,7 @@ public class ResultPanel extends JPanel {
 		firstButton.setVisible(true);
 		firstButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt"));
-					bw.write("");
-					bw.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				
 				setVisible(false);
 				game.startPanel.setVisible(true);
 			}
@@ -164,7 +157,7 @@ public class ResultPanel extends JPanel {
 			if (s == null) {
 				sauce.setVisible(false);
 				mush.setVisible(false);
-				paprika.setVisible(false);
+				// paprika.setVisible(false);
 				onion.setVisible(false);
 				pepper.setVisible(false);
 				cheese.setVisible(false);
@@ -230,6 +223,15 @@ public class ResultPanel extends JPanel {
 			second.setText(name_a[1] + " 의 피자가게 - " + score_a[1] + "원");
 		if (name_a.length > 2)
 			third.setText(name_a[2] + " 의 피자가게 - " + score_a[2] + "원");
+		
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt"));
+			bw.write("");
+			bw.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	public void getRanking() {

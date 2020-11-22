@@ -85,7 +85,7 @@ public class BagPanel extends JPanel {
 				int selectedOption = JOptionPane.showOptionDialog(null, panel, "피자 만들기", JOptionPane.NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 				String text = txt.getText();
-				
+
 				if (selectedOption == -1) {
 					return;
 				}
@@ -93,6 +93,13 @@ public class BagPanel extends JPanel {
 					JOptionPane.showMessageDialog(null, "공백은 안됩니다.", "이름 입력", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
+
+				sauceLabel.setVisible(false);
+				mushLabel.setVisible(false);
+				papLabel.setVisible(false);
+				onionLabel.setVisible(false);
+				pepperLabel.setVisible(false);
+				cheeseLabel.setVisible(false);
 
 				game.resultPanel.make(text);
 				game.stageSelectPanel.setVisible(false);
@@ -109,46 +116,29 @@ public class BagPanel extends JPanel {
 			BufferedReader br = new BufferedReader(new FileReader("bag.txt"));
 			String s = br.readLine();
 
-			if(s == null) {
+			if (s == null) {
 				sauceLabel.setVisible(false);
 				mushLabel.setVisible(false);
 				papLabel.setVisible(false);
 				onionLabel.setVisible(false);
 				pepperLabel.setVisible(false);
 				cheeseLabel.setVisible(false);
-				
+
 				return;
 			}
-			
-			if (s.contains("소스")) 
+
+			if (s.contains("소스"))
 				sauceLabel.setVisible(true);
-			else 
-				sauceLabel.setVisible(false);
-			
 			if (s.contains("버섯"))
 				mushLabel.setVisible(true);
-			else
-				mushLabel.setVisible(false);
-			
 			if (s.contains("파프리카"))
 				papLabel.setVisible(true);
-			else
-				papLabel.setVisible(false);
-			
 			if (s.contains("양파"))
 				onionLabel.setVisible(true);
-			else
-				onionLabel.setVisible(false);
-			
 			if (s.contains("페퍼로니"))
 				pepperLabel.setVisible(true);
-			else
-				pepperLabel.setVisible(false);
-			
-			if (s.contains("치즈")) 
+			if (s.contains("치즈"))
 				cheeseLabel.setVisible(true);
-			else
-				cheeseLabel.setVisible(false);
 
 			br.close();
 		} catch (FileNotFoundException e) {
