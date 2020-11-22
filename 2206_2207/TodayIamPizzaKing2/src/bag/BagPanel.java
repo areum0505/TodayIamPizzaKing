@@ -104,7 +104,6 @@ public class BagPanel extends JPanel {
 				game.resultPanel.make(text);
 				game.stageSelectPanel.setVisible(false);
 				game.resultPanel.setVisible(true);
-
 			}
 		});
 		add(makeButton);

@@ -221,8 +221,12 @@ public class ResultPanel extends JPanel {
 		first.setText(name_a[0] + " 의 피자가게 - " + score_a[0] + "원");
 		if (name_a.length > 1)
 			second.setText(name_a[1] + " 의 피자가게 - " + score_a[1] + "원");
+		else
+			second.setText("");
 		if (name_a.length > 2)
 			third.setText(name_a[2] + " 의 피자가게 - " + score_a[2] + "원");
+		else
+			third.setText("");
 		
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt"));
