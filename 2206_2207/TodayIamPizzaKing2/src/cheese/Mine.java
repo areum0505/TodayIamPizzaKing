@@ -17,7 +17,7 @@ public class Mine extends JLabel {
 		
 		Random random = new Random();
 		x = random.nextInt(1280);
-		if(150 > x)
+		if(250 > x)
 			x += 143;
 		else if(1000 < x)
 			x -= 300;

@@ -13,11 +13,11 @@ public class Exit extends JLabel {
 	public Exit() {
 		setIcon(img);
 		
-		x = 1280 - img.getIconWidth() - 15;
+		x = 1280 - img.getIconWidth() - 20;
 		y = 5;
         setBounds(x, y, img.getIconWidth(), img.getIconHeight());
         
-        setVisible(true);
+        setVisible(false);
 	}
 
 	public int getX() {

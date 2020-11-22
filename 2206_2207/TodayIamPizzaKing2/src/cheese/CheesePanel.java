@@ -59,7 +59,7 @@ public class CheesePanel extends JPanel {
 	}
 
 	public void startGame() {
-		setMouseCursor(600, 750);
+		setMouseCursor(600, 800);
 		pizza.setLocation(getMousePosition().x - pizza.getWidth() / 2, getMousePosition().y - pizza.getHeight() / 2);
 		
 		mineList = new ArrayList<Mine>();
@@ -67,8 +67,6 @@ public class CheesePanel extends JPanel {
 			mineList.add(new Mine());
 			add(mineList.get(i));
 		}
-		
-		System.out.println(mineList.size());
 	}
 
 	public void setMouseCursor(int x, int y) {
@@ -112,7 +110,7 @@ public class CheesePanel extends JPanel {
 	}
 
 	public void checkExit(int x, int y) {
-		if (1155 < x && (exit.getY() < y && y < exit.getY() + 133)) {
+		if (1145 < x && (exit.getY() < y && y < exit.getY() + 140)) {
 			try {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
 				bw.write("ДЎБо ");
