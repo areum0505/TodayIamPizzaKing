@@ -34,6 +34,7 @@ public class MushroomPause extends JPanel{
 			public void mousePressed(MouseEvent e) {
 				game.stageSelectPanel.setVisible(true);
 				game.mushroomPanel.setVisible(false);
+				game.mushroomPanel.endGame();
 				
 				setVisible(false);
 			}
@@ -47,6 +48,20 @@ public class MushroomPause extends JPanel{
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				
+				game.mushroomPanel.pizzaMan.setPause(false);
+				
+				for (FriendMush f_Mush : game.mushroomPanel.f_MushList) {
+					f_Mush.setPause(false);
+
+				}
+				for (EnemyMush e_Mush : game.mushroomPanel.e_MushList) {
+					e_Mush.setPause(false);
+					
+				}
+				for (HeartMinusMush hm_Mush : game.mushroomPanel.hm_MushList) {
+					hm_Mush.setPause(false);
+					
+				}
 				
 				setVisible(false);
 			}

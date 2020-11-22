@@ -211,18 +211,17 @@ public class OnionPanel extends JPanel{
 		  btnRock.addMouseListener(listener); 
 		  btnScissors.addMouseListener(listener);
 		  btnPaper.addMouseListener(listener);
-		  
-		  AbstractAction escEvent = new AbstractAction() {
-			    public void actionPerformed(ActionEvent e) {
-			        
+		 
+		  @SuppressWarnings("serial")
+		AbstractAction escEvent = new AbstractAction() {
+
+				public void actionPerformed(ActionEvent e) { 
 			    	onionPause.setVisible(true);
-					System.out.println("´­·¶¶¥");
 			    }
 			};
-			InputMap im = this.getInputMap(this.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+			InputMap im = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 		
-			im.put(KeyStroke.getKeyStroke("ESCAPE"),
-			                            "esc");
+			im.put(KeyStroke.getKeyStroke("ESCAPE"),"esc");
 			getActionMap().put("esc", escEvent);
 		
 		  

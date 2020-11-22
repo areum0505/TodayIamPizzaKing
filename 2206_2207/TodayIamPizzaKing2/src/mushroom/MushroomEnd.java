@@ -34,6 +34,7 @@ class MushroomEnd extends JDialog {
 				setVisible(false);
 				game.mushroomPanel.setVisible(false);
 				game.stageSelectPanel.setVisible(true);
+				game.mushroomPanel.endGame();
 			}
 		});
 	}

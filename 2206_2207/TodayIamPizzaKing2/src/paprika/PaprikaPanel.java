@@ -47,7 +47,7 @@ class EnemyBar extends JLabel{
 	
 	int width, height;
 	
-	int ran = ((int)(Math.random()*3)+1)*15;
+	int ran = ((int)(Math.random()*2)+1)*30;
 	
 	public EnemyBar() {
 		this.width = ran;
@@ -73,7 +73,7 @@ class EnemyBar extends JLabel{
 		this.height = height;
 	}
 	public void clear() {
-		int ran = ((int)(Math.random()*3)+1)*15;
+		int ran = ((int)(Math.random()*2)+1)*30;
 		this.width = ran;
 		this.height = 500;
 		setSize(width,height);
@@ -142,11 +142,15 @@ public class PaprikaPanel extends JPanel{
 	private Image backgroundImage = new ImageIcon("images/paprika/paprikaBackground.png").getImage();
 	private ImageIcon knifeIcon = new ImageIcon("images/paprika/newKnife.png");
 	
-	private ImageIcon redPap = new ImageIcon("images/paprika/redPaprika90.png");
-	private ImageIcon yellowPap = new ImageIcon("images/paprika/yellowPaprika90.png");
-	private ImageIcon greenPap = new ImageIcon("images/paprika/greenPaprika90.png");
+	private ImageIcon redPap90 = new ImageIcon("images/paprika/redPaprika90.png");
+	private ImageIcon yellowPap90 = new ImageIcon("images/paprika/yellowPaprika90.png");
+	private ImageIcon greenPap90 = new ImageIcon("images/paprika/greenPaprika90.png");
 	
-	JLabel paprika, score;
+	private ImageIcon redPap = new ImageIcon("images/paprika/redPaprika.png");
+	private ImageIcon yellowPap = new ImageIcon("images/paprika/yellowPaprika.png");
+	private ImageIcon greenPap = new ImageIcon("images/paprika/greenPaprika.png");
+	
+	JLabel paprika, score, showRedPap, showYellowPap, showGreenPap ;
 
 	Bar bar = new Bar();
 	ChoiceBar choiceBar = new ChoiceBar();
@@ -185,17 +189,35 @@ public class PaprikaPanel extends JPanel{
 		add(enemy3);
 		
 		paprika = new JLabel();
-		paprika.setIcon(redPap);
-		paprika.setBounds(250,140, redPap.getIconWidth(), redPap.getIconHeight());
+		paprika.setIcon(redPap90);
+		paprika.setBounds(250,140, redPap90.getIconWidth(), redPap90.getIconHeight());
 		add(paprika);
 		
 		score = new JLabel("000");
-		score.setFont(new Font("³ª´®°íµñ ExtraBold", Font.BOLD, 30));
+		score.setFont(new Font("³ª´®°íµñ ExtraBold", Font.BOLD, 50));
 		score.setForeground(Color.red);
-		score.setBounds(1100, 70, 500, 50);
+		score.setBounds(1070, 20, 500, 50);
 		add(score);
 		
+		showGreenPap = new JLabel(greenPap);
+		showGreenPap.setBounds(970,50, greenPap.getIconWidth(), greenPap.getIconHeight());
+		add(showGreenPap);
+	
+		showYellowPap = new JLabel(yellowPap);
+		showYellowPap.setBounds(970,240, yellowPap.getIconWidth(), yellowPap.getIconHeight());
+		add(showYellowPap);
+
+		showRedPap = new JLabel(redPap);
+		showRedPap.setBounds(970,410, redPap.getIconWidth(), redPap.getIconHeight());
+		add(showRedPap);
+		
+		showGreenPap.setVisible(false);
+		showYellowPap.setVisible(false);
+		showRedPap.setVisible(false);
+		
+		
 		setVisible(true);
+		
 		addKeyListener(new MyKeyListener());
 	}
 	public void startGame() {
@@ -207,16 +229,19 @@ public class PaprikaPanel extends JPanel{
 		td.start();
 		System.out.println(win);
 		paprikaCheck();
-	
+		showGreenPap.setVisible(false);
+		showYellowPap.setVisible(false);
+		showRedPap.setVisible(false);
 		
-	}
-	public void reset() {
-		win=0;
+		//showGreenPap.setVisible(true);
+		//showYellowPap.setVisible(true);
+		//showRedPap.setVisible(true);
+		
 	}
 	class MyKeyListener extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
-			int keyCode = e.getKeyCode(); // »ó, ÇÏ, ÁÂ, ¿ì Å°´Â À¯´ÏÄÚµå Å°°¡ ¾Æ´Ô
+			int keyCode = e.getKeyCode(); 
 			
 			switch(keyCode) {
 				case KeyEvent.VK_SPACE:
@@ -235,27 +260,41 @@ public class PaprikaPanel extends JPanel{
 	public void paprikaCheck() {
 		
 		if(win>=600) {
-			paprika.setIcon(greenPap);
-			paprika.setBounds(250,140, greenPap.getIconWidth(), greenPap.getIconHeight());
+			paprika.setIcon(greenPap90);
+			paprika.setBounds(250,140, greenPap90.getIconWidth(), greenPap90.getIconHeight());
 			score.setForeground(Color.green);
 			enemy1.setBackground(Color.green);
 			enemy2.setBackground(Color.green);
 			enemy3.setBackground(Color.green);
 			
+			
 		}else if(win>=300) {
-			paprika.setIcon(yellowPap);
-			paprika.setBounds(250,140, yellowPap.getIconWidth(), yellowPap.getIconHeight());
+			paprika.setIcon(yellowPap90);
+			paprika.setBounds(250,140, yellowPap90.getIconWidth(), yellowPap90.getIconHeight());
 			score.setForeground(Color.yellow);
 			enemy1.setBackground(Color.yellow);
 			enemy2.setBackground(Color.yellow);
 			enemy3.setBackground(Color.yellow);
+			
 		}else {
-			paprika.setIcon(redPap);
-			paprika.setBounds(250,140, redPap.getIconWidth(), redPap.getIconHeight());
+			paprika.setIcon(redPap90);
+			paprika.setBounds(250,140, redPap90.getIconWidth(), redPap90.getIconHeight());
 			score.setForeground(Color.red);
 			enemy1.setBackground(Color.red);
 			enemy2.setBackground(Color.red);
 			enemy3.setBackground(Color.red);
+		
+			
+		}
+	}
+	public void showPaprika() {
+		if(win>=900) {
+			showGreenPap.setVisible(true);
+		}else if(win>=600) {
+			showYellowPap.setVisible(true);
+		}else if(win>=300){
+			showRedPap.setVisible(true);
+			
 		}
 	}
 	public void crashCheck() {
@@ -295,13 +334,14 @@ public class PaprikaPanel extends JPanel{
 		}
 	}
 	public void scoreCheck() {
+		showPaprika();
 		if(win==900) {
 			td.stop();
 			System.out.println("ÇÇ¸ÁÅ¬¸®¾î");
 			score.setText(Integer.toString(win));
 
 			paprikaEnd.Success();
-			reset();
+			win=0;
 			System.out.println(win);
 			score.setText("000");
 			
@@ -313,8 +353,6 @@ public class PaprikaPanel extends JPanel{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-			paprikaEnd.Success();
 
 		}
 	}

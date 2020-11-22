@@ -9,15 +9,18 @@ import javax.swing.JPanel;
 
 class FriendMush extends JLabel implements Runnable{
 	
-	ImageIcon pMush = new ImageIcon("images/mushroom/pMush.png");
+	ImageIcon fMush = new ImageIcon("images/mushroom/fMush.png");
+	ImageIcon emptyMush = new ImageIcon("images/mushroom/emptyMush.png");
 	static JLabel scoreLabel;
 	private int x, y = 0;
-	private int width = pMush.getIconWidth();
-	private int height = pMush.getIconHeight();
+	private int width = fMush.getIconWidth();
+	private int height = fMush.getIconHeight();
 	
 
 	ArrayList<FriendMush> f_MushList = new ArrayList<>();
 	private boolean stop = false;
+	public boolean pause = false;
+	//public boolean inter = false;
 	private int fMushCount = 0;
 	static int score =0;
 	
@@ -31,9 +34,9 @@ class FriendMush extends JLabel implements Runnable{
 		
 		this.mp = mp;
 		
-		setIcon(pMush);
+		setIcon(fMush);
 		ranX();
-		setBounds(getX(), getY(), pMush.getIconWidth(), pMush.getIconHeight());
+		setBounds(getX(), getY(), fMush.getIconWidth(), fMush.getIconHeight());
 	
 	
 		setVisible(true);
@@ -44,10 +47,22 @@ class FriendMush extends JLabel implements Runnable{
 	public void run() {
 		int count = 0;
 		// TODO Auto-generated method stub
+		
 		while(!stop) {
 			count++;
 			
 			drop();
+			
+			if (pause) {
+				while (pause) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		
 			if(hit()) {
 				check();
 			}
@@ -82,14 +97,16 @@ class FriendMush extends JLabel implements Runnable{
 		mp.plus();
 	
 	}
-	
+	public void setEmptyImg() {
+		setIcon(emptyMush);
+	}
 	
 	public static int getScore() {
 		return score;
 	}
 
 	boolean hit() {
-		if (getX()+getWidth() > p.getX() && p.getX() + p.getWidth()>getX()&& getY()+getHeight()>p.getY()&& p.getY()+ p.getHeight()>getY()) {
+		if (getX()+getWidth() > p.getX() && p.getX() + p.getWidth()>getX()&& getY()+getHeight()>p.getY()&& p.getY()+10>getY()) {
 			ranX();
 			setY(0);
 			setLocation(getX(), getY());
@@ -151,6 +168,10 @@ class FriendMush extends JLabel implements Runnable{
 		// TODO Auto-generated met
 		this.p = pizzaMan;
 	}
+	public void setPause(boolean b) {
+		this.pause = b;
+	}
+
 	
 }
 

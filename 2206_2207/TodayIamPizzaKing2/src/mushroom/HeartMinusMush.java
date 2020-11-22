@@ -7,34 +7,34 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-class EnemyMush extends JLabel implements Runnable{
+class HeartMinusMush extends JLabel implements Runnable{
 	
-	ImageIcon eMush = new ImageIcon("images/mushroom/eMush.png");
+	ImageIcon hmMush = new ImageIcon("images/mushroom/hmMush.png");
 	ImageIcon emptyMush = new ImageIcon("images/mushroom/emptyMush.png");
 	
 	static JLabel scoreLabel;
 	private int x, y = 0;
-	private int width = eMush.getIconWidth();
-	private int height = eMush.getIconHeight();
+	private int width = hmMush.getIconWidth();
+	private int height = hmMush.getIconHeight();
 	
 
-	private static ArrayList<EnemyMush> e_MushList = new ArrayList<>();
+	private static ArrayList<HeartMinusMush> hm_MushList = new ArrayList<>();
 	private boolean stop = false;
-	private int eMushCount = 0;
-	static int score =0;
+	private int hmMushCount = 0;
+	static int score = 0;
 	public boolean pause = false;
 	
 	Pizza p;
 	JPanel jp;
 	MushroomPanel mp;
 	
-	public EnemyMush(MushroomPanel mp) {
+	public HeartMinusMush(MushroomPanel mp) {
 		setLayout(null);
 		this.mp = mp;
 		
-		setIcon(eMush);
+		setIcon(hmMush);
 		ranX();
-		setBounds(getX(), getY(), eMush.getIconWidth(), eMush.getIconHeight());
+		setBounds(getX(), getY(), hmMush.getIconWidth(), hmMush.getIconHeight());
 		
 		setVisible(true);
 	
@@ -65,7 +65,7 @@ class EnemyMush extends JLabel implements Runnable{
 			}
 			
 			try {
-				Thread.sleep(150);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -88,12 +88,12 @@ class EnemyMush extends JLabel implements Runnable{
 			setLocation(getX(), getY());
 		}
 		
-		eMushCount++;
+		hmMushCount++;
 		getParent().repaint();
 	}
 	public void check() {
 	
-		mp.minus();
+		mp.minusHeart();
 		
 	}
 	public void setEmptyImg() {
@@ -141,22 +141,22 @@ class EnemyMush extends JLabel implements Runnable{
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	public int getEMushCount() {
-		return eMushCount;
+	public int getHmMushCount() {
+		return hmMushCount;
 	}
 
-	public void setEMushCount(int eMushCount) {
-		this.eMushCount = eMushCount;
+	public void setHmMushCount(int hmMushCount) {
+		this.hmMushCount = hmMushCount;
 	}
 	public void setStop(boolean stop) {
 		this.stop = stop;
 	}
-	public ArrayList<EnemyMush> getE_MushList() {
-		return e_MushList;
+	public ArrayList<HeartMinusMush> getHm_MushList() {
+		return hm_MushList;
 	}
 
-	public void setE_MushList(ArrayList<EnemyMush> e_MushList) {
-		this.e_MushList = e_MushList;
+	public void setHm_MushList(ArrayList<HeartMinusMush> hm_MushList) {
+		this.hm_MushList = hm_MushList;
 	}
 	public void setPizza(Pizza pizzaMan) {
 		// TODO Auto-generated met
