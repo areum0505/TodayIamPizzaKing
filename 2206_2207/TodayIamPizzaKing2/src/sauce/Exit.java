@@ -9,7 +9,7 @@ public class Exit {
 	private int y;
 	
 	private int floor;
-	private int[] exitY = {10, 152, 295, 437, 579};
+	private int[] exitY = {15, 157, 300, 440, 583};
 	
 	private Image img =  new ImageIcon("images/sauce/exit.png").getImage();
 
@@ -33,6 +33,11 @@ public class Exit {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	
+	public void changeY() {
+		floor = (int)(Math.random() * 5);
+		y = exitY[floor];
 	}
 	
 	public int getExitY() {

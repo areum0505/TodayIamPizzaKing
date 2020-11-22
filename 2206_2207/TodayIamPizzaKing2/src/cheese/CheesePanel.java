@@ -59,7 +59,7 @@ public class CheesePanel extends JPanel {
 	}
 
 	public void startGame() {
-		setMouseCursor(550, 700);
+		setMouseCursor(600, 750);
 		pizza.setLocation(getMousePosition().x - pizza.getWidth() / 2, getMousePosition().y - pizza.getHeight() / 2);
 		
 		mineList = new ArrayList<Mine>();
