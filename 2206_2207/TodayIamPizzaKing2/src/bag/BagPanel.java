@@ -22,6 +22,12 @@ public class BagPanel extends JPanel {
 	private Image backgroundImage = new ImageIcon("images/stage/endImg.png").getImage();
 
 	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
+	private ImageIcon sauceImg = new ImageIcon("images/main/sauce.png");
+	private ImageIcon mushImg = new ImageIcon("images/main/mushroom.png");
+	private ImageIcon papImg = new ImageIcon("images/main/paprika.png");
+	private ImageIcon onionImg = new ImageIcon("images/main/onion.png");
+	private ImageIcon pepperImg = new ImageIcon("images/main/pepperoni.png");
+	private ImageIcon cheeseImg = new ImageIcon("images/main/cheese.png");
 
 	private JButton backButton;
 	private JButton makeButton;
@@ -32,28 +38,28 @@ public class BagPanel extends JPanel {
 		setLayout(null);
 		setBounds(250, 110, 800, 500);
 
-		sauceLabel = new JLabel("소스");
-		sauceLabel.setBounds(10, 10, 100, 50);
+		sauceLabel = new JLabel(sauceImg);
+		sauceLabel.setBounds(10, 10, 100, 100);
 		sauceLabel.setVisible(false);
 		add(sauceLabel);
-		mushLabel = new JLabel("버섯");
-		mushLabel.setBounds(270, 10, 100, 50);
+		mushLabel = new JLabel(mushImg);
+		mushLabel.setBounds(270, 10, 100, 100);
 		mushLabel.setVisible(false);
 		add(mushLabel);
 		papLabel = new JLabel("파프리카");
-		papLabel.setBounds(530, 10, 100, 50);
+		papLabel.setBounds(530, 10, 100, 100);
 		papLabel.setVisible(false);
 		add(papLabel);
-		onionLabel = new JLabel("양파");
-		onionLabel.setBounds(10, 260, 100, 50);
+		onionLabel = new JLabel(onionImg);
+		onionLabel.setBounds(10, 260, 100, 100);
 		onionLabel.setVisible(false);
 		add(onionLabel);
-		pepperLabel = new JLabel("페퍼로니");
-		pepperLabel.setBounds(270, 260, 100, 50);
+		pepperLabel = new JLabel(pepperImg);
+		pepperLabel.setBounds(270, 260, 100, 100);
 		pepperLabel.setVisible(false);
 		add(pepperLabel);
-		cheeseLabel = new JLabel("치즈");
-		cheeseLabel.setBounds(530, 260, 100, 50);
+		cheeseLabel = new JLabel(cheeseImg);
+		cheeseLabel.setBounds(530, 260, 100, 100);
 		cheeseLabel.setVisible(false);
 		add(cheeseLabel);
 
@@ -64,6 +70,7 @@ public class BagPanel extends JPanel {
 		backButton.setContentAreaFilled(false);
 		backButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				game.stageSelectPanel.btnOn();
 				setVisible(false);
 			}
 		});
