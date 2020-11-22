@@ -17,7 +17,7 @@ public class SaucePanel extends JPanel{
 	
 	public SaucePausePanel pausePanel;
 	
-	private Image backgroundImage = new ImageIcon("images/stage/stage6Back.png").getImage();
+	private Image backgroundImage = new ImageIcon("images/stage/stage6Back1.png").getImage();
 	private ImageIcon pizzaImg =  new ImageIcon("images/character/pizza.png");
 	
 	public JLabel avatar;
@@ -34,16 +34,12 @@ public class SaucePanel extends JPanel{
 		beamList = new ArrayList<>();
 		
 		pausePanel = new SaucePausePanel(game);
-		// endPanel = new SauceEndPanel(this);
-		
-		//add(endPanel);
-		//endPanel.setVisible(false);
 		add(pausePanel);
 		pausePanel.setVisible(false);
 				
 		avatar = new JLabel(pizzaImg);
 		avatar.setVisible(true);
-		avatar.setBounds(30, 23, 92, 120);
+		avatar.setBounds(30, 11, 92, 120);
 		add(avatar);
 		
 		addKeyListener(new MyKeyListener()); // 키 리스너 등록
@@ -65,9 +61,11 @@ public class SaucePanel extends JPanel{
 			b.setBeamList(beamList);
 		}
 		
+		exit.changeY();
+		
 		player = new Player(avatar, exit.getExitY(), game);
 		player.setBeamList(beamList);
-		player.setX(30); player.setY(23);
+		player.setX(30); player.setY(11);
 		player.start();
 
 		for(Beam b : beamList) {
@@ -143,6 +141,6 @@ public class SaucePanel extends JPanel{
 		super.paintComponent(g);
 		
 		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
-		g.drawImage(exit.getImg(), exit.getX(), exit.getY(), exit.getImg().getWidth(null), exit.getImg().getHeight(null), null);
+		g.drawImage(exit.getImg(), exit.getX(), exit.getY(), 85, 115, null);
 	}
 }

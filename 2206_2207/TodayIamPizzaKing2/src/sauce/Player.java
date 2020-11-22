@@ -84,14 +84,14 @@ public class Player extends Thread {
 
 	public void up() {
 		if (y > 23) {
-			y -= 143;
+			y -= 142;
 			floor--;
 		}
 	}
 
 	public void down() {
 		if (y < 595) {
-			y += 143;
+			y += 142;
 			floor++;
 		}
 	}
@@ -121,13 +121,12 @@ public class Player extends Thread {
 	}
 
 	public void checkExit() {
-		if (1155 < x && (exitY < y && y < exitY + 133)) {
+		if (x > 1174) {
 			System.out.println("clear");
 			avatar.setIcon(clearImage);
 			stop();
 			for (int i = 0; i < beamList.size(); i++) {
 				beamList.get(i).setStop(true);
-
 			}
 			
 			try {

@@ -45,7 +45,7 @@ public class CheesePause extends JPanel {
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {				
-				game.cheesePanel.setMouseCursor(game.cheesePanel.getMouseX(), game.cheesePanel.getMouseY());
+				game.cheesePanel.setMouseCursor(game.cheesePanel.getMouseX() + 130, game.cheesePanel.getMouseY() - 20);
 				game.cheesePanel.setCursorImage(true);
 				setVisible(false);
 			}
