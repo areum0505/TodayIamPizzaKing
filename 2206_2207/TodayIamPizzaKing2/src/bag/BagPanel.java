@@ -12,7 +12,9 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import code.Game;
 
@@ -23,7 +25,7 @@ public class BagPanel extends JPanel {
 
 	private JButton backButton;
 	private JButton makeButton;
-	
+
 	private JLabel sauceLabel, mushLabel, papLabel, onionLabel, pepperLabel, cheeseLabel;
 
 	public BagPanel(Game game) {
@@ -54,10 +56,10 @@ public class BagPanel extends JPanel {
 		cheeseLabel.setBounds(530, 260, 100, 50);
 		cheeseLabel.setVisible(false);
 		add(cheeseLabel);
-		
+
 		backButton = new JButton(backButtonImg);
 		backButton.setVisible(true);
-		backButton.setBounds(800-64, 0, 64, 64);
+		backButton.setBounds(800 - 64, 0, 64, 64);
 		backButton.setBorderPainted(false);
 		backButton.setContentAreaFilled(false);
 		backButton.addMouseListener(new MouseAdapter() {
@@ -66,46 +68,78 @@ public class BagPanel extends JPanel {
 			}
 		});
 		add(backButton);
-		
+
 		makeButton = new JButton("만들기");
 		makeButton.setVisible(true);
 		makeButton.setBounds(325, 425, 150, 55);
 		makeButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				setVisible(false);
-				game.resultPanel.make();
+
+				String[] options = { "확인" };
+				JPanel panel = new JPanel();
+				JLabel lbl = new JLabel("이름을 입력해 주세요");
+				JTextField txt = new JTextField(10);
+				panel.add(lbl);
+				panel.add(txt);
+				int selectedOption = JOptionPane.showOptionDialog(null, panel, "피자 만들기", JOptionPane.NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+				String text = txt.getText();
+
+				if (selectedOption == -1) {
+					return;
+				}
+				if (text.trim().length() == 0) {
+					JOptionPane.showMessageDialog(null, "공백은 안됩니다.", "이름 입력", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+
+				sauceLabel.setVisible(false);
+				mushLabel.setVisible(false);
+				papLabel.setVisible(false);
+				onionLabel.setVisible(false);
+				pepperLabel.setVisible(false);
+				cheeseLabel.setVisible(false);
+
+				game.resultPanel.make(text);
 				game.stageSelectPanel.setVisible(false);
 				game.resultPanel.setVisible(true);
+
 			}
 		});
 		add(makeButton);
 
 	}
-	
+
 	public void check() {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("bag.txt"));
 			String s = br.readLine();
 
-			if(s.contains("소스")) {
+			if (s == null) {
+				sauceLabel.setVisible(false);
+				mushLabel.setVisible(false);
+				papLabel.setVisible(false);
+				onionLabel.setVisible(false);
+				pepperLabel.setVisible(false);
+				cheeseLabel.setVisible(false);
+
+				return;
+			}
+
+			if (s.contains("소스"))
 				sauceLabel.setVisible(true);
-			}
-			if(s.contains("버섯")) {
+			if (s.contains("버섯"))
 				mushLabel.setVisible(true);
-			}
-			if(s.contains("파프리카")) {
+			if (s.contains("파프리카"))
 				papLabel.setVisible(true);
-			}
-			if(s.contains("양파")) {
+			if (s.contains("양파"))
 				onionLabel.setVisible(true);
-			}
-			if(s.contains("페퍼로니")) {
+			if (s.contains("페퍼로니"))
 				pepperLabel.setVisible(true);
-			}
-			if(s.contains("치즈")) {
+			if (s.contains("치즈"))
 				cheeseLabel.setVisible(true);
-			}
-			
+
 			br.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

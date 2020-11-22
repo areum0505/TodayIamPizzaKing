@@ -7,8 +7,6 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-import bag.Bag;
-import bag.BagPanel;
 import cheese.CheesePanel;
 import mushroom.MushroomPanel;
 import onion.OnionPanel;

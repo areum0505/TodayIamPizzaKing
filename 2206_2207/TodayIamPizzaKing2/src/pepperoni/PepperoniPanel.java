@@ -1,5 +1,6 @@
 package pepperoni;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.KeyAdapter;
@@ -26,6 +27,7 @@ public class PepperoniPanel extends JPanel {
 	
 	private JLabel pepperoniCount;
 	private JLabel pizzaFace;
+	private JLabel remainingCount;
 	
 	private boolean isSpace = false;
 	private boolean backUp = false, plateUp = false;
@@ -69,6 +71,7 @@ public class PepperoniPanel extends JPanel {
         pepperonis.add(pepperoni);
         
         pepperoniCount.setText(pepperoni.getCount() - 1 + "°³");
+        remainingCount.setText("<html>ÆäÆÛ·Î´Ï È¹µæ±îÁö<br/>&emsp;&emsp;&emsp;" + (17 - pepperoni.getCount() - 1) + "°³</html>");
         
         th = new Thread(pepperoni);
         th.start();
@@ -90,12 +93,19 @@ public class PepperoniPanel extends JPanel {
 	public void draw() {		
 		pepperoniCount = new JLabel();
 		pepperoniCount.setFont(pepperoniCount.getFont().deriveFont(65.0f));
-		pepperoniCount.setBounds(1100, 50, 150, 100);
+		pepperoniCount.setBounds(1100, 120, 150, 100);
 		add(pepperoniCount);
 		
 		pizzaFace = new JLabel(happyPizza);
 		pizzaFace.setBounds(50, 50, happyPizza.getIconWidth(), happyPizza.getIconHeight());
 		add(pizzaFace);
+		
+		remainingCount = new JLabel();
+		
+		remainingCount.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 25));
+		remainingCount.setBounds(1015, 35, 260, 100);
+		remainingCount.setHorizontalAlignment(JLabel.CENTER);
+		add(remainingCount);
 		
 		pausePanel = new PepperoniPause(game);
 		add(pausePanel);
