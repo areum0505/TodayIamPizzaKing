@@ -36,7 +36,7 @@ public class ResultPanel extends JPanel {
 	private JLabel dough, sauce, mush, paprika, onion, pepper, cheese; // 피자 재료들
 	private JLabel money, won; // 점수
 
-	private String[] name_a;
+	private String[] name_a, pizza_a;
 	private int[] score_a;
 	private JLabel rank; // 순위
 	private JLabel first_l, second_l, third_l; // 1위 ~ 3위
@@ -136,7 +136,7 @@ public class ResultPanel extends JPanel {
 		firstButton.setVisible(true);
 		firstButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+
 				setVisible(false);
 				game.startPanel.setVisible(true);
 			}
@@ -144,8 +144,9 @@ public class ResultPanel extends JPanel {
 		add(firstButton);
 	}
 
-	public void make(String text) {
-		String name = text;
+	public void make(String text1, String text2) {
+		String name = text1;
+		String pizza = text2;
 		int score = 0;
 
 		try {
@@ -204,7 +205,7 @@ public class ResultPanel extends JPanel {
 				score += 1000;
 			}
 
-			bw.write(name + "\t" + score + "\n");
+			bw.write(name + "\t" + pizza + "\t" + score + "\n");
 
 			br.close();
 			bw.close();
@@ -218,16 +219,16 @@ public class ResultPanel extends JPanel {
 
 		money.setText(String.valueOf(score));
 
-		first.setText(name_a[0] + " 의 피자가게 - " + score_a[0] + "원");
+		first.setText(name_a[0] + "의 " + pizza_a[0] + " - " + score_a[0] + "원");
 		if (name_a.length > 1)
-			second.setText(name_a[1] + " 의 피자가게 - " + score_a[1] + "원");
+			second.setText(name_a[1] + "의 " + pizza_a[1] + " - " + score_a[1] + "원");
 		else
 			second.setText("");
 		if (name_a.length > 2)
-			third.setText(name_a[2] + " 의 피자가게 - " + score_a[2] + "원");
+			third.setText(name_a[2] + "의 " + pizza_a[2] + " - " + score_a[2] + "원");
 		else
 			third.setText("");
-		
+
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt"));
 			bw.write("");
@@ -253,25 +254,30 @@ public class ResultPanel extends JPanel {
 			} while (tmpStr != null);
 
 			StringTokenizer parse = new StringTokenizer(csvStr, "\t");
-			int length = parse.countTokens() / 2;
+			int length = parse.countTokens() / 3;
 			name_a = new String[length];
+			pizza_a = new String[length];
 			score_a = new int[length];
 
 			for (int i = 0; i < length; i++) {
 				name_a[i] = parse.nextToken();
+				pizza_a[i] = parse.nextToken();
 				score_a[i] = Integer.valueOf(parse.nextToken());
 			}
 
-			String tempName = "";
+			String tempName = "", tempPizza = "";
 			int tempScore = 0;
 			for (int i = 0; i < score_a.length - 1; i++) {
 				for (int j = i + 1; j < score_a.length; j++) {
 					if (score_a[i] < score_a[j]) {
 						tempName = name_a[i];
+						tempPizza = pizza_a[i];
 						tempScore = score_a[i];
 						name_a[i] = name_a[j];
+						pizza_a[i] = pizza_a[j];
 						score_a[i] = score_a[j];
 						name_a[j] = tempName;
+						pizza_a[j] = tempPizza;
 						score_a[j] = tempScore;
 					}
 				}
@@ -279,7 +285,6 @@ public class ResultPanel extends JPanel {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
