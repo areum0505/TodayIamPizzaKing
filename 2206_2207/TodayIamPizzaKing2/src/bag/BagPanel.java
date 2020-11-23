@@ -48,7 +48,7 @@ public class BagPanel extends JDialog {
 		setSize(915, 645);
 		setLocationRelativeTo(null);
 		setModal(true);
-		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+		setResizable(false);
 
 		jp = new JPanel();
 		jp.setLayout(null);
