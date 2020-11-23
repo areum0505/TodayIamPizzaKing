@@ -18,6 +18,7 @@ import javax.swing.KeyStroke;
 import bag.BagPanel;
 import cheese.CheeseExplain;
 import mushroom.MushroomExplain;
+import onion.OnionExplain;
 import sauce.SauceExplain;
 
 public class StageSelectPanel extends JPanel{	
@@ -35,6 +36,7 @@ public class StageSelectPanel extends JPanel{
 	
 	private SauceExplain sauceExplain;
 	private CheeseExplain cheeseExplain;
+	private OnionExplain onionExplain;
 	private MushroomExplain mushroomExplain;
 	
 	private BagPanel bagPanel; 
@@ -55,6 +57,9 @@ public class StageSelectPanel extends JPanel{
 		cheeseExplain = new CheeseExplain(game);
 		cheeseExplain.setVisible(false);
 		
+		onionExplain = new OnionExplain(game);
+		onionExplain.setVisible(false);
+		
 		cheeseBtn.setVisible(true);
 		cheeseBtn.setBounds(979, 558, 202, 116);
 		cheeseBtn.addMouseListener(new MouseAdapter() {
@@ -68,10 +73,7 @@ public class StageSelectPanel extends JPanel{
 		onionBtn.setBounds(857, 131, 202, 156);
 		onionBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.setVisible(false);
-				game.onionPanel.setVisible(true);
-				game.onionPanel.setFocusable(true);
-				game.onionPanel.requestFocus();
+				onionExplain.setVisible(true);
 
 			}
 		});
