@@ -1,20 +1,21 @@
 package code;
 
-import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.ScrollPane;
+import java.awt.GridLayout;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 public class RankingDialog extends JDialog {
 	private ImageIcon backgroundImage = new ImageIcon("images/main/ranking.png");
@@ -26,18 +27,19 @@ public class RankingDialog extends JDialog {
 
 	private JLabel back;
 
-	private ScrollPane scrollPane;
+	private JScrollPane scrollPane;
 	private JPanel outer;
 
-	private String[] name_a, pizza_a;
-	private int[] score_a;
-
+	private String[] name, pizza;
+	private int[] score;
+	
 	public RankingDialog() {
 		setTitle("Ranking");
 		setSize(900, 600);
 		setLocationRelativeTo(null);
 		setModal(true);
 		setResizable(false);
+		setLayout(null);
 
 		p = new JPanel();
 
@@ -47,12 +49,11 @@ public class RankingDialog extends JDialog {
 		back = new JLabel(backgroundImage);
 		back.setBounds(0, 0, 900, 600);
 		p.add(back);
-
-		scrollPane = new ScrollPane();
-		scrollPane.setBounds(9, 115, 872, 435);
+		
 		outer = new JPanel();
 		outer.setLayout(null);
 
+		
 		add(p);
 		p.setVisible(true);
 	}
@@ -62,9 +63,10 @@ public class RankingDialog extends JDialog {
 
 		int y = 10;
 
-		for (int i = 0; i < name_a.length; i++) {
-			JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-			panel.setBounds(10, y, 800, 50);
+		for (int i = 0; i < name.length; i++) {
+			JPanel panel = new JPanel(new BorderLayout());
+			panel.setBounds(25, y, 800, 50);
+			panel.setBackground(Color.WHITE);
 
 			JLabel rank = new JLabel();
 			switch (i) {
@@ -81,21 +83,24 @@ public class RankingDialog extends JDialog {
 				rank.setText((i + 1) + "À§");
 			}
 			rank.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 35));
-			panel.add(rank);
+			panel.add(rank, BorderLayout.WEST);
 
 			JLabel label = new JLabel();
 			label.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 35));
-			label.setText(name_a[i] + "ÀÇ " + pizza_a[i] + " - " + score_a[i] + "¿ø");
-			panel.add(label);
+			label.setText(name[i] + "ÀÇ " + pizza[i] + " - " + score[i] + "¿ø");
+			panel.add(label, BorderLayout.EAST);
 
 			outer.add(panel);
 
 			y += 100;
 		}
-
-		scrollPane.add(outer);
+		outer.setPreferredSize(new Dimension(800, y));
+		outer.setBackground(Color.WHITE);
+		scrollPane = new JScrollPane(outer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollPane.setBounds(9, 115, 872, 445);
 		p.add(scrollPane);
 		p.add(back);
+
 	}
 
 	public void getRanking() {
@@ -114,30 +119,30 @@ public class RankingDialog extends JDialog {
 
 			StringTokenizer parse = new StringTokenizer(csvStr, "\t");
 			int length = parse.countTokens() / 3;
-			name_a = new String[length];
-			pizza_a = new String[length];
-			score_a = new int[length];
+			name = new String[length];
+			pizza = new String[length];
+			score = new int[length];
 
 			for (int i = 0; i < length; i++) {
-				name_a[i] = parse.nextToken();
-				pizza_a[i] = parse.nextToken();
-				score_a[i] = Integer.valueOf(parse.nextToken());
+				name[i] = parse.nextToken();
+				pizza[i] = parse.nextToken();
+				score[i] = Integer.valueOf(parse.nextToken());
 			}
 
 			String tempName = "", tempPizza = "";
 			int tempScore = 0;
-			for (int i = 0; i < score_a.length - 1; i++) {
-				for (int j = i + 1; j < score_a.length; j++) {
-					if (score_a[i] < score_a[j]) {
-						tempName = name_a[i];
-						tempPizza = pizza_a[i];
-						tempScore = score_a[i];
-						name_a[i] = name_a[j];
-						pizza_a[i] = pizza_a[j];
-						score_a[i] = score_a[j];
-						name_a[j] = tempName;
-						pizza_a[j] = tempPizza;
-						score_a[j] = tempScore;
+			for (int i = 0; i < score.length - 1; i++) {
+				for (int j = i + 1; j < score.length; j++) {
+					if (score[i] < score[j]) {
+						tempName = name[i];
+						tempPizza = pizza[i];
+						tempScore = score[i];
+						name[i] = name[j];
+						pizza[i] = pizza[j];
+						score[i] = score[j];
+						name[j] = tempName;
+						pizza[j] = tempPizza;
+						score[j] = tempScore;
 					}
 				}
 			}
