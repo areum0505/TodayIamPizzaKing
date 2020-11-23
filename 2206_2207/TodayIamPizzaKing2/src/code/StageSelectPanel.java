@@ -40,7 +40,6 @@ public class StageSelectPanel extends JPanel{
 		
 		bagPanel = new BagPanel(game);
 		bagPanel.setVisible(false);
-		add(bagPanel);
 		
 		mushroomExplain = new MushroomExplain(game);
 		mushroomExplain.setVisible(false);
@@ -102,7 +101,6 @@ public class StageSelectPanel extends JPanel{
 		mushroomBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				mushroomExplain.setVisible(true);
-				
 			}
 		});
 		this.add(mushroomBtn);
@@ -125,7 +123,6 @@ public class StageSelectPanel extends JPanel{
 		BagBtn.setBounds(482, 273, 315, 447);
 		BagBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				btnOff();
 				bagPanel.check();
 				bagPanel.setVisible(true);
 			}

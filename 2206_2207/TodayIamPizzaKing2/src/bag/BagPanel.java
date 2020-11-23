@@ -1,6 +1,8 @@
 package bag;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -11,14 +13,16 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import code.Game;
 
-public class BagPanel extends JPanel {
+public class BagPanel extends JDialog {
 	private Image backgroundImage = new ImageIcon("images/stage/endImg.png").getImage();
 
 	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
@@ -29,39 +33,51 @@ public class BagPanel extends JPanel {
 	private ImageIcon pepperImg = new ImageIcon("images/main/pepperoni.png");
 	private ImageIcon cheeseImg = new ImageIcon("images/main/cheese.png");
 
+	private JPanel jp;
+
 	private JButton backButton;
 	private JButton makeButton;
 
 	private JLabel sauceLabel, mushLabel, papLabel, onionLabel, pepperLabel, cheeseLabel;
 
 	public BagPanel(Game game) {
-		setLayout(null);
-		setBounds(250, 110, 800, 500);
+//		setLayout(null);
+//		setBounds(250, 110, 800, 500);
+
+		setTitle("Bag");
+		setSize(915, 645);
+		setLocationRelativeTo(null);
+		setModal(true);
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+
+		jp = new JPanel();
+		jp.setLayout(null);
+		jp.setBounds(0, 0, 900, 600);
 
 		sauceLabel = new JLabel(sauceImg);
 		sauceLabel.setBounds(10, 10, 100, 100);
 		sauceLabel.setVisible(false);
-		add(sauceLabel);
+		jp.add(sauceLabel);
 		mushLabel = new JLabel(mushImg);
 		mushLabel.setBounds(270, 10, 100, 100);
 		mushLabel.setVisible(false);
-		add(mushLabel);
+		jp.add(mushLabel);
 		papLabel = new JLabel("파프리카");
 		papLabel.setBounds(530, 10, 100, 100);
 		papLabel.setVisible(false);
-		add(papLabel);
+		jp.add(papLabel);
 		onionLabel = new JLabel(onionImg);
 		onionLabel.setBounds(10, 260, 100, 100);
 		onionLabel.setVisible(false);
-		add(onionLabel);
+		jp.add(onionLabel);
 		pepperLabel = new JLabel(pepperImg);
 		pepperLabel.setBounds(270, 260, 100, 100);
 		pepperLabel.setVisible(false);
-		add(pepperLabel);
+		jp.add(pepperLabel);
 		cheeseLabel = new JLabel(cheeseImg);
 		cheeseLabel.setBounds(530, 260, 100, 100);
 		cheeseLabel.setVisible(false);
-		add(cheeseLabel);
+		jp.add(cheeseLabel);
 
 		backButton = new JButton(backButtonImg);
 		backButton.setVisible(true);
@@ -70,11 +86,10 @@ public class BagPanel extends JPanel {
 		backButton.setContentAreaFilled(false);
 		backButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.btnOn();
 				setVisible(false);
 			}
 		});
-		add(backButton);
+		jp.add(backButton);
 
 		makeButton = new JButton("만들기");
 		makeButton.setVisible(true);
@@ -84,20 +99,28 @@ public class BagPanel extends JPanel {
 				setVisible(false);
 
 				String[] options = { "확인" };
-				JPanel panel = new JPanel();
-				JLabel lbl = new JLabel("이름을 입력해 주세요");
-				JTextField txt = new JTextField(10);
-				panel.add(lbl);
-				panel.add(txt);
+				JPanel panel = new JPanel(new GridLayout(2, 2));
+				JLabel name_l = new JLabel("당신 이름 : ");
+				JTextField name_tf = new JTextField(7);
+				JLabel pizza_l = new JLabel("피자 이름 : ");
+				JTextField pizza_tf = new JTextField(7);
+				panel.add(name_l);
+				panel.add(name_tf);
+				panel.add(pizza_l);
+				panel.add(pizza_tf);
 				int selectedOption = JOptionPane.showOptionDialog(null, panel, "피자 만들기", JOptionPane.NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				String text = txt.getText();
+				String name = name_tf.getText();
+				String pizza = pizza_tf.getText();
 
 				if (selectedOption == -1) {
 					return;
 				}
-				if (text.trim().length() == 0) {
-					JOptionPane.showMessageDialog(null, "공백은 안됩니다.", "이름 입력", JOptionPane.ERROR_MESSAGE);
+				if (name.trim().length() == 0) {
+					JOptionPane.showMessageDialog(null, "이름을 입력해주세요", "이름 입력", JOptionPane.ERROR_MESSAGE);
+					return;
+				} else if(pizza.trim().length() == 0) {
+					JOptionPane.showMessageDialog(null, "피자의 이름을 입력해주세요", "피자 입력", JOptionPane.ERROR_MESSAGE);
 					return;
 				}
 
@@ -108,13 +131,15 @@ public class BagPanel extends JPanel {
 				pepperLabel.setVisible(false);
 				cheeseLabel.setVisible(false);
 
-				game.resultPanel.make(text);
+				game.resultPanel.make(name, pizza);
 				game.stageSelectPanel.setVisible(false);
 				game.resultPanel.setVisible(true);
 			}
 		});
-		add(makeButton);
+		jp.add(makeButton);
 
+		add(jp);
+		jp.setVisible(true);
 	}
 
 	public void check() {
@@ -152,12 +177,6 @@ public class BagPanel extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
 	}
 
 }
