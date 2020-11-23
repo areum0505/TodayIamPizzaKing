@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 import code.Game;
+import code.Music;
 
 public class Pepperoni extends JLabel implements Runnable {
 	private static int count = 0;
@@ -130,12 +131,13 @@ public class Pepperoni extends JLabel implements Runnable {
             getParent().repaint();
             
             try {
-                Thread.sleep(25);
+                Thread.sleep(17);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-		// System.out.println(x + " " + y);
+		Music dropsound = new Music("pepperonidrop.mp3", false);
+		dropsound.start();
 	}
 	
 	public void checkPepperoni() {
@@ -153,7 +155,6 @@ public class Pepperoni extends JLabel implements Runnable {
 	            } catch (InterruptedException e) {
 	                e.printStackTrace();
 	            }
-	            
 			}
 			count -= 1;
 			pp.setStop();

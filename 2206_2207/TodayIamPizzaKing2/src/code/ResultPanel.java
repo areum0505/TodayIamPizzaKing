@@ -41,6 +41,7 @@ public class ResultPanel extends JPanel {
 	private JLabel rank; // 순위
 	private JLabel first_l, second_l, third_l; // 1위 ~ 3위
 	private JLabel first, second, third;
+	private JLabel fail_l;
 
 	public ResultPanel(Game game) {
 		setLayout(null);
@@ -131,6 +132,12 @@ public class ResultPanel extends JPanel {
 		third.setVisible(true);
 		add(third);
 
+		fail_l = new JLabel();
+		fail_l.setBounds(630, 430, 500, 50);
+		fail_l.setFont(new Font("나눔바른고딕", Font.PLAIN, 30));
+		fail_l.setVisible(false);
+		add(fail_l);
+
 		firstButton = new JButton("처음으로");
 		firstButton.setBounds(1030, 610, 200, 75);
 		firstButton.setVisible(true);
@@ -215,10 +222,13 @@ public class ResultPanel extends JPanel {
 			e.printStackTrace();
 		}
 
+		// 랭킹 구하기(정렬)
 		getRanking();
 
+		// 점수
 		money.setText(String.valueOf(score));
 
+		// 순위(1위 ~ 3위)
 		first.setText(name_a[0] + "의 " + pizza_a[0] + " - " + score_a[0] + "원");
 		if (name_a.length > 1)
 			second.setText(name_a[1] + "의 " + pizza_a[1] + " - " + score_a[1] + "원");
@@ -228,6 +238,24 @@ public class ResultPanel extends JPanel {
 			third.setText(name_a[2] + "의 " + pizza_a[2] + " - " + score_a[2] + "원");
 		else
 			third.setText("");
+
+		// 순위에 들었는지 확인
+		boolean check = true;
+		if (name_a.length > 3) {
+			if (name_a[0].equals(name) && pizza_a[0].equals(pizza) && score_a[0] == score)
+				check = false;
+			else if (name_a[1].equals(name) && pizza_a[1].equals(pizza) && score_a[1] == score)
+				check = false;
+			else if (name_a[2].equals(name) && pizza_a[2].equals(pizza) && score_a[2] == score)
+				check = false;
+		} else {
+			check = false;
+		}
+		System.out.println(check);
+		if (check) {
+			fail_l.setText(name + "님은 순위에 들지 못했습니다.");
+			fail_l.setVisible(true);
+		}
 
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt"));

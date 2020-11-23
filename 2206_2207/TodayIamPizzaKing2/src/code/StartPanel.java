@@ -22,6 +22,9 @@ public class StartPanel extends JPanel {
 	public JButton startButton = new JButton(startButtonImg); // 시작화면의 버튼들
 	public JButton settingButton = new JButton(settingButtonImg);
 	public JButton quitButton = new JButton(quitButtonImg);
+	
+	private JButton rankingButton = new JButton();
+	private RankingDialog rankingDialog = new RankingDialog();
 
 	public StartPanel(Game game) {
 		setLayout(null);
@@ -92,6 +95,18 @@ public class StartPanel extends JPanel {
 			}
 		});
 		this.add(quitButton);
+		
+		rankingButton.setVisible(true);
+		rankingButton.setBounds(85, 580, 200, 83);
+		rankingButton.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
+				Music buttonClick = new Music("buttonClick1.mp3", false);
+				buttonClick.start();
+				rankingDialog.draw();
+				rankingDialog.setVisible(true);
+			}
+		});
+		this.add(rankingButton);
 	}
 
 	@Override
