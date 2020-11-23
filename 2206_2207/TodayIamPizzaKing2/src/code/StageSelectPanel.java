@@ -16,7 +16,9 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
 import bag.BagPanel;
+import cheese.CheeseExplain;
 import mushroom.MushroomExplain;
+import sauce.SauceExplain;
 
 public class StageSelectPanel extends JPanel{	
 	
@@ -31,7 +33,10 @@ public class StageSelectPanel extends JPanel{
 	public JButton BagBtn = new JButton();
 	public JButton BackBtn = new JButton();
 	
+	private SauceExplain sauceExplain;
+	private CheeseExplain cheeseExplain;
 	private MushroomExplain mushroomExplain;
+	
 	private BagPanel bagPanel; 
 	
 	public StageSelectPanel(Game game) {
@@ -45,15 +50,17 @@ public class StageSelectPanel extends JPanel{
 		mushroomExplain = new MushroomExplain(game);
 		mushroomExplain.setVisible(false);
 
+		sauceExplain = new SauceExplain(game);
+		sauceExplain.setVisible(false);
+		
+		cheeseExplain = new CheeseExplain(game);
+		cheeseExplain.setVisible(false);
+		
 		cheeseBtn.setVisible(true);
 		cheeseBtn.setBounds(979, 558, 202, 116);
 		cheeseBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.setVisible(false);
-				game.cheesePanel.setVisible(true);
-				game.cheesePanel.setFocusable(true);		
-				game.cheesePanel.requestFocus();
-				game.cheesePanel.startGame();
+				cheeseExplain.setVisible(true);
 			}
 		});
 		this.add(cheeseBtn);
@@ -102,7 +109,6 @@ public class StageSelectPanel extends JPanel{
 		mushroomBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				mushroomExplain.setVisible(true);
-				
 			}
 		});
 		this.add(mushroomBtn);
@@ -112,11 +118,7 @@ public class StageSelectPanel extends JPanel{
 		sauceBtn.setBounds(103, 394, 202, 266);
 		sauceBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.setVisible(false);
-				game.saucePanel.setVisible(true);
-				game.saucePanel.setFocusable(true);		
-				game.saucePanel.requestFocus();
-				game.saucePanel.startGame();
+				sauceExplain.setVisible(true);
 			}
 		});
 		this.add(sauceBtn);

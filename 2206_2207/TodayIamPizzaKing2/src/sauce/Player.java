@@ -30,10 +30,10 @@ public class Player extends Thread {
 	private ArrayList<Beam> beamList = new ArrayList<>();
 
 	private ImageIcon img;
-	private ImageIcon standImage = new ImageIcon("images/character/pizza.png");
-	private ImageIcon runIamge = new ImageIcon("images/character/runPizza.png");
-	private ImageIcon clearImage = new ImageIcon("images/character/happyPizza.png");
-	private ImageIcon deadImage = new ImageIcon("images/character/deadPizza.png");
+	private ImageIcon standImage = new ImageIcon("images/sauce/sauceStandpizza.png");
+	private ImageIcon runIamge = new ImageIcon("images/sauce/sauceRunPizza.png");
+	private ImageIcon clearImage = new ImageIcon("images/sauce/sauceHappyPizza.png");
+	private ImageIcon deadImage = new ImageIcon("images/sauce/sauceSadPizza.png");
 
 	SauceEnd endPanel;
 

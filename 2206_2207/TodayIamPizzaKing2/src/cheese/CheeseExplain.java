@@ -1,4 +1,4 @@
-package mushroom;
+package cheese;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,20 +14,20 @@ import javax.swing.WindowConstants;
 
 import code.Game;
 
-public class MushroomExplain extends JDialog{
+public class CheeseExplain extends JDialog{
 
 	Game game;
 	
-	private ImageIcon explainImg = new ImageIcon("images/mushroom/mushExplain.png");
+	private ImageIcon explainImg = new ImageIcon("images/cheese/cheeseExplain.png");
 	
 	
-	public JButton mushGameBtn = new JButton();
+	public JButton cheeseGameBtn = new JButton();
 	JPanel jp;
 	JLabel back;
 	
 	
-	public MushroomExplain(Game game) {
-		setTitle("Mushroom Stage Explain");
+	public CheeseExplain(Game game) {
+		setTitle("Cheese Stage Explain");
 		setSize(915, 645);
 		setLocationRelativeTo(null);	
 		setModal(true);
@@ -43,23 +43,23 @@ public class MushroomExplain extends JDialog{
 		back.setBounds(0,0, 900, 600);
 		jp.add(back);
 		
-		mushGameBtn.setVisible(true);
-		mushGameBtn.setBounds(525, 460, 328, 92);
-		mushGameBtn.addMouseListener(new MouseAdapter() {
+		cheeseGameBtn.setVisible(true);
+		cheeseGameBtn.setBounds(525, 460, 328, 92);
+		cheeseGameBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				setVisible(false);
 				game.stageSelectPanel.setVisible(false);
-				game.mushroomPanel.setVisible(true);
-				game.mushroomPanel.setFocusable(true);	
-				game.mushroomPanel.requestFocus();
-				game.mushroomPanel.startGame();
+				game.cheesePanel.setVisible(true);
+				game.cheesePanel.setFocusable(true);	
+				game.cheesePanel.requestFocus();
+				game.cheesePanel.startGame();
 				
 			}
 		});
-		jp.add(mushGameBtn);
+		jp.add(cheeseGameBtn);
 		
-		mushGameBtn.setBorderPainted(false);
-		mushGameBtn.setContentAreaFilled(false);
+		cheeseGameBtn.setBorderPainted(false);
+		cheeseGameBtn.setContentAreaFilled(false);
 		
 		add(jp);
 		jp.setVisible(true);

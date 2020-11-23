@@ -2,6 +2,8 @@ package onion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,19 +16,21 @@ import code.Game;
 
 class OnionEnd extends JDialog {
 	
-	private ImageIcon endImg = new ImageIcon("images/paprika/endImg.png");
+	private ImageIcon winImg = new ImageIcon("images/stage/winImg.png");
+	private ImageIcon loseImg = new ImageIcon("images/stage/loseImg.png");
+	JPanel jp;
 	private JButton ok;
+	JLabel winBack, loseBack;
 	
 	public OnionEnd(Game game) {
-		setSize(endImg.getIconWidth(), endImg.getIconHeight());
+		
+		setSize(800, 540);
 		setLocationRelativeTo(null);	
 		setModal(true);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		add(new JLabel(endImg));
-		pack();
-		
+	
 		ok = new JButton("»Æ¿Œ");
-		ok.setBounds(0, 0, 10, 10);
+		ok.setBounds(235, 356, 330, 110);
 		add(ok);
 		ok.addActionListener(new ActionListener() {
 			@Override
@@ -37,9 +41,28 @@ class OnionEnd extends JDialog {
 				game.stageSelectPanel.setVisible(true);
 			}
 		});
+		
+		ok.setVisible(false);
+
 	}
 	public void Success() {
 		setTitle("success");
+		
+		jp = new JPanel();
+		
+		jp.setLayout(null);
+		jp.setBounds(0,0, 800, 500);
+		
+		winBack = new JLabel(winImg);
+		winBack.setBounds(0,0, 800, 500);
+		jp.add(winBack);
+		
+		
+		ok.setVisible(true);
+		
+		add(jp);
+		jp.setVisible(true);
+		
 		setVisible(true);
 		
 		
@@ -48,6 +71,19 @@ class OnionEnd extends JDialog {
 	public void Fail() {
 		
 		setTitle("fail");
+		jp = new JPanel();
+		
+		jp.setLayout(null);
+		jp.setBounds(0,0, 800, 500);
+		
+		loseBack = new JLabel(loseImg);
+		loseBack.setBounds(0,0, 800, 500);
+		jp.add(loseBack);
+		
+		
+		add(jp);
+		jp.setVisible(true);
+		
 		setVisible(true);
 	}
 	

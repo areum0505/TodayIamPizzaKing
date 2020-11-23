@@ -18,7 +18,7 @@ public class SaucePanel extends JPanel{
 	public SaucePausePanel pausePanel;
 	
 	private Image backgroundImage = new ImageIcon("images/stage/stage6Back1.png").getImage();
-	private ImageIcon pizzaImg =  new ImageIcon("images/character/pizza.png");
+	private ImageIcon pizzaImg =  new ImageIcon("images/sauce/sauceStandPizza.png");
 	
 	public JLabel avatar;
 	private Player player;

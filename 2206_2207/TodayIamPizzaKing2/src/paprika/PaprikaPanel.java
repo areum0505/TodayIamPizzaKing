@@ -47,10 +47,11 @@ class EnemyBar extends JLabel{
 	
 	int width, height;
 	
-	int ran = ((int)(Math.random()*2)+1)*30;
+	//int ran = ((int)(Math.random()*2)+1)*30;
+	int levelWidth=0;
 	
 	public EnemyBar() {
-		this.width = ran;
+		this.width = 50;
 		this.height = 500;
 		setSize(width,height);
 		setOpaque(true); 
@@ -72,15 +73,15 @@ class EnemyBar extends JLabel{
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public void clear() {
-		int ran = ((int)(Math.random()*2)+1)*30;
-		this.width = ran;
+	public void clear(int levelWidth) {
+		
+		this.width = levelWidth;
 		this.height = 500;
 		setSize(width,height);
 	}
 }
 class Game implements Runnable {
-
+	
 	private Bar bar;
 	private ChoiceBar choiceBar;
 	EnemyBar enemy1, enemy2, enemy3; 
@@ -267,6 +268,9 @@ public class PaprikaPanel extends JPanel{
 			enemy2.setBackground(Color.green);
 			enemy3.setBackground(Color.green);
 			
+			enemy1.clear(30);
+			enemy2.clear(30);
+			enemy3.clear(30);
 			
 		}else if(win>=300) {
 			paprika.setIcon(yellowPap90);
@@ -276,6 +280,11 @@ public class PaprikaPanel extends JPanel{
 			enemy2.setBackground(Color.yellow);
 			enemy3.setBackground(Color.yellow);
 			
+			enemy1.clear(40);
+			enemy2.clear(40);
+			enemy3.clear(40);
+			
+			
 		}else {
 			paprika.setIcon(redPap90);
 			paprika.setBounds(250,140, redPap90.getIconWidth(), redPap90.getIconHeight());
@@ -283,7 +292,10 @@ public class PaprikaPanel extends JPanel{
 			enemy1.setBackground(Color.red);
 			enemy2.setBackground(Color.red);
 			enemy3.setBackground(Color.red);
-		
+
+			enemy1.clear(50);
+			enemy2.clear(50);
+			enemy3.clear(50);
 			
 		}
 	}
@@ -305,7 +317,6 @@ public class PaprikaPanel extends JPanel{
 			System.out.println(win);
 			score.setText(Integer.toString(win));
 			paprikaCheck();
-			enemy1.clear();
 			enemy1.setLocation(250,100);
 		}
 		else if (enemy2.getX()+ enemy2.getWidth() > choiceBar.getX() && choiceBar.getX() + choiceBar.getWidth()>enemy2.getX()&& enemy2.getY()+enemy2.getHeight()>choiceBar.getY()&& choiceBar.getY()+ choiceBar.getHeight()>enemy2.getY()) {
@@ -313,7 +324,6 @@ public class PaprikaPanel extends JPanel{
 			scoreCheck();
 			System.out.println(win);
 			score.setText(Integer.toString(win));
-			enemy2.clear();
 			paprikaCheck();
 			enemy2.setLocation(450,100);
 		}
@@ -323,7 +333,6 @@ public class PaprikaPanel extends JPanel{
 			score.setText(Integer.toString(win));
 			scoreCheck();
 			paprikaCheck();
-			enemy3.clear();
 			enemy3.setLocation(700,100);
 			
 		}else {

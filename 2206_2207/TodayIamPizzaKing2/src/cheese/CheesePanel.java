@@ -28,7 +28,7 @@ import code.Game;
 import pepperoni.PepperoniPause;
 
 public class CheesePanel extends JPanel {
-	private Image backgroundImage = new ImageIcon("images/stage/stage1Back.png").getImage();
+	private Image backgroundImage = new ImageIcon("images/cheese/cheeseBackground.png").getImage();
 	private ImageIcon pizzaImg = new ImageIcon("images/cheese/pizza.png");
 
 	private JLabel pizza;
