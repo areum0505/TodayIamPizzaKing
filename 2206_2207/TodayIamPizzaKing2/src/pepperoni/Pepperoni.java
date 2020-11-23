@@ -130,7 +130,7 @@ public class Pepperoni extends JLabel implements Runnable {
             getParent().repaint();
             
             try {
-                Thread.sleep(25);
+                Thread.sleep(17);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
