@@ -241,13 +241,12 @@ public class OnionPanel extends JPanel{
 
 		if (com == user) {
 			draw++;
-			System.out.println("비김");
 
 		} else if ((com == 1 && user == 3) || (com == 2 && user == 1) || (com == 3 && user == 2)) {
 			win++;
 			gameScore += 100;
 			bar.fill();
-			System.out.println("피자 이김");
+			
 			dropCnt += 1;
 			checkDrop();
 
@@ -259,7 +258,7 @@ public class OnionPanel extends JPanel{
 			heartCnt +=-1;
 			checkHeart();
 			//bar.consume();
-			System.out.println("피자 졌음");
+		
 		} else {
 			System.out.println("예상치못한오류발생");
 		}
@@ -368,31 +367,31 @@ public class OnionPanel extends JPanel{
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
 			Object ob = e.getSource();
+			Music buttonClick = new Music("buttonClick1.mp3", false);
 			
 			if (ob == btnRock) {
 				lspUser.setIcon(pizzaIcon[0]);
-
+				buttonClick.start();
 				comTears.setVisible(false);
 				pTears.setVisible(false);
 				chkResult(1);
 				chkOnionResult();
-				System.out.println(gameScore);
 
 			} else if (ob == btnScissors) {
+				buttonClick.start();
 				comTears.setVisible(false);
 				pTears.setVisible(false);
 				lspUser.setIcon(pizzaIcon[1]);
 				chkResult(2);
 				chkOnionResult();
-				System.out.println(gameScore);
 
 			} else if (ob == btnPaper) {
+				buttonClick.start();
 				comTears.setVisible(false);
 				pTears.setVisible(false);
 				lspUser.setIcon(pizzaIcon[2]);
 				chkResult(3);
 				chkOnionResult();
-				System.out.println(gameScore);
 			}
 		}
 

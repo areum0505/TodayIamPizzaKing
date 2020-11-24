@@ -19,8 +19,8 @@ public class PepperoniPanel extends JPanel {
 	private Image backgroundImage = new ImageIcon("images/stage/stage4Back.png").getImage();
 	private Image backgroundImage1 = new ImageIcon("images/stage/stage4Back1.png").getImage();
 	private Image plate = new ImageIcon("images/pepperoni/plate.png").getImage();
-	private ImageIcon happyPizza = new ImageIcon("images/pepperoni/happyPizza.png");
-	private ImageIcon sadPizza = new ImageIcon("images/pepperoni/sadPizza.png");
+	private ImageIcon happyPizza = new ImageIcon("images/pepperoni/pepHappyPizza.png");
+	private ImageIcon sadPizza = new ImageIcon("images/pepperoni/pepSadPizza.png");
 	private ImageIcon tower = new ImageIcon("images/pepperoni/pepperoni_tower.png");
 	private ImageIcon bubble = new ImageIcon("images/pepperoni/speech_bubble.png");
 

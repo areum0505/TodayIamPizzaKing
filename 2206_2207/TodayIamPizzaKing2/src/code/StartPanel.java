@@ -15,15 +15,17 @@ public class StartPanel extends JPanel {
 	private ImageIcon startButtonImg = new ImageIcon("images/main/startBtn.png"); // 버튼들 이미지
 	private ImageIcon settingButtonImg = new ImageIcon("images/main/settingBtn.png");
 	private ImageIcon quitButtonImg = new ImageIcon("images/main/quitBtn.png");
+	private ImageIcon rankButtonImg = new ImageIcon("images/main/RankBtn.png");
 	private ImageIcon enteredStartButtonImg = new ImageIcon("images/main/enteredStartBtn.png"); // 버튼들 이미지
 	private ImageIcon enteredSettingButtonImg = new ImageIcon("images/main/enteredSettingBtn.png");
 	private ImageIcon enteredQuitButtonImg = new ImageIcon("images/main/enteredQuitBtn.png");
+	private ImageIcon enteredRankButtonImg = new ImageIcon("images/main/enteredRankBtn.png");
 
 	public JButton startButton = new JButton(startButtonImg); // 시작화면의 버튼들
 	public JButton settingButton = new JButton(settingButtonImg);
 	public JButton quitButton = new JButton(quitButtonImg);
 	
-	private JButton rankingButton = new JButton();
+	private JButton rankingButton = new JButton(rankButtonImg);
 	private RankingDialog rankingDialog = new RankingDialog();
 
 	public StartPanel(Game game) {
@@ -97,8 +99,18 @@ public class StartPanel extends JPanel {
 		this.add(quitButton);
 		
 		rankingButton.setVisible(true);
-		rankingButton.setBounds(85, 580, 200, 83);
+		rankingButton.setBounds(85, 580, 200, 81);
+		rankingButton.setBorderPainted(false);
+		rankingButton.setContentAreaFilled(false);
 		rankingButton.addMouseListener(new MouseAdapter() {
+			
+			public void mouseEntered(MouseEvent e) {
+				rankingButton.setIcon(enteredRankButtonImg);
+			}
+
+			public void mouseExited(MouseEvent e) {
+				rankingButton.setIcon(rankButtonImg);
+			}
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
 				Music buttonClick = new Music("buttonClick1.mp3", false);
 				buttonClick.start();
