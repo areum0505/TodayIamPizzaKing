@@ -248,7 +248,7 @@ public class PaprikaPanel extends JPanel {
 	class MyKeyListener extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
-<<<<<<< .merge_file_a07112
+<<<<<<< HEAD
 			int keyCode = e.getKeyCode(); 
 			
 			switch(keyCode) {
@@ -262,7 +262,7 @@ public class PaprikaPanel extends JPanel {
 			case KeyEvent.VK_SPACE:
 				if (Main.buttonEffect) {
 					Music dropsound = new Music("knife.mp3", false);
->>>>>>> .merge_file_a25964
+>>>>>>> a10c4b0877cbe0169cdd9136548838233c13d637
 					dropsound.start();
 				}
 				crashCheck();

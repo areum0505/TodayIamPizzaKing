@@ -75,8 +75,6 @@ class onionLabel extends JLabel {
 
 
 public class OnionPanel extends JPanel{
-
-	//private static final Object DISABLE_CLICKER = null;
 	
 	private Image backgroundImage = new ImageIcon("images/onion/onionBack.png").getImage();
 	ImageIcon fullHeart = new ImageIcon("images/mushroom/fullHeart.png");

@@ -28,7 +28,7 @@ public class CheeseExplain extends JDialog{
 	
 	public CheeseExplain(Game game) {
 		setTitle("Cheese Stage Explain");
-		setSize(915, 645);
+		setSize(900, 630);
 		setLocationRelativeTo(null);	
 		setModal(true);
 		setResizable(false);

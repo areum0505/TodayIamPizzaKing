@@ -65,7 +65,7 @@ class EnemyMush extends JLabel implements Runnable{
 			}
 			
 			try {
-				Thread.sleep(150);
+				Thread.sleep(80);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

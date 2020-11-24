@@ -20,16 +20,14 @@ public class SauceExplain extends JDialog{
 	
 	private ImageIcon explainImg = new ImageIcon("images/sauce/sauceExplain.png");
 	
-	
 	public JButton sauceGameBtn = new JButton();
 	JPanel jp;
 	JLabel back;
 	
-	
 	public SauceExplain(Game game) {
 		
 		setTitle("Sauce Stage Explain");
-		setSize(900, 645);
+		setSize(900, 630);
 		setLocationRelativeTo(null);	
 		setModal(true);
 		setResizable(false);

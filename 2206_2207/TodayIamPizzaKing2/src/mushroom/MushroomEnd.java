@@ -15,7 +15,7 @@ import code.Game;
 
 class MushroomEnd extends JDialog {
 	
-	private ImageIcon winImg = new ImageIcon("images/stage/winImg.png");
+	private ImageIcon winImg = new ImageIcon("images/mushroom/mushroomWin.png");
 	private ImageIcon loseImg = new ImageIcon("images/stage/loseImg.png");
 	JPanel jp;
 	private JButton ok, replay;
@@ -23,13 +23,13 @@ class MushroomEnd extends JDialog {
 	
 	public MushroomEnd(Game game) {
 		
-		setSize(815, 545);
+		setSize(800, 530);
 		setLocationRelativeTo(null);	
 		setModal(true);
+		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	
 		jp = new JPanel();
-		
 		jp.setLayout(null);
 		jp.setBounds(0,0, 800, 500);
 		
@@ -63,8 +63,8 @@ class MushroomEnd extends JDialog {
 		});
 		
 		
-		ok.setBorderPainted(false);
-		ok.setContentAreaFilled(false);
+		//ok.setBorderPainted(false);
+		//ok.setContentAreaFilled(false);
 		ok.setVisible(false);
 		
 		replay.setBorderPainted(false);
@@ -78,7 +78,7 @@ class MushroomEnd extends JDialog {
 		
 		flagBack.setIcon(winImg);
 		
-		ok.setBounds(235, 306, 330, 110);
+		ok.setBounds(394, 362, 223, 79);
 		ok.setVisible(true);
 	
 		jp.setVisible(true);
