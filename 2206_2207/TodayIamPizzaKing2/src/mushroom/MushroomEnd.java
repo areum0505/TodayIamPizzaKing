@@ -16,9 +16,9 @@ import code.Game;
 class MushroomEnd extends JDialog {
 	
 	private ImageIcon winImg = new ImageIcon("images/mushroom/mushroomWin.png");
-	private ImageIcon loseImg = new ImageIcon("images/stage/loseImg.png");
+	private ImageIcon loseImg = new ImageIcon("images/mushroom/mushroomLose.png");
 	JPanel jp;
-	private JButton ok, replay;
+	private JButton ok;
 	JLabel winBack, loseBack, flagBack;
 	
 	public MushroomEnd(Game game) {
@@ -64,7 +64,7 @@ class MushroomEnd extends JDialog {
 		
 		
 		//ok.setBorderPainted(false);
-		//ok.setContentAreaFilled(false);
+		ok.setContentAreaFilled(false);
 		ok.setVisible(false);
 		
 		replay.setBorderPainted(false);

@@ -177,8 +177,6 @@ public class PaprikaPanel extends JPanel {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 
-		System.out.println(ran);
-
 		paprikaEnd = new PaprikaEnd(game);
 		paprikaPause = new PaprikaPause(game);
 		add(paprikaPause);
@@ -238,31 +236,20 @@ public class PaprikaPanel extends JPanel {
 		showGreenPap.setVisible(false);
 		showYellowPap.setVisible(false);
 		showRedPap.setVisible(false);
-
-		// showGreenPap.setVisible(true);
-		// showYellowPap.setVisible(true);
-		// showRedPap.setVisible(true);
+		
 
 	}
 
 	class MyKeyListener extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
-<<<<<<< .merge_file_a07112
-			int keyCode = e.getKeyCode(); 
-			
-			switch(keyCode) {
-				case KeyEvent.VK_SPACE:
-					Music dropsound = new Music("knife.mp3", false);
 
-=======
 			int keyCode = e.getKeyCode();
 
 			switch (keyCode) {
 			case KeyEvent.VK_SPACE:
 				if (Main.buttonEffect) {
 					Music dropsound = new Music("knife.mp3", false);
->>>>>>> .merge_file_a25964
 					dropsound.start();
 				}
 				crashCheck();
