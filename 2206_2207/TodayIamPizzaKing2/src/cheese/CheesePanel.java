@@ -38,15 +38,18 @@ public class CheesePanel extends JPanel {
 	private Game game;
 	private CheesePause pausePanel;
 	private CheeseEnd endPanel;
-	
+
 	private int mousex, mousey;
-	
+
+	private Cursor cursor;
+
 	public CheesePanel(Game game) {
+		System.out.println("Ω√¿€");
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 
 		this.game = game;
-		
+
 		pausePanel = new CheesePause(game);
 		endPanel = new CheeseEnd(game);
 
@@ -61,12 +64,14 @@ public class CheesePanel extends JPanel {
 	public void startGame() {
 		setMouseCursor(600, 800);
 		pizza.setLocation(getMousePosition().x - pizza.getWidth() / 2, getMousePosition().y - pizza.getHeight() / 2);
-		
+
 		mineList = new ArrayList<Mine>();
 		for (int i = 0; i < 10; i++) {
 			mineList.add(new Mine());
 			add(mineList.get(i));
 		}
+
+		cursor = game.getCursor();
 	}
 
 	public void setMouseCursor(int x, int y) {
@@ -77,33 +82,37 @@ public class CheesePanel extends JPanel {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	public int getMouseX() {
 		return mousex;
 	}
+
 	public int getMouseY() {
 		return mousey;
 	}
 
 	public void setCursorImage(boolean isEmpty) {
 		Toolkit tk = Toolkit.getDefaultToolkit();
-		Image cursorimage;
-		if (isEmpty)
-			cursorimage = tk.getImage("images/cheese/emptyCursor.png");
-		else
-			cursorimage = tk.getImage("images/main/pizzaCursor.png");
-		Point point = new Point(0, 0);
-		Cursor cursor = tk.createCustomCursor(cursorimage, point, "haha");
-		setCursor(cursor);
+		if (isEmpty) {
+			Image cursorimage = tk.getImage("images/cheese/emptyCursor.png");
+			Point point = new Point(0, 0);
+			Cursor cursor = tk.createCustomCursor(cursorimage, point, "haha");
+			setCursor(cursor);
+		} else {
+			setCursor(cursor);
+		}
 	}
 
 	public void checkMine(int x, int y) {
-		if(mineList == null) return;
+		if (mineList == null)
+			return;
 		for (Mine m : mineList) {
-			if(IsIntersect(x-5, y-5, pizza.getWidth()-10, pizza.getHeight()-10, m.getX(), m.getY(), m.getWidth(), m.getHeight())) {
+			if (IsIntersect(x - 5, y - 5, pizza.getWidth() - 10, pizza.getHeight() - 10, m.getX(), m.getY(),
+					m.getWidth(), m.getHeight())) {
 				endPanel.Fail();
 			}
-			if(IsIntersect(x - 50, y - 50, pizza.getWidth() + 100, pizza.getHeight() + 100, m.getX(), m.getY(), m.getWidth(), m.getHeight())) {
+			if (IsIntersect(x - 50, y - 50, pizza.getWidth() + 100, pizza.getHeight() + 100, m.getX(), m.getY(),
+					m.getWidth(), m.getHeight())) {
 				m.setVisible(true);
 			}
 		}
@@ -119,7 +128,7 @@ public class CheesePanel extends JPanel {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			endPanel.Success();
 		}
 	}
@@ -130,12 +139,12 @@ public class CheesePanel extends JPanel {
 		}
 		return false;
 	}
-	
+
 	public void reset() {
 		removeAll();
 		draw();
 	}
-	
+
 	public void draw() {
 		pizza = new JLabel(pizzaImg);
 		pizza.setSize(pizzaImg.getIconWidth(), pizzaImg.getIconHeight());
@@ -143,7 +152,7 @@ public class CheesePanel extends JPanel {
 
 		exit = new Exit();
 		add(exit);
-		
+
 		pausePanel = new CheesePause(game);
 		add(pausePanel);
 		pausePanel.setVisible(false);
@@ -158,36 +167,37 @@ public class CheesePanel extends JPanel {
 
 	class MyMouseListener extends MouseMotionAdapter {
 		public void mouseMoved(MouseEvent e) {
-			if(!pausePanel.isVisible()) {
+			if (!pausePanel.isVisible()) {
 				Dimension frameSize = game.getSize();
 				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	
+
 				PointerInfo pi = MouseInfo.getPointerInfo();
-	
+
 				int x = pi.getLocation().x - (screenSize.width - frameSize.width) / 2 - pizza.getWidth() / 2;
 				int y = pi.getLocation().y - (screenSize.height - frameSize.height) / 2 - pizza.getHeight() / 2;
-	
+
 				pizza.setLocation(x, y);
 				getParent().repaint();
-	
+
 				checkMine(x, y);
 				checkExit(x, y);
 			}
 		}
 	}
+
 	class MyKeyListener extends KeyAdapter {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int keyCode = e.getKeyCode();
-			
-			switch(keyCode) {
+
+			switch (keyCode) {
 			case KeyEvent.VK_ESCAPE:
 				PointerInfo pi = MouseInfo.getPointerInfo();
 				mousex = pi.getLocation().x;
 				mousey = pi.getLocation().y;
 				setCursorImage(false);
-            	pausePanel.setVisible(true);
-            	break;
+				pausePanel.setVisible(true);
+				break;
 			}
 		}
 	}

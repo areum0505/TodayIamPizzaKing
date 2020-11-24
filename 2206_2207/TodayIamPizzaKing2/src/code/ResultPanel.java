@@ -6,7 +6,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -42,6 +41,8 @@ public class ResultPanel extends JPanel {
 	private JLabel first_l, second_l, third_l; // 1À§ ~ 3À§
 	private JLabel first, second, third;
 	private JLabel fail_l;
+	
+	private int plusScore = 0;
 
 	public ResultPanel(Game game) {
 		setLayout(null);
@@ -150,11 +151,19 @@ public class ResultPanel extends JPanel {
 		});
 		add(firstButton);
 	}
+	
+	public void setplusScore(String s) {
+		plusScore = Integer.parseInt(s);
+		
+		if(plusScore == 7777) {
+			plusScore = 100000;
+		}
+	}
 
 	public void make(String text1, String text2) {
 		String name = text1;
 		String pizza = text2;
-		int score = 0;
+		int score = plusScore;
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("bag.txt"));

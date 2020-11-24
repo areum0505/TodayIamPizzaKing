@@ -1,9 +1,10 @@
 package bag;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
@@ -18,14 +19,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import code.Game;
+import code.JTextFieldLimit;
 
 public class BagPanel extends JDialog {
-	private Image backgroundImage = new ImageIcon("images/stage/endImg.png").getImage();
+	private ImageIcon backgroundImage = new ImageIcon("images/main/bagBack.png");
 
-	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
 	private ImageIcon sauceImg = new ImageIcon("images/main/sauce.png");
 	private ImageIcon mushImg = new ImageIcon("images/main/mushroom.png");
 	private ImageIcon papImg = new ImageIcon("images/main/paprika.png");
@@ -33,120 +33,124 @@ public class BagPanel extends JDialog {
 	private ImageIcon pepperImg = new ImageIcon("images/main/pepperoni.png");
 	private ImageIcon cheeseImg = new ImageIcon("images/main/cheese.png");
 
-	private JPanel jp;
+	private JPanel bagPanel;
+	ColaPanel colaPanel = new ColaPanel(this);
+	ColaGamePanel colaGamePanel;
 
-	private JButton backButton;
+	private JLabel jl;
+
 	private JButton makeButton;
 
 	private JLabel sauceLabel, mushLabel, papLabel, onionLabel, pepperLabel, cheeseLabel;
 
 	public BagPanel(Game game) {
-//		setLayout(null);
-//		setBounds(250, 110, 800, 500);
-
 		setTitle("Bag");
-		setSize(915, 645);
+		setSize(900, 630);
 		setLocationRelativeTo(null);
 		setModal(true);
 		setResizable(false);
 
-		jp = new JPanel();
-		jp.setLayout(null);
-		jp.setBounds(0, 0, 900, 600);
+		colaGamePanel = new ColaGamePanel(game, this);
+		colaPanel.setVisible(false);
+		add(colaPanel);
+		colaGamePanel.setVisible(false);
+		add(colaGamePanel);
+
+		bagPanel = new JPanel();
+		bagPanel.setLayout(null);
+		bagPanel.setBounds(0, 0, 900, 600);
 
 		sauceLabel = new JLabel(sauceImg);
-		sauceLabel.setBounds(10, 10, 100, 100);
+		sauceLabel.setBounds(110, 79, 150, 150);
 		sauceLabel.setVisible(false);
-		jp.add(sauceLabel);
+		bagPanel.add(sauceLabel);
 		mushLabel = new JLabel(mushImg);
-		mushLabel.setBounds(270, 10, 100, 100);
+		mushLabel.setBounds(370, 86, 150, 150);
 		mushLabel.setVisible(false);
-		jp.add(mushLabel);
-		papLabel = new JLabel("파프리카");
-		papLabel.setBounds(530, 10, 100, 100);
+		bagPanel.add(mushLabel);
+		papLabel = new JLabel(papImg);
+		papLabel.setBounds(630, 108, 150, 150);
 		papLabel.setVisible(false);
-		jp.add(papLabel);
+		bagPanel.add(papLabel);
 		onionLabel = new JLabel(onionImg);
-		onionLabel.setBounds(10, 260, 100, 100);
+		onionLabel.setBounds(110, 318, 150, 150);
 		onionLabel.setVisible(false);
-		jp.add(onionLabel);
+		bagPanel.add(onionLabel);
 		pepperLabel = new JLabel(pepperImg);
-		pepperLabel.setBounds(270, 260, 100, 100);
+		pepperLabel.setBounds(370, 330, 150, 150);
 		pepperLabel.setVisible(false);
-		jp.add(pepperLabel);
+		bagPanel.add(pepperLabel);
 		cheeseLabel = new JLabel(cheeseImg);
-		cheeseLabel.setBounds(530, 260, 100, 100);
+		cheeseLabel.setBounds(630, 324, 150, 150);
 		cheeseLabel.setVisible(false);
-		jp.add(cheeseLabel);
+		bagPanel.add(cheeseLabel);
 
-		backButton = new JButton(backButtonImg);
-		backButton.setVisible(true);
-		backButton.setBounds(800 - 64, 0, 64, 64);
-		backButton.setBorderPainted(false);
-		backButton.setContentAreaFilled(false);
-		backButton.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				setVisible(false);
-			}
-		});
-		jp.add(backButton);
-
-		makeButton = new JButton("만들기");
+		makeButton = new JButton();
 		makeButton.setVisible(true);
-		makeButton.setBounds(325, 425, 150, 55);
+		makeButton.setBorderPainted(false);
+		makeButton.setContentAreaFilled(false);
+		makeButton.setBounds(333, 505, 258, 78);
 		makeButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				setVisible(false);
-
-				String[] options = { "확인" };
-				JPanel panel = new JPanel(new GridLayout(2, 2));
-				JLabel name_l = new JLabel("당신 이름 : ");
-				JTextField name_tf = new JTextField(7);
-				JLabel pizza_l = new JLabel("피자 이름 : ");
-				JTextField pizza_tf = new JTextField(7);
-				panel.add(name_l);
-				panel.add(name_tf);
-				panel.add(pizza_l);
-				panel.add(pizza_tf);
-				int selectedOption = JOptionPane.showOptionDialog(null, panel, "피자 만들기", JOptionPane.NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-				String name = name_tf.getText();
-				String pizza = pizza_tf.getText();
-
-				if (selectedOption == -1) {
+				int result = JOptionPane.showConfirmDialog(null, "가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?", "인생역전의 기회",
+						JOptionPane.YES_NO_OPTION);
+				if (result == JOptionPane.CLOSED_OPTION) {
 					return;
+				} else if (result == JOptionPane.YES_OPTION) {
+					colaPanel.setVisible(true);
+				} else {
+					String[] options = { "확인" };
+					JPanel panel = new JPanel(new GridLayout(2, 2));
+					JLabel name_l = new JLabel("당신 이름 : ");
+					JTextField name_tf = new JTextField(7);
+					name_tf.setDocument(new JTextFieldLimit(10));
+					JLabel pizza_l = new JLabel("피자 이름 : ");
+					JTextField pizza_tf = new JTextField(7);
+					pizza_tf.setDocument(new JTextFieldLimit(6));
+					panel.add(name_l);
+					panel.add(name_tf);
+					panel.add(pizza_l);
+					panel.add(pizza_tf);
+					int selectedOption = JOptionPane.showOptionDialog(null, panel, "피자 만들기", JOptionPane.NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+					String name = name_tf.getText();
+					String pizza = pizza_tf.getText();
+
+					if (selectedOption == -1) {
+						return;
+					}
+					if (name.trim().length() == 0) {
+						JOptionPane.showMessageDialog(null, "이름을 입력해주세요", "이름 입력", JOptionPane.ERROR_MESSAGE);
+						return;
+					} else if (pizza.trim().length() == 0) {
+						JOptionPane.showMessageDialog(null, "피자의 이름을 입력해주세요", "피자 입력", JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+
+					labelOff();
+					setVisible(false);
+
+					game.resultPanel.make(name, pizza);
+					game.stageSelectPanel.setVisible(false);
+					game.resultPanel.setVisible(true);
 				}
-				if (name.trim().length() == 0) {
-					JOptionPane.showMessageDialog(null, "이름을 입력해주세요", "이름 입력", JOptionPane.ERROR_MESSAGE);
-					return;
-				} else if(pizza.trim().length() == 0) {
-					JOptionPane.showMessageDialog(null, "피자의 이름을 입력해주세요", "피자 입력", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
-
-				sauceLabel.setVisible(false);
-				mushLabel.setVisible(false);
-				papLabel.setVisible(false);
-				onionLabel.setVisible(false);
-				pepperLabel.setVisible(false);
-				cheeseLabel.setVisible(false);
-
-				game.resultPanel.make(name, pizza);
-				game.stageSelectPanel.setVisible(false);
-				game.resultPanel.setVisible(true);
 			}
 		});
-		jp.add(makeButton);
+		bagPanel.add(makeButton);
 
-		add(jp);
-		jp.setVisible(true);
+		jl = new JLabel(backgroundImage);
+		jl.setBounds(0, 0, 900, 600);
+		bagPanel.add(jl);
+
+		add(bagPanel);
+		bagPanel.setVisible(true);
 	}
 
 	public void check() {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("bag.txt"));
 			String s = br.readLine();
-
+			
 			if (s == null) {
 				sauceLabel.setVisible(false);
 				mushLabel.setVisible(false);
@@ -179,4 +183,342 @@ public class BagPanel extends JDialog {
 		}
 	}
 
+	public void labelOff() {
+		sauceLabel.setVisible(false);
+		mushLabel.setVisible(false);
+		papLabel.setVisible(false);
+		onionLabel.setVisible(false);
+		pepperLabel.setVisible(false);
+		cheeseLabel.setVisible(false);
+		makeButton.setVisible(false);
+	}
+
+}
+
+class ColaPanel extends JPanel {
+
+	ImageIcon colaStartImg = new ImageIcon("images/cola/colaStart.png");
+
+	JLabel back;
+	JButton startBtn;
+
+	public ColaPanel(BagPanel bagPanel) {
+		setLayout(null);
+		setBounds(0, 0, 900, 600);
+		setBackground(Color.white);
+
+		back = new JLabel(colaStartImg);
+		back.setBounds(0, 0, 900, 600);
+		add(back);
+
+		startBtn = new JButton();
+		startBtn.setBorderPainted(false);
+		startBtn.setContentAreaFilled(false);
+		startBtn.setBounds(285, 450, 330, 110);
+		add(startBtn);
+
+		startBtn.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				bagPanel.colaPanel.setVisible(false);
+				bagPanel.colaGamePanel.setVisible(true);
+				bagPanel.colaGamePanel.requestFocus();
+				bagPanel.colaGamePanel.startGame();
+			}
+		});
+		this.add(startBtn);
+	}
+
+}
+
+class ColaLabel extends JLabel {
+	int width = 281, height = 0;
+	int x = 300, y = 580; // 250까지
+	Color colaColor = new Color(48, 29, 7);
+	ColaGamePanel cgp;
+
+	public ColaLabel(ColaGamePanel cgp) {
+		this.cgp = cgp;
+		setBackground(colaColor);
+		setOpaque(true);
+		setSize(width, height);
+		setLocation(x, y);
+
+	}
+
+	public void fill() {
+		if (getHeight() <= 350) { // 334까지가 콜라의 끝
+			setY(getY() - 1);
+			setHeight(getHeight() + 1);
+			setBounds(getX(), getY(), width, getHeight());
+		} else {
+			cgp.changeExplain("끝났어ㅋ");
+		}
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+}
+
+class CutLabel extends JLabel {
+
+	int width = 281, height = 20;
+	int ran = (int) (Math.random() * 200 + 1) + 250;
+	int x = 300, y = ran;
+
+	ColaGamePanel cgp;
+
+	public CutLabel(ColaGamePanel cgp) {
+
+		this.cgp = cgp;
+		setBackground(Color.red);
+		setOpaque(true);
+		setSize(width, height);
+		setLocation(x, y);
+
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+}
+
+class ColaThread extends Thread {
+	private ColaLabel colaBar;
+
+	public ColaThread(ColaLabel colaBar) {
+		super();
+		this.colaBar = colaBar;
+
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while (true) {
+			try {
+				sleep(15);
+				colaBar.fill();
+			} catch (InterruptedException e) {
+				// TODO: handle exception
+				return;
+			}
+		}
+
+	}
+}
+
+class ColaGamePanel extends JPanel {
+
+	ImageIcon colaBackImg = new ImageIcon("images/cola/colaColorBack.png");
+
+	Game game;
+	BagPanel cola;
+
+	SlotMachine sm;
+
+	JLabel back, colaBack, explain;
+	JButton startBtn;
+	ColaLabel colaLabel;
+	CutLabel cutLabel;
+	ColaThread ct;
+
+	public ColaGamePanel(Game game, BagPanel cola) {
+		setLayout(null);
+		setBounds(0, 0, 900, 600);
+		setBackground(Color.white);
+
+		this.game = game;
+		this.cola = cola;
+
+		sm = new SlotMachine(game, cola);
+		sm.setVisible(false);
+		add(sm);
+
+		colaLabel = new ColaLabel(this);
+		add(colaLabel);
+
+		cutLabel = new CutLabel(this);
+		add(cutLabel);
+
+		explain = new JLabel("기회는 한 번뿐 잘해봐ㅋ");
+		explain.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 30));
+		explain.setBounds(400, 170, 500, 50);
+		add(explain);
+
+		back = new JLabel(colaBackImg);
+		back.setBounds(0, 0, 900, 600);
+		add(back);
+
+		addKeyListener(new MyKeyListener());
+	}
+
+	public void startGame() {
+		ct = new ColaThread(colaLabel);
+		ct.start();
+	}
+
+	public void changeExplain(String s) {
+		explain.setText(s);
+	}
+
+	public void crashCheck() {
+
+		if (colaLabel.getY() < cutLabel.getY()) {
+			changeExplain("유감");
+			System.out.println("패배");
+			ct.stop();
+
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			defeat();
+		} else if (colaLabel.getY() >= cutLabel.getY()) {
+			if (colaLabel.getX() + colaLabel.getWidth() > cutLabel.getX()
+					&& cutLabel.getX() + cutLabel.getWidth() > colaLabel.getX()
+					&& colaLabel.getY() + colaLabel.getHeight() > cutLabel.getY()
+					&& cutLabel.getY() + cutLabel.getHeight() > colaLabel.getY()) {
+				changeExplain("슬롯머신 돌리러 가즈아ㅏㅏ");
+
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				System.out.println("승리");
+				ct.stop();
+
+				cola.labelOff();
+				sm.setVisible(true);
+
+			} else {
+				changeExplain("유감");
+				System.out.println("패배");
+				ct.stop();
+
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+
+				defeat();
+			}
+		}
+
+	}
+
+	public void defeat() {
+		cola.setVisible(false);
+
+		String[] options = { "확인" };
+		JPanel panel = new JPanel(new GridLayout(2, 2));
+		JLabel name_l = new JLabel("당신 이름 : ");
+		JTextField name_tf = new JTextField(7);
+		name_tf.setDocument(new JTextFieldLimit(10));
+		JLabel pizza_l = new JLabel("피자 이름 : ");
+		JTextField pizza_tf = new JTextField(7);
+		pizza_tf.setDocument(new JTextFieldLimit(6));
+		panel.add(name_l);
+		panel.add(name_tf);
+		panel.add(pizza_l);
+		panel.add(pizza_tf);
+		int selectedOption = JOptionPane.showOptionDialog(null, panel, "피자 만들기", JOptionPane.NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+		String name = name_tf.getText();
+		String pizza = pizza_tf.getText();
+
+		if (selectedOption == -1) {
+			return;
+		}
+		if (name.trim().length() == 0) {
+			JOptionPane.showMessageDialog(null, "이름을 입력해주세요", "이름 입력", JOptionPane.ERROR_MESSAGE);
+			return;
+		} else if (pizza.trim().length() == 0) {
+			JOptionPane.showMessageDialog(null, "피자의 이름을 입력해주세요", "피자 입력", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+
+		cola.labelOff();
+
+		game.resultPanel.make(name, pizza);
+		game.stageSelectPanel.setVisible(false);
+		game.resultPanel.setVisible(true);
+	}
+
+	class MyKeyListener extends KeyAdapter {
+
+		@Override
+		public void keyPressed(KeyEvent e) {
+			int keyCode = e.getKeyCode(); // 상, 하, 좌, 우 키는 유니코드 키가 아님
+			switch (keyCode) {
+
+			case KeyEvent.VK_SPACE:
+				crashCheck();
+				break;
+			}
+		}
+	}
 }

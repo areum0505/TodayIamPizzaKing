@@ -24,7 +24,7 @@ public class StartPanel extends JPanel {
 	public JButton startButton = new JButton(startButtonImg); // 시작화면의 버튼들
 	public JButton settingButton = new JButton(settingButtonImg);
 	public JButton quitButton = new JButton(quitButtonImg);
-	
+
 	private JButton rankingButton = new JButton(rankButtonImg);
 	private RankingDialog rankingDialog = new RankingDialog();
 
@@ -46,8 +46,10 @@ public class StartPanel extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
-				Music buttonClick = new Music("buttonClick1.mp3", false);
-				buttonClick.start();
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.startPanel.setVisible(false);
 				game.stageSelectPanel.setVisible(true);
 			}
@@ -68,8 +70,10 @@ public class StartPanel extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
-				Music buttonClick = new Music("buttonClick1.mp3", false);
-				buttonClick.start();
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.startPanel.setVisible(false);
 				game.settingPanel.setVisible(true);
 
@@ -91,19 +95,21 @@ public class StartPanel extends JPanel {
 			}
 
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
-				Music buttonClick = new Music("buttonClick1.mp3", false);
-				buttonClick.start();
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				System.exit(0);
 			}
 		});
 		this.add(quitButton);
-		
+
 		rankingButton.setVisible(true);
 		rankingButton.setBounds(85, 580, 200, 81);
 		rankingButton.setBorderPainted(false);
 		rankingButton.setContentAreaFilled(false);
 		rankingButton.addMouseListener(new MouseAdapter() {
-			
+
 			public void mouseEntered(MouseEvent e) {
 				rankingButton.setIcon(enteredRankButtonImg);
 			}
@@ -111,9 +117,12 @@ public class StartPanel extends JPanel {
 			public void mouseExited(MouseEvent e) {
 				rankingButton.setIcon(rankButtonImg);
 			}
+
 			public void mousePressed(MouseEvent e) { // 마우스가 눌렸을때
-				Music buttonClick = new Music("buttonClick1.mp3", false);
-				buttonClick.start();
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				rankingDialog.draw();
 				rankingDialog.setVisible(true);
 			}
