@@ -18,6 +18,9 @@ import javax.swing.KeyStroke;
 import bag.BagPanel;
 import cheese.CheeseExplain;
 import mushroom.MushroomExplain;
+import onion.OnionExplain;
+import paprika.PaprikaExplain;
+import pepperoni.PepperoniExplain;
 import sauce.SauceExplain;
 
 public class StageSelectPanel extends JPanel{	
@@ -35,8 +38,10 @@ public class StageSelectPanel extends JPanel{
 	
 	private SauceExplain sauceExplain;
 	private CheeseExplain cheeseExplain;
+	private OnionExplain onionExplain;
+	private PepperoniExplain pepperoniExplain;
 	private MushroomExplain mushroomExplain;
-	
+	private PaprikaExplain paprikaExplain;
 	private BagPanel bagPanel; 
 	
 	public StageSelectPanel(Game game) {
@@ -55,6 +60,15 @@ public class StageSelectPanel extends JPanel{
 		cheeseExplain = new CheeseExplain(game);
 		cheeseExplain.setVisible(false);
 		
+		pepperoniExplain = new PepperoniExplain(game);
+		pepperoniExplain.setVisible(false);
+		
+		onionExplain = new OnionExplain(game);
+		onionExplain.setVisible(false);
+		
+		paprikaExplain = new PaprikaExplain(game);
+		paprikaExplain.setVisible(false);
+		
 		cheeseBtn.setVisible(true);
 		cheeseBtn.setBounds(979, 558, 202, 116);
 		cheeseBtn.addMouseListener(new MouseAdapter() {
@@ -68,10 +82,7 @@ public class StageSelectPanel extends JPanel{
 		onionBtn.setBounds(857, 131, 202, 156);
 		onionBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.setVisible(false);
-				game.onionPanel.setVisible(true);
-				game.onionPanel.setFocusable(true);
-				game.onionPanel.requestFocus();
+				onionExplain.setVisible(true);
 
 			}
 		});
@@ -81,11 +92,7 @@ public class StageSelectPanel extends JPanel{
 		paprikaBtn.setBounds(515, 64, 256, 136);
 		paprikaBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.setVisible(false);
-				game.paprikaPanel.setVisible(true);
-				game.paprikaPanel.setFocusable(true);		
-				game.paprikaPanel.requestFocus();
-				game.paprikaPanel.startGame();
+				paprikaExplain.setVisible(true);
 			}
 		});
 		this.add(paprikaBtn);
@@ -94,11 +101,7 @@ public class StageSelectPanel extends JPanel{
 		pepperoniBtn.setBounds(960, 353, 202, 133);
 		pepperoniBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				game.stageSelectPanel.setVisible(false);
-				game.pepperoniPanel.setVisible(true);
-				game.pepperoniPanel.setFocusable(true);		
-				game.pepperoniPanel.requestFocus();
-				game.pepperoniPanel.startGame();
+				pepperoniExplain.setVisible(true);
 			}
 		});
 		this.add(pepperoniBtn);

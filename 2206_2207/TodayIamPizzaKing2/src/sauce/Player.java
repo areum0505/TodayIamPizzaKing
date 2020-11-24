@@ -32,7 +32,7 @@ public class Player extends Thread {
 	private ImageIcon img;
 	private ImageIcon standImage = new ImageIcon("images/sauce/sauceStandpizza.png");
 	private ImageIcon runIamge = new ImageIcon("images/sauce/sauceRunPizza.png");
-	private ImageIcon clearImage = new ImageIcon("images/sauce/sauceHappyPizza.png");
+	private ImageIcon clearImage = new ImageIcon("images/sauce/sauceWithPizza.png");
 	private ImageIcon deadImage = new ImageIcon("images/sauce/sauceSadPizza.png");
 
 	SauceEnd endPanel;

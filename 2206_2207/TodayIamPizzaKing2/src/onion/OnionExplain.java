@@ -1,4 +1,4 @@
-package sauce;
+package onion;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,25 +14,24 @@ import javax.swing.WindowConstants;
 
 import code.Game;
 
-public class SauceExplain extends JDialog{
+public class OnionExplain extends JDialog{
 
 	Game game;
 	
-	private ImageIcon explainImg = new ImageIcon("images/sauce/sauceExplain.png");
+	private ImageIcon explainImg = new ImageIcon("images/onion/newOnionExplain.png");
 	
 	
-	public JButton sauceGameBtn = new JButton();
+	public JButton onionGameBtn = new JButton();
 	JPanel jp;
 	JLabel back;
 	
 	
-	public SauceExplain(Game game) {
+	public OnionExplain(Game game) {
 		
-		setTitle("Sauce Stage Explain");
+		setTitle("Onion Stage Explain");
 		setSize(900, 645);
 		setLocationRelativeTo(null);	
 		setModal(true);
-		setResizable(false);
 		
 		this.game = game;
 		
@@ -45,23 +44,22 @@ public class SauceExplain extends JDialog{
 		back.setBounds(0,0, 900, 600);
 		jp.add(back);
 		
-		sauceGameBtn.setVisible(true);
-		sauceGameBtn.setBounds(525, 460, 328, 92);
-		sauceGameBtn.addMouseListener(new MouseAdapter() {
+		onionGameBtn.setVisible(true);
+		onionGameBtn.setBounds(525, 460, 328, 92);
+		onionGameBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				setVisible(false);
 				game.stageSelectPanel.setVisible(false);
-				game.saucePanel.setVisible(true);
-				game.saucePanel.setFocusable(true);	
-				game.saucePanel.requestFocus();
-				game.saucePanel.startGame();
+				game.onionPanel.setVisible(true);
+				game.onionPanel.setFocusable(true);	
+				game.onionPanel.requestFocus();
 				
 			}
 		});
-		jp.add(sauceGameBtn);
+		jp.add(onionGameBtn);
 		
-		sauceGameBtn.setBorderPainted(false);
-		sauceGameBtn.setContentAreaFilled(false);
+		onionGameBtn.setBorderPainted(false);
+		onionGameBtn.setContentAreaFilled(false);
 		
 		add(jp);
 		jp.setVisible(true);

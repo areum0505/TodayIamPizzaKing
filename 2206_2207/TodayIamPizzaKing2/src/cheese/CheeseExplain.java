@@ -18,7 +18,7 @@ public class CheeseExplain extends JDialog{
 
 	Game game;
 	
-	private ImageIcon explainImg = new ImageIcon("images/cheese/cheeseExplain.png");
+	private ImageIcon explainImg = new ImageIcon("images/cheese/newCheeseExplain.png");
 	
 	
 	public JButton cheeseGameBtn = new JButton();
@@ -31,6 +31,7 @@ public class CheeseExplain extends JDialog{
 		setSize(915, 645);
 		setLocationRelativeTo(null);	
 		setModal(true);
+		setResizable(false);
 		
 		this.game = game;
 		

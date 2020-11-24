@@ -73,51 +73,30 @@ class onionLabel extends JLabel {
 
 }// end of MyLabel
 
-class onionLifeLabel extends JLabel {
-
-	private int width = 50; // 바의 최대 크기
-
-	ImageIcon noHeart = new ImageIcon("images/onion/noHeart.png");
-	Image fillHeart = new ImageIcon("images/onion/fillHeart.png").getImage();
-
-	public onionLifeLabel() {
-		super();
-	}
-
-	@Override
-	protected void paintComponent(Graphics g) {
-		// TODO Auto-generated method stub
-		super.paintComponent(g);
-		g.setColor(Color.red);
-		g.fillRect(0, 0, width, this.getHeight());
-		// g.drawImage(fillHeart, 0, 0, getWidth(), getHeight(), null);
-	}
-
-	public void heartDead() { // 바가 감소하는 메서드
-
-		width -= 50;
-		repaint();
-	}
-
-	public void clear() {
-		width = 50;
-		repaint();
-	}
-}
 
 public class OnionPanel extends JPanel{
 
-	private static final Object DISABLE_CLICKER = null;
-	private Image backgroundImage = new ImageIcon("images/onion/onionBackground.png").getImage();
-	ImageIcon pizzaIcon[] = { new ImageIcon("./images/onion/rockPizza.png"),
-			new ImageIcon("./images/onion/scissorsPizza.png"), new ImageIcon("./images/onion/paperPizza.png") };
+	//private static final Object DISABLE_CLICKER = null;
+	
+	private Image backgroundImage = new ImageIcon("images/onion/onionBack.png").getImage();
+	ImageIcon fullHeart = new ImageIcon("images/mushroom/fullHeart.png");
+	ImageIcon deadHeart = new ImageIcon("images/mushroom/deadHeart.png");
+	
+	ImageIcon firstDrop = new ImageIcon("images/onion/firstDrop.png");
+	ImageIcon secondDrop = new ImageIcon("images/onion/secondDrop.png");
+	
+	ImageIcon tear = new ImageIcon("images/onion/tears.png");
+	
+	ImageIcon pizzaIcon[] = { new ImageIcon("./images/onion/pizza_rock.png"),
+			new ImageIcon("./images/onion/pizza_sissor.png"), new ImageIcon("./images/onion/pizza_paper.png") };
 
-	ImageIcon comIcon[] = { new ImageIcon("./img/mook.png"), new ImageIcon("./img/jji.png"),
-			new ImageIcon("./img/bba.png") };
+	ImageIcon comIcon[] = { new ImageIcon("./images/onion/enemy_rock.png"), new ImageIcon("./images/onion/enemy_sissor.png"),
+			new ImageIcon("./images/onion/enemy_paper.png") };
 
 	private onionLabel bar;
-	onionLifeLabel life1, life2, life3;
+	
 	JLabel lspScore, lspVS, lspCom, lspUser, lspResult;
+	JLabel heart1, heart2, heart3, onionSays, drop1, drop2, drop3, comTears, pTears;
 	JButton btnRock, btnScissors, btnPaper;
 
 	OnionEnd onionEnd;
@@ -127,7 +106,9 @@ public class OnionPanel extends JPanel{
 	int draw = 0;
 	int lose = 0;
 	int gameScore = 0;
-
+	int heartCnt = 3;
+	int dropCnt = 0;
+	
 	public OnionPanel(Game game) {
 
 		setLayout(null);
@@ -158,53 +139,77 @@ public class OnionPanel extends JPanel{
 		btnPaper.setBorderPainted(false);
 		btnPaper.setContentAreaFilled(false);
 
-		lspCom = new JLabel(new ImageIcon("./img/first.png"));
-		lspCom.setBounds(300, 200, 300, 300);
+		drop1 = new JLabel(firstDrop);
+		drop1.setBounds(280, 450, 300, 80);
+		add(drop1);
+		drop1.setVisible(false);
+		
+		drop2 = new JLabel(secondDrop);
+		drop2.setBounds(230, 460, 300, 80);
+		add(drop2);
+		drop2.setVisible(false);
+		
+		drop3 = new JLabel(firstDrop);
+		drop3.setBounds(330, 450, 300, 80);
+		add(drop3);
+		drop3.setVisible(false);
+		
+		comTears = new JLabel(tear);
+		comTears.setBounds(270, 330, 300, 80);
+		add(comTears);
+		comTears.setVisible(false);
+		
+		
+		pTears = new JLabel(tear);
+		pTears.setBounds(695, 360, 300, 80);
+		add(pTears);
+		pTears.setVisible(false);
+		
+		lspCom = new JLabel(new ImageIcon("./images/onion/enemy_first.png"));
+		lspCom.setBounds(280, 180, 300, 350);
 		add(lspCom);
 
-		lspUser = new JLabel(new ImageIcon("./images/onion/justPizza.png"));
+		lspUser = new JLabel(new ImageIcon("./images/onion/pizza_first.png"));
 		lspUser.setBounds(700, 200, 300, 350);
 		add(lspUser);
 
 		bar = new onionLabel(300);
 		bar.setOpaque(true);
 		bar.setBackground(Color.pink);
-		bar.setSize(300, 50);
-		bar.setLocation(100, 70);
+		bar.setSize(300,50);
+		bar.setLocation(100,70);
 		add(bar);
 
+		
+		
 //		lspResult = new JLabel();
 //		lspResult.setFont(new Font("돋움", Font.BOLD, 30));
 //		lspResult.setBounds(350, 180, 200, 300);
 //		
 //		add(lspResult);
+	
+		/*
+		 * onionSays = new JLabel("덤벼보시지"); onionSays.setFont(new Font("돋움", Font.BOLD,
+		 * 30)); onionSays.setBounds(400, 200, 200, 300); add(onionSays);
+		 */
 		
 		add(lspScore);
 		add(btnRock);
 		add(btnScissors);
 		add(btnPaper);
 
-		life1 = new onionLifeLabel();
-		life1.setOpaque(true);
-		life1.setBackground(Color.black);
-		life1.setSize(50, 50);
-		life1.setLocation(950, 70);
-		add(life1);
-
-		life2 = new onionLifeLabel();
-		life2.setOpaque(true);
-		life2.setBackground(Color.black);
-		life2.setSize(50, 50);
-		life2.setLocation(1050, 70);
-		add(life2);
-
-		life3 = new onionLifeLabel();
-		life3.setOpaque(true);
-		life3.setBackground(Color.black);
-		life3.setSize(50, 50);
-		life3.setLocation(1150, 70);
-		add(life3);
-
+		
+		heart1 = new JLabel(fullHeart);
+		heart1.setBounds(900,70,fullHeart.getIconWidth(), fullHeart.getIconHeight());
+		add(heart1);
+		
+		heart2 = new JLabel(fullHeart);
+		heart2.setBounds(1000,70,fullHeart.getIconWidth(), fullHeart.getIconHeight());
+		add(heart2);
+		
+		heart3 = new JLabel(fullHeart);
+		heart3.setBounds(1100,70,fullHeart.getIconWidth(), fullHeart.getIconHeight());
+		add(heart3);
 		
 		  MyMouseListener listener = new MyMouseListener();
 		  
@@ -236,22 +241,24 @@ public class OnionPanel extends JPanel{
 
 		if (com == user) {
 			draw++;
-			System.out.println("비김");
 
 		} else if ((com == 1 && user == 3) || (com == 2 && user == 1) || (com == 3 && user == 2)) {
 			win++;
 			gameScore += 100;
 			bar.fill();
-			System.out.println("피자 이김");
+			
+			dropCnt += 1;
+			checkDrop();
 
 		} else if ((com == 1 && user == 2) || (com == 2 && user == 3) || (com == 3 && user == 1)) {
 			if (gameScore >= 50) {
 				gameScore -= 50;
 			}
 			lose++;
-			loseCheck();
-			bar.consume();
-			System.out.println("피자 졌음");
+			heartCnt +=-1;
+			checkHeart();
+			//bar.consume();
+		
 		} else {
 			System.out.println("예상치못한오류발생");
 		}
@@ -273,35 +280,66 @@ public class OnionPanel extends JPanel{
 		}
 		System.out.println("실행됨");
 	}
-
-	public void loseCheck() {
-		switch (lose) {
-		case 1:
-			life1.heartDead();
+	void checkDrop() {
+		switch(dropCnt) {
+		case 3:
+			comTears.setVisible(true);
+			drop3.setVisible(true);
 			break;
 		case 2:
-			life2.heartDead();
+			comTears.setVisible(true);
+			drop2.setVisible(true);
 			break;
-		case 3:
-			life3.heartDead();
-			onionEnd.Fail();
+		case 1:
+			comTears.setVisible(true);
+			drop1.setVisible(true);
 			break;
-
+	}
+	}
+	void checkHeart() {
+		switch(heartCnt) {
+			case 3:
+				heart3.setIcon(fullHeart);
+				heart2.setIcon(fullHeart);
+				heart1.setIcon(fullHeart);
+				break;
+			case 2:
+				heart3.setIcon(deadHeart);
+				pTears.setVisible(true);
+				break;
+			case 1:
+				heart2.setIcon(deadHeart);
+				pTears.setVisible(true);
+				break;
+			case 0:
+				heart1.setIcon(deadHeart);
+				pTears.setVisible(true);
+				onionEnd.Fail();
+				break;
 		}
 	}
-
+	
 	public void reset() {
+		heartCnt = 3;
+		dropCnt = 0;
 		gameScore = 0;
 		win = 0;
 		draw = 0;
 		lose = 0;
 		gameScore = 0;
 		lspScore.setText(win + "승 " + draw + "무 " + lose + "패 ");
-
+		
+		lspCom = new JLabel(new ImageIcon("./images/enemy_first.png"));
+		lspUser = new JLabel(new ImageIcon("./images/onion/pizza_first.png"));
+		
+		comTears.setVisible(false);
+		pTears.setVisible(false);
+		
+		drop1.setVisible(false);
+		drop2.setVisible(false);
+		drop3.setVisible(false);
+		
 		bar.clear();
-		life1.clear();
-		life2.clear();
-		life3.clear();
 	}
 
 	
@@ -329,24 +367,31 @@ public class OnionPanel extends JPanel{
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
 			Object ob = e.getSource();
+			Music buttonClick = new Music("buttonClick1.mp3", false);
 			
 			if (ob == btnRock) {
 				lspUser.setIcon(pizzaIcon[0]);
+				buttonClick.start();
+				comTears.setVisible(false);
+				pTears.setVisible(false);
 				chkResult(1);
 				chkOnionResult();
-				System.out.println(gameScore);
 
 			} else if (ob == btnScissors) {
+				buttonClick.start();
+				comTears.setVisible(false);
+				pTears.setVisible(false);
 				lspUser.setIcon(pizzaIcon[1]);
 				chkResult(2);
 				chkOnionResult();
-				System.out.println(gameScore);
 
 			} else if (ob == btnPaper) {
+				buttonClick.start();
+				comTears.setVisible(false);
+				pTears.setVisible(false);
 				lspUser.setIcon(pizzaIcon[2]);
 				chkResult(3);
 				chkOnionResult();
-				System.out.println(gameScore);
 			}
 		}
 

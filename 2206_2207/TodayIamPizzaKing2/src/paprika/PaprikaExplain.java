@@ -1,4 +1,4 @@
-package sauce;
+package paprika;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,21 +14,21 @@ import javax.swing.WindowConstants;
 
 import code.Game;
 
-public class SauceExplain extends JDialog{
+public class PaprikaExplain extends JDialog{
 
 	Game game;
 	
-	private ImageIcon explainImg = new ImageIcon("images/sauce/sauceExplain.png");
+	private ImageIcon explainImg = new ImageIcon("images/paprika/paprikaExplain.png");
 	
 	
-	public JButton sauceGameBtn = new JButton();
+	public JButton papGameBtn = new JButton();
 	JPanel jp;
 	JLabel back;
 	
 	
-	public SauceExplain(Game game) {
+	public PaprikaExplain(Game game) {
 		
-		setTitle("Sauce Stage Explain");
+		setTitle("Paprika Stage Explain");
 		setSize(900, 645);
 		setLocationRelativeTo(null);	
 		setModal(true);
@@ -45,23 +45,22 @@ public class SauceExplain extends JDialog{
 		back.setBounds(0,0, 900, 600);
 		jp.add(back);
 		
-		sauceGameBtn.setVisible(true);
-		sauceGameBtn.setBounds(525, 460, 328, 92);
-		sauceGameBtn.addMouseListener(new MouseAdapter() {
+		papGameBtn.setVisible(true);
+		papGameBtn.setBounds(525, 460, 328, 92);
+		papGameBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				setVisible(false);
 				game.stageSelectPanel.setVisible(false);
-				game.saucePanel.setVisible(true);
-				game.saucePanel.setFocusable(true);	
-				game.saucePanel.requestFocus();
-				game.saucePanel.startGame();
-				
+				game.paprikaPanel.setVisible(true);
+				game.paprikaPanel.setFocusable(true);		
+				game.paprikaPanel.requestFocus();
+				game.paprikaPanel.startGame();
 			}
 		});
-		jp.add(sauceGameBtn);
+		jp.add(papGameBtn);
 		
-		sauceGameBtn.setBorderPainted(false);
-		sauceGameBtn.setContentAreaFilled(false);
+		papGameBtn.setBorderPainted(false);
+		papGameBtn.setContentAreaFilled(false);
 		
 		add(jp);
 		jp.setVisible(true);

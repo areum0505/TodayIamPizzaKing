@@ -140,7 +140,7 @@ class Game implements Runnable {
 
 
 public class PaprikaPanel extends JPanel{
-	private Image backgroundImage = new ImageIcon("images/paprika/paprikaBackground.png").getImage();
+	private Image backgroundImage = new ImageIcon("images/paprika/newPaprikaBack.png").getImage();
 	private ImageIcon knifeIcon = new ImageIcon("images/paprika/newKnife.png");
 	
 	private ImageIcon redPap90 = new ImageIcon("images/paprika/redPaprika90.png");
@@ -168,10 +168,13 @@ public class PaprikaPanel extends JPanel{
 	Thread prevTh;
 	private PaprikaEnd paprikaEnd;
 	private PaprikaPause paprikaPause;
+	int ran = ((int)(Math.random()*100)+1)+20;
 	
 	public PaprikaPanel(code.Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
+		
+		System.out.println(ran);
 		
 		paprikaEnd = new PaprikaEnd(game);
 		paprikaPause = new PaprikaPause(game);
@@ -182,11 +185,11 @@ public class PaprikaPanel extends JPanel{
 		add(knife);
 		add(choiceBar);
 		
-		enemy1.setLocation(250, 100);
+		enemy1.setLocation(230+ran, 100);
 		add(enemy1);
-		enemy2.setLocation(450, 100);
+		enemy2.setLocation(400+ran, 100);
 		add(enemy2);
-		enemy3.setLocation(700, 100);
+		enemy3.setLocation(550+ran, 100);
 		add(enemy3);
 		
 		paprika = new JLabel();
@@ -197,19 +200,20 @@ public class PaprikaPanel extends JPanel{
 		score = new JLabel("000");
 		score.setFont(new Font("³ª´®°íµñ ExtraBold", Font.BOLD, 50));
 		score.setForeground(Color.red);
-		score.setBounds(1070, 20, 500, 50);
+		score.setBounds(700, 20, 500, 50);
 		add(score);
 		
-		showGreenPap = new JLabel(greenPap);
-		showGreenPap.setBounds(970,50, greenPap.getIconWidth(), greenPap.getIconHeight());
-		add(showGreenPap);
-	
+		
 		showYellowPap = new JLabel(yellowPap);
-		showYellowPap.setBounds(970,240, yellowPap.getIconWidth(), yellowPap.getIconHeight());
+		showYellowPap.setBounds(950,200, yellowPap.getIconWidth(), yellowPap.getIconHeight());
 		add(showYellowPap);
+		
+		showGreenPap = new JLabel(greenPap);
+		showGreenPap.setBounds(950,50, greenPap.getIconWidth(), greenPap.getIconHeight());
+		add(showGreenPap);
 
 		showRedPap = new JLabel(redPap);
-		showRedPap.setBounds(970,410, redPap.getIconWidth(), redPap.getIconHeight());
+		showRedPap.setBounds(950,350, redPap.getIconWidth(), redPap.getIconHeight());
 		add(showRedPap);
 		
 		showGreenPap.setVisible(false);
@@ -228,7 +232,6 @@ public class PaprikaPanel extends JPanel{
 		g = new Game(bar, choiceBar, knife);
 		td = new Thread(g);
 		td.start();
-		System.out.println(win);
 		paprikaCheck();
 		showGreenPap.setVisible(false);
 		showYellowPap.setVisible(false);
@@ -246,7 +249,11 @@ public class PaprikaPanel extends JPanel{
 			
 			switch(keyCode) {
 				case KeyEvent.VK_SPACE:
+<<<<<<< HEAD
 					Music dropsound = new Music("knife.mp3", false);
+=======
+					Music dropsound = new Music("pepperonidrop.mp3", false);
+>>>>>>> a37e4cf1f2f6762fa31e4e81e819825d2d339661
 					dropsound.start();
 					crashCheck();
 					break;
@@ -314,26 +321,29 @@ public class PaprikaPanel extends JPanel{
 		if (enemy1.getX()+ enemy1.getWidth() > choiceBar.getX() && choiceBar.getX() + choiceBar.getWidth()>enemy1.getX()&& enemy1.getY()+enemy1.getHeight()>choiceBar.getY()&& choiceBar.getY()+ choiceBar.getHeight()>enemy1.getY()) {
 			win+=100;
 			scoreCheck();
-			System.out.println(win);
 			score.setText(Integer.toString(win));
 			paprikaCheck();
-			enemy1.setLocation(250,100);
+			int ran = ((int)(Math.random()*100)+1)+50;
+			System.out.println(ran);
+			enemy1.setLocation(250+ran,100);
 		}
 		else if (enemy2.getX()+ enemy2.getWidth() > choiceBar.getX() && choiceBar.getX() + choiceBar.getWidth()>enemy2.getX()&& enemy2.getY()+enemy2.getHeight()>choiceBar.getY()&& choiceBar.getY()+ choiceBar.getHeight()>enemy2.getY()) {
 			win+=100;
 			scoreCheck();
-			System.out.println(win);
 			score.setText(Integer.toString(win));
 			paprikaCheck();
-			enemy2.setLocation(450,100);
+			int ran = ((int)(Math.random()*100)+1)+50;
+			System.out.println(ran);
+			enemy2.setLocation(400+ran,100);
 		}
 		else if (enemy3.getX()+ enemy3.getWidth() > choiceBar.getX() && choiceBar.getX() + choiceBar.getWidth()>enemy3.getX()&& enemy3.getY()+enemy3.getHeight()>choiceBar.getY()&& choiceBar.getY()+ choiceBar.getHeight()>enemy3.getY()) {
 			win+=100;
-			System.out.println(win);
 			score.setText(Integer.toString(win));
 			scoreCheck();
 			paprikaCheck();
-			enemy3.setLocation(700,100);
+			int ran = ((int)(Math.random()*100)+1)+50;
+			System.out.println(ran);
+			enemy3.setLocation(550+ran,100);
 			
 		}else {
 				td.stop();
