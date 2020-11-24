@@ -29,7 +29,7 @@ public class PaprikaExplain extends JDialog{
 	public PaprikaExplain(Game game) {
 		
 		setTitle("Paprika Stage Explain");
-		setSize(900, 645);
+		setSize(900, 630);
 		setLocationRelativeTo(null);	
 		setModal(true);
 		setResizable(false);

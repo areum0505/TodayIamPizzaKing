@@ -249,11 +249,8 @@ public class PaprikaPanel extends JPanel{
 			
 			switch(keyCode) {
 				case KeyEvent.VK_SPACE:
-<<<<<<< HEAD
 					Music dropsound = new Music("knife.mp3", false);
-=======
-					Music dropsound = new Music("pepperonidrop.mp3", false);
->>>>>>> a37e4cf1f2f6762fa31e4e81e819825d2d339661
+
 					dropsound.start();
 					crashCheck();
 					break;

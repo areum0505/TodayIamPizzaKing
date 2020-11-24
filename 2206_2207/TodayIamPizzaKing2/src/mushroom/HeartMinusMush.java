@@ -65,7 +65,7 @@ class HeartMinusMush extends JLabel implements Runnable{
 			}
 			
 			try {
-				Thread.sleep(130);
+				Thread.sleep(70);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

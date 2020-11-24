@@ -219,7 +219,7 @@ public class MushroomPanel extends JPanel {
 	public void checkScore() {
 		
 		
-		if(heartCnt ==0) {
+		if(heartCnt == 0) {
 			pizzaMan.stop();
 			for (FriendMush f_Mush : f_MushList) {
 				f_Mush.setStop(true);
@@ -232,7 +232,7 @@ public class MushroomPanel extends JPanel {
 			}
 			mushroomEnd.Fail();
 		}
-		if(score == 300) {
+		if(score == 200) {
 			
 			pizzaMan.stop();
 			for (FriendMush f_Mush : f_MushList) {

@@ -28,7 +28,7 @@ public class MushroomExplain extends JDialog{
 	
 	public MushroomExplain(Game game) {
 		setTitle("Mushroom Stage Explain");
-		setSize(915, 645);
+		setSize(900, 630);
 		setLocationRelativeTo(null);	
 		setModal(true);
 		setResizable(false);

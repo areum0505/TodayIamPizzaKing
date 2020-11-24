@@ -17,10 +17,7 @@ import code.Game;
 public class PepperoniExplain extends JDialog{
 
 	Game game;
-	
 	private ImageIcon explainImg = new ImageIcon("images/pepperoni/pepperoniExplain.png");
-	
-	
 	public JButton pepGameBtn = new JButton();
 	JPanel jp;
 	JLabel back;
@@ -28,8 +25,8 @@ public class PepperoniExplain extends JDialog{
 	
 	public PepperoniExplain(Game game) {
 		
-		setTitle("Paprika Stage Explain");
-		setSize(900, 645);
+		setTitle("Pepperoni Stage Explain");
+		setSize(900, 630);
 		setLocationRelativeTo(null);	
 		setModal(true);
 		setResizable(false);

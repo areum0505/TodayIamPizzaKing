@@ -29,9 +29,10 @@ public class OnionExplain extends JDialog{
 	public OnionExplain(Game game) {
 		
 		setTitle("Onion Stage Explain");
-		setSize(900, 645);
+		setSize(900, 630);
 		setLocationRelativeTo(null);	
 		setModal(true);
+		setResizable(false);
 		
 		this.game = game;
 		

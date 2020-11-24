@@ -67,7 +67,7 @@ class FriendMush extends JLabel implements Runnable{
 				check();
 			}
 			try {
-				Thread.sleep(120);
+				Thread.sleep(70);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
