@@ -94,7 +94,7 @@ public class RankingDialog extends JDialog {
 		outer.setPreferredSize(new Dimension(800, y));
 		outer.setBackground(Color.WHITE);
 		scrollPane = new JScrollPane(outer, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollPane.setBounds(9, 115, 872, 445);
+		scrollPane.setBounds(0, 115, 894, 450);
 		p.add(scrollPane);
 		p.add(back);
 
