@@ -1,7 +1,5 @@
 package bag;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -18,7 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
 import code.Game;
 
@@ -35,15 +32,11 @@ public class BagPanel extends JDialog {
 
 	private JPanel jp;
 
-	private JButton backButton;
 	private JButton makeButton;
 
 	private JLabel sauceLabel, mushLabel, papLabel, onionLabel, pepperLabel, cheeseLabel;
 
 	public BagPanel(Game game) {
-//		setLayout(null);
-//		setBounds(250, 110, 800, 500);
-
 		setTitle("Bag");
 		setSize(915, 645);
 		setLocationRelativeTo(null);
@@ -62,7 +55,7 @@ public class BagPanel extends JDialog {
 		mushLabel.setBounds(270, 10, 100, 100);
 		mushLabel.setVisible(false);
 		jp.add(mushLabel);
-		papLabel = new JLabel("파프리카");
+		papLabel = new JLabel(papImg);
 		papLabel.setBounds(530, 10, 100, 100);
 		papLabel.setVisible(false);
 		jp.add(papLabel);
@@ -78,18 +71,6 @@ public class BagPanel extends JDialog {
 		cheeseLabel.setBounds(530, 260, 100, 100);
 		cheeseLabel.setVisible(false);
 		jp.add(cheeseLabel);
-
-		backButton = new JButton(backButtonImg);
-		backButton.setVisible(true);
-		backButton.setBounds(800 - 64, 0, 64, 64);
-		backButton.setBorderPainted(false);
-		backButton.setContentAreaFilled(false);
-		backButton.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				setVisible(false);
-			}
-		});
-		jp.add(backButton);
 
 		makeButton = new JButton("만들기");
 		makeButton.setVisible(true);
@@ -119,7 +100,7 @@ public class BagPanel extends JDialog {
 				if (name.trim().length() == 0) {
 					JOptionPane.showMessageDialog(null, "이름을 입력해주세요", "이름 입력", JOptionPane.ERROR_MESSAGE);
 					return;
-				} else if(pizza.trim().length() == 0) {
+				} else if (pizza.trim().length() == 0) {
 					JOptionPane.showMessageDialog(null, "피자의 이름을 입력해주세요", "피자 입력", JOptionPane.ERROR_MESSAGE);
 					return;
 				}

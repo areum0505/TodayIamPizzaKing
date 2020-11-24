@@ -40,28 +40,25 @@ public class RankingDialog extends JDialog {
 		setModal(true);
 		setResizable(false);
 		setLayout(null);
-
+		
 		p = new JPanel();
-
 		p.setLayout(null);
 		p.setBounds(0, 0, 900, 600);
+		
+		add(p);
+	}
 
+	public void draw() {
+		getRanking();		
+
+		int y = 10;
+		
 		back = new JLabel(backgroundImage);
 		back.setBounds(0, 0, 900, 600);
 		p.add(back);
 		
 		outer = new JPanel();
 		outer.setLayout(null);
-
-		
-		add(p);
-		p.setVisible(true);
-	}
-
-	public void draw() {
-		getRanking();
-
-		int y = 10;
 
 		for (int i = 0; i < name.length; i++) {
 			JPanel panel = new JPanel(new BorderLayout());
@@ -101,6 +98,7 @@ public class RankingDialog extends JDialog {
 		p.add(scrollPane);
 		p.add(back);
 
+		
 	}
 
 	public void getRanking() {
