@@ -17,15 +17,28 @@ import code.Game;
 import code.JTextFieldLimit;
 
 class numLabel extends JLabel implements Runnable {
+	int a = 0;
+	String[] num = new String[]{ "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+
 	public numLabel(String text) {
+		setText(text);
+	}
+
+	public numLabel(String text, int a) {
+		this.a = 1;
 		setText(text);
 	}
 
 	@Override
 	public void run() {
 		while (true) {
-			int n = (int) (Math.random() * 10);
-			setText(String.valueOf(n));
+			if (a == 1) {
+				setText(num[(int) (Math.random() * 11)]);
+			} else {
+				int n = (int) (Math.random() * 10);
+				setText(String.valueOf(n));
+			}
+			
 			try {
 				Thread.sleep(100);
 			} catch (InterruptedException e) {
@@ -38,7 +51,7 @@ class numLabel extends JLabel implements Runnable {
 public class SlotMachine extends JPanel implements ActionListener {
 	ImageIcon backgroundImage = new ImageIcon("images/main/slotBack.png");
 	JLabel back;
-	
+
 	Game game;
 	BagPanel bag;
 
@@ -52,7 +65,7 @@ public class SlotMachine extends JPanel implements ActionListener {
 		setLayout(null);
 		setBounds(0, 0, 900, 600);
 		setBackground(Color.GREEN);
-		
+
 		this.game = game;
 		this.bag = bag;
 
@@ -61,7 +74,11 @@ public class SlotMachine extends JPanel implements ActionListener {
 		th = new Thread[4];
 
 		for (int i = 0; i < 4; i++) {
-			labels[i] = new numLabel(String.valueOf(numbers[i]));
+			if (i == 0) {
+				labels[i] = new numLabel(String.valueOf(numbers[i]), 1);
+			} else {
+				labels[i] = new numLabel(String.valueOf(numbers[i]));
+			}
 			labels[i].setFont(new Font("Serif", Font.BOLD, 100));
 			labels[i].setSize(100, 100);
 			labels[i].setLocation(155 + 183 * i, 245);
@@ -91,15 +108,15 @@ public class SlotMachine extends JPanel implements ActionListener {
 		for (int i = 0; i < 4; i++) {
 			th[i].stop();
 		}
-		
+
 		try {
 			Thread.sleep(500);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
-		
+
 		bag.setVisible(false);
-		
+
 		String[] options = { "확인" };
 		JPanel panel = new JPanel(new GridLayout(2, 2));
 		JLabel name_l = new JLabel("당신 이름 : ");
@@ -127,15 +144,14 @@ public class SlotMachine extends JPanel implements ActionListener {
 			JOptionPane.showMessageDialog(null, "피자의 이름을 입력해주세요", "피자 입력", JOptionPane.ERROR_MESSAGE);
 			return;
 		}
-		
+
 		String score = "";
-		for(int i = 0; i < 4; i++) {
+		for (int i = 0; i < 4; i++) {
 			score += labels[i].getText();
 		}
-		
+
 		setVisible(false);
 
-		
 		game.resultPanel.setplusScore(score);
 		game.resultPanel.make(name, pizza);
 		game.stageSelectPanel.setVisible(false);

@@ -98,6 +98,7 @@ public class BagPanel extends JDialog {
 					return;
 				} else if (result == JOptionPane.YES_OPTION) {
 					colaPanel.setVisible(true);
+					makeButton.setVisible(false);
 				} else {
 					String[] options = { "확인" };
 					JPanel panel = new JPanel(new GridLayout(2, 2));
@@ -223,6 +224,7 @@ class ColaPanel extends JPanel {
 				bagPanel.colaGamePanel.setVisible(true);
 				bagPanel.colaGamePanel.requestFocus();
 				bagPanel.colaGamePanel.startGame();
+				setVisible(false);
 			}
 		});
 		this.add(startBtn);
@@ -471,6 +473,7 @@ class ColaGamePanel extends JPanel {
 	}
 
 	public void defeat() {
+		setVisible(false);
 		cola.setVisible(false);
 
 		String[] options = { "확인" };

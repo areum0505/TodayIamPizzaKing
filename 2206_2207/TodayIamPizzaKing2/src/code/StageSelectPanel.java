@@ -83,7 +83,6 @@ public class StageSelectPanel extends JPanel{
 		onionBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
 				onionExplain.setVisible(true);
-
 			}
 		});
 		this.add(onionBtn);
@@ -129,6 +128,7 @@ public class StageSelectPanel extends JPanel{
 		BagBtn.setBounds(482, 273, 315, 447);
 		BagBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				bagPanel = new BagPanel(game);
 				bagPanel.check();
 				bagPanel.setVisible(true);
 			}
