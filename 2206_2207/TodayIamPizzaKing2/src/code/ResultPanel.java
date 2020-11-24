@@ -1,6 +1,8 @@
 package code;
 
+import java.awt.Color;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,13 +14,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.StringTokenizer;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import bag.SlotMachine;
+
 public class ResultPanel extends JPanel {
-	private Image backgroundImage = new ImageIcon("images/main/setBackground.png").getImage();
+	private Image backgroundImage = new ImageIcon("images/main/resultBack.png").getImage();
 	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
 
 	// ÇÇÀÚ ÀÌ¹ÌÁö
@@ -33,15 +39,15 @@ public class ResultPanel extends JPanel {
 	private JButton firstButton;
 
 	private JLabel dough, sauce, mush, paprika, onion, pepper, cheese; // ÇÇÀÚ Àç·áµé
-	private JLabel money, won; // Á¡¼ö
+	private JLabel money;
+	
+	private JLabel title;
 
 	private String[] name_a, pizza_a;
 	private int[] score_a;
-	private JLabel rank; // ¼øÀ§
-	private JLabel first_l, second_l, third_l; // 1À§ ~ 3À§
 	private JLabel first, second, third;
 	private JLabel fail_l;
-	
+
 	private int plusScore = 0;
 
 	public ResultPanel(Game game) {
@@ -49,113 +55,98 @@ public class ResultPanel extends JPanel {
 		setBounds(0, 0, 1280, 720);
 
 		/*
-		 * paprika = new JLabel(paprikaImg); paprika.setBounds(50, 50, 350, 350);
+		 * paprika = new JLabel(paprikaImg); paprika.setBounds(570, 167, 350, 350);
 		 * paprika.setVisible(true); add(paprika);
 		 */
 
 		onion = new JLabel(onionImg);
-		onion.setBounds(50, 50, 350, 350);
+		onion.setBounds(570, 167, 350, 350);
 		onion.setVisible(false);
 		add(onion);
 
 		pepper = new JLabel(pepperoniImg);
-		pepper.setBounds(50, 50, 350, 350);
+		pepper.setBounds(570, 167, 350, 350);
 		pepper.setVisible(false);
 		add(pepper);
 
 		mush = new JLabel(mushroomImg);
-		mush.setBounds(50, 50, 350, 350);
+		mush.setBounds(570, 167, 350, 350);
 		mush.setVisible(false);
 		add(mush);
 
 		cheese = new JLabel(cheeseImg);
-		cheese.setBounds(50, 50, 350, 350);
+		cheese.setBounds(570, 167, 350, 350);
 		cheese.setVisible(false);
 		add(cheese);
 
 		sauce = new JLabel(sauceImg);
-		sauce.setBounds(50, 50, 350, 350);
+		sauce.setBounds(570, 167, 350, 350);
 		sauce.setVisible(false);
 		add(sauce);
 
 		dough = new JLabel(doughImg);
-		dough.setBounds(50, 50, 350, 350);
+		dough.setBounds(570, 167, 350, 350);
 		dough.setVisible(true);
 		add(dough);
 
-		money = new JLabel("00000");
-		money.setBounds(800, 65, 300, 100);
+		money = new JLabel("00000¿ø");
+		money.setBounds(940, 420, 300, 100);
 		money.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 65));
-		money.setHorizontalAlignment(JLabel.RIGHT);
+		money.setHorizontalAlignment(JLabel.CENTER);
 		add(money);
-		won = new JLabel("¿ø");
-		won.setBounds(1110, 65, 150, 100);
-		won.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 65));
-		won.setVisible(true);
-		add(won);
+		
+		title = new JLabel();
+		title.setBounds(550, 30, 700, 100);
+		title.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 50));
+		title.setHorizontalAlignment(JLabel.CENTER);
+		add(title);
 
-		rank = new JLabel("°¡Àå ºñ½Ñ ÇÇÀÚ °¡°Ô");
-		rank.setBounds(750, 200, 500, 50);
-		rank.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 45));
-		rank.setVisible(true);
-		add(rank);
-
-		first_l = new JLabel("1À§");
-		first_l.setBounds(630, 265, 100, 50);
-		first_l.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 40));
-		first_l.setVisible(true);
-		add(first_l);
 		first = new JLabel();
-		first.setBounds(710, 265, 500, 50);
-		first.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 40));
+		first.setBounds(20, 170, 490, 50);
+		first.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 36));
+		first.setHorizontalAlignment(JLabel.CENTER);
 		first.setVisible(true);
 		add(first);
 
-		second_l = new JLabel("2À§");
-		second_l.setBounds(630, 320, 100, 50);
-		second_l.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 40));
-		second_l.setVisible(true);
-		add(second_l);
 		second = new JLabel();
-		second.setBounds(710, 320, 500, 50);
-		second.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 40));
+		second.setBounds(20, 240, 490, 50);
+		second.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 36));
+		second.setHorizontalAlignment(JLabel.CENTER);
 		second.setVisible(true);
 		add(second);
 
-		third_l = new JLabel("3À§");
-		third_l.setBounds(630, 375, 100, 50);
-		third_l.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 40));
-		third_l.setVisible(true);
-		add(third_l);
 		third = new JLabel();
-		third.setBounds(710, 375, 500, 50);
-		third.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 40));
+		third.setBounds(20, 310, 490, 50);
+		third.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 36));
+		third.setHorizontalAlignment(JLabel.CENTER);
 		third.setVisible(true);
 		add(third);
 
 		fail_l = new JLabel();
-		fail_l.setBounds(630, 430, 500, 50);
+		fail_l.setBounds(30, 430, 480, 50);
 		fail_l.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 30));
 		fail_l.setVisible(false);
+		fail_l.setHorizontalAlignment(JLabel.CENTER);
 		add(fail_l);
 
-		firstButton = new JButton("Ã³À½À¸·Î");
-		firstButton.setBounds(1030, 610, 200, 75);
+		firstButton = new JButton();
+		firstButton.setBounds(790, 564, 269, 102);
 		firstButton.setVisible(true);
+		firstButton.setBorderPainted(false);
+		firstButton.setContentAreaFilled(false);
 		firstButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-
 				setVisible(false);
 				game.startPanel.setVisible(true);
 			}
 		});
 		add(firstButton);
 	}
-	
+
 	public void setplusScore(String s) {
 		plusScore = Integer.parseInt(s);
-		
-		if(plusScore == 7777) {
+
+		if (plusScore == 7777) {
 			plusScore = 100000;
 		}
 	}
@@ -234,17 +225,19 @@ public class ResultPanel extends JPanel {
 		// ·©Å· ±¸ÇÏ±â(Á¤·Ä)
 		getRanking();
 
+		title.setText(name + "ÀÇ " + pizza);
+		
 		// Á¡¼ö
-		money.setText(String.valueOf(score));
+		money.setText(String.valueOf(score) + "¿ø");
 
 		// ¼øÀ§(1À§ ~ 3À§)
-		first.setText(name_a[0] + "ÀÇ " + pizza_a[0] + " - " + score_a[0] + "¿ø");
+		first.setText("1À§ " + name_a[0] + "ÀÇ " + pizza_a[0] + " - " + score_a[0] + "¿ø");
 		if (name_a.length > 1)
-			second.setText(name_a[1] + "ÀÇ " + pizza_a[1] + " - " + score_a[1] + "¿ø");
+			second.setText("2À§ " + name_a[1] + "ÀÇ " + pizza_a[1] + " - " + score_a[1] + "¿ø");
 		else
 			second.setText("");
 		if (name_a.length > 2)
-			third.setText(name_a[2] + "ÀÇ " + pizza_a[2] + " - " + score_a[2] + "¿ø");
+			third.setText("3À§ " + name_a[2] + "ÀÇ " + pizza_a[2] + " - " + score_a[2] + "¿ø");
 		else
 			third.setText("");
 
@@ -326,8 +319,9 @@ public class ResultPanel extends JPanel {
 		}
 	}
 
-	/*
-	 * @Override public void paintComponent(Graphics g) { super.paintComponent(g);
-	 * g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null); }
-	 */
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), null);
+	}
 }
