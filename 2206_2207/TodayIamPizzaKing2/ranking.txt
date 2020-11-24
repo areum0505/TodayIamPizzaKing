@@ -20,3 +20,8 @@ asdf	asdf	0
 rrr	rrr	0
 5668	5668	5668
 ^^	맛있는피자	11486
+12345678900000	asdf	17648
+asdf	123456	0
+asdf	asdf	0
+asdf	adf	0
+asd	fda	717

@@ -21,11 +21,11 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import code.Game;
+import code.JTextFieldLimit;
 
 public class BagPanel extends JDialog {
 	private ImageIcon backgroundImage = new ImageIcon("images/main/bagBack.png");
 
-	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
 	private ImageIcon sauceImg = new ImageIcon("images/main/sauce.png");
 	private ImageIcon mushImg = new ImageIcon("images/main/mushroom.png");
 	private ImageIcon papImg = new ImageIcon("images/main/paprika.png");
@@ -60,42 +60,38 @@ public class BagPanel extends JDialog {
 		bagPanel.setLayout(null);
 		bagPanel.setBounds(0, 0, 900, 600);
 
-		jl = new JLabel(backgroundImage);
-		jl.setBounds(0, 0, 900, 600);
-		add(jl);
-
 		sauceLabel = new JLabel(sauceImg);
-		sauceLabel.setBounds(10, 10, 100, 100);
+		sauceLabel.setBounds(110, 79, 150, 150);
 		sauceLabel.setVisible(false);
 		bagPanel.add(sauceLabel);
 		mushLabel = new JLabel(mushImg);
-		mushLabel.setBounds(270, 10, 100, 100);
+		mushLabel.setBounds(370, 86, 150, 150);
 		mushLabel.setVisible(false);
 		bagPanel.add(mushLabel);
 		papLabel = new JLabel(papImg);
-		papLabel.setBounds(530, 10, 100, 100);
+		papLabel.setBounds(630, 108, 150, 150);
 		papLabel.setVisible(false);
 		bagPanel.add(papLabel);
 		onionLabel = new JLabel(onionImg);
-		onionLabel.setBounds(10, 260, 100, 100);
+		onionLabel.setBounds(110, 318, 150, 150);
 		onionLabel.setVisible(false);
 		bagPanel.add(onionLabel);
 		pepperLabel = new JLabel(pepperImg);
-		pepperLabel.setBounds(270, 260, 100, 100);
+		pepperLabel.setBounds(370, 330, 150, 150);
 		pepperLabel.setVisible(false);
 		bagPanel.add(pepperLabel);
 		cheeseLabel = new JLabel(cheeseImg);
-		cheeseLabel.setBounds(530, 260, 100, 100);
+		cheeseLabel.setBounds(630, 324, 150, 150);
 		cheeseLabel.setVisible(false);
 		bagPanel.add(cheeseLabel);
 
-		makeButton = new JButton("만들기");
+		makeButton = new JButton();
 		makeButton.setVisible(true);
-		makeButton.setBounds(325, 425, 150, 55);
+		makeButton.setBorderPainted(false);
+		makeButton.setContentAreaFilled(false);
+		makeButton.setBounds(333, 505, 258, 78);
 		makeButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				bagPanel.setVisible(false);
-
 				int result = JOptionPane.showConfirmDialog(null, "가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?", "인생역전의 기회",
 						JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.CLOSED_OPTION) {
@@ -103,14 +99,14 @@ public class BagPanel extends JDialog {
 				} else if (result == JOptionPane.YES_OPTION) {
 					colaPanel.setVisible(true);
 				} else {
-					setVisible(false);
-
 					String[] options = { "확인" };
 					JPanel panel = new JPanel(new GridLayout(2, 2));
 					JLabel name_l = new JLabel("당신 이름 : ");
 					JTextField name_tf = new JTextField(7);
+					name_tf.setDocument(new JTextFieldLimit(10));
 					JLabel pizza_l = new JLabel("피자 이름 : ");
 					JTextField pizza_tf = new JTextField(7);
+					pizza_tf.setDocument(new JTextFieldLimit(6));
 					panel.add(name_l);
 					panel.add(name_tf);
 					panel.add(pizza_l);
@@ -132,6 +128,7 @@ public class BagPanel extends JDialog {
 					}
 
 					labelOff();
+					setVisible(false);
 
 					game.resultPanel.make(name, pizza);
 					game.stageSelectPanel.setVisible(false);
@@ -141,6 +138,10 @@ public class BagPanel extends JDialog {
 		});
 		bagPanel.add(makeButton);
 
+		jl = new JLabel(backgroundImage);
+		jl.setBounds(0, 0, 900, 600);
+		bagPanel.add(jl);
+
 		add(bagPanel);
 		bagPanel.setVisible(true);
 	}
@@ -149,7 +150,7 @@ public class BagPanel extends JDialog {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("bag.txt"));
 			String s = br.readLine();
-
+			
 			if (s == null) {
 				sauceLabel.setVisible(false);
 				mushLabel.setVisible(false);
@@ -189,6 +190,7 @@ public class BagPanel extends JDialog {
 		onionLabel.setVisible(false);
 		pepperLabel.setVisible(false);
 		cheeseLabel.setVisible(false);
+		makeButton.setVisible(false);
 	}
 
 }
@@ -370,7 +372,7 @@ class ColaGamePanel extends JPanel {
 
 	Game game;
 	BagPanel cola;
-	
+
 	SlotMachine sm;
 
 	JLabel back, colaBack, explain;
@@ -386,7 +388,7 @@ class ColaGamePanel extends JPanel {
 
 		this.game = game;
 		this.cola = cola;
-		
+
 		sm = new SlotMachine(game, cola);
 		sm.setVisible(false);
 		add(sm);
@@ -475,8 +477,10 @@ class ColaGamePanel extends JPanel {
 		JPanel panel = new JPanel(new GridLayout(2, 2));
 		JLabel name_l = new JLabel("당신 이름 : ");
 		JTextField name_tf = new JTextField(7);
+		name_tf.setDocument(new JTextFieldLimit(10));
 		JLabel pizza_l = new JLabel("피자 이름 : ");
 		JTextField pizza_tf = new JTextField(7);
+		pizza_tf.setDocument(new JTextFieldLimit(6));
 		panel.add(name_l);
 		panel.add(name_tf);
 		panel.add(pizza_l);

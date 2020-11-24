@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import code.Game;
+import code.JTextFieldLimit;
 
 class numLabel extends JLabel implements Runnable {
 	public numLabel(String text) {
@@ -103,8 +104,10 @@ public class SlotMachine extends JPanel implements ActionListener {
 		JPanel panel = new JPanel(new GridLayout(2, 2));
 		JLabel name_l = new JLabel("당신 이름 : ");
 		JTextField name_tf = new JTextField(7);
+		name_tf.setDocument(new JTextFieldLimit(10));
 		JLabel pizza_l = new JLabel("피자 이름 : ");
 		JTextField pizza_tf = new JTextField(7);
+		pizza_tf.setDocument(new JTextFieldLimit(6));
 		panel.add(name_l);
 		panel.add(name_tf);
 		panel.add(pizza_l);
@@ -129,6 +132,8 @@ public class SlotMachine extends JPanel implements ActionListener {
 		for(int i = 0; i < 4; i++) {
 			score += labels[i].getText();
 		}
+		
+		setVisible(false);
 
 		
 		game.resultPanel.setplusScore(score);
