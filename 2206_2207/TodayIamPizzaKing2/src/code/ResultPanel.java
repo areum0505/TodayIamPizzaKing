@@ -90,7 +90,7 @@ public class ResultPanel extends JPanel {
 		add(dough);
 
 		money = new JLabel("00000원");
-		money.setBounds(940, 420, 300, 100);
+		money.setBounds(940, 330, 300, 100);
 		money.setFont(new Font("나눔바른고딕", Font.PLAIN, 65));
 		money.setHorizontalAlignment(JLabel.CENTER);
 		add(money);
@@ -102,28 +102,28 @@ public class ResultPanel extends JPanel {
 		add(title);
 
 		first = new JLabel();
-		first.setBounds(20, 170, 490, 50);
+		first.setBounds(20, 170, 490, 100);
 		first.setFont(new Font("나눔바른고딕", Font.PLAIN, 36));
 		first.setHorizontalAlignment(JLabel.CENTER);
 		first.setVisible(true);
 		add(first);
 
 		second = new JLabel();
-		second.setBounds(20, 240, 490, 50);
+		second.setBounds(20, 280, 490, 100);
 		second.setFont(new Font("나눔바른고딕", Font.PLAIN, 36));
 		second.setHorizontalAlignment(JLabel.CENTER);
 		second.setVisible(true);
 		add(second);
 
 		third = new JLabel();
-		third.setBounds(20, 310, 490, 50);
+		third.setBounds(20, 410, 490, 100);
 		third.setFont(new Font("나눔바른고딕", Font.PLAIN, 36));
 		third.setHorizontalAlignment(JLabel.CENTER);
 		third.setVisible(true);
 		add(third);
 
 		fail_l = new JLabel();
-		fail_l.setBounds(30, 430, 480, 50);
+		fail_l.setBounds(30, 560, 480, 50);
 		fail_l.setFont(new Font("나눔바른고딕", Font.PLAIN, 30));
 		fail_l.setVisible(false);
 		fail_l.setHorizontalAlignment(JLabel.CENTER);
@@ -146,8 +146,8 @@ public class ResultPanel extends JPanel {
 	public void setplusScore(String s) {
 		plusScore = Integer.parseInt(s);
 
-		if (plusScore == 7777) {
-			plusScore = 100000;
+		if (plusScore == 777) {
+			plusScore = 10000;
 		}
 	}
 
@@ -231,13 +231,13 @@ public class ResultPanel extends JPanel {
 		money.setText(String.valueOf(score) + "원");
 
 		// 순위(1위 ~ 3위)
-		first.setText("1위 " + name_a[0] + "의 " + pizza_a[0] + " - " + score_a[0] + "원");
+		first.setText("<html>1위 " + name_a[0] + "의 " + pizza_a[0] + "<br>&#9; - " + score_a[0] + "원</html>");
 		if (name_a.length > 1)
-			second.setText("2위 " + name_a[1] + "의 " + pizza_a[1] + " - " + score_a[1] + "원");
+			second.setText("<html>2위 " + name_a[1] + "의 " + pizza_a[1] + "<br>&#9; - " + score_a[1] + "원</html>");
 		else
 			second.setText("");
 		if (name_a.length > 2)
-			third.setText("3위 " + name_a[2] + "의 " + pizza_a[2] + " - " + score_a[2] + "원");
+			third.setText("<html>3위 " + name_a[2] + "의 " + pizza_a[2] + "<br>&#9; - " + score_a[2] + "원</html>");
 		else
 			third.setText("");
 
