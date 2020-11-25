@@ -94,7 +94,7 @@ public class BagPanel extends JDialog {
 		makeButton.setBounds(333, 505, 258, 78);
 		makeButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				int result = JOptionPane.showConfirmDialog(null, "<html>가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?<br>(가격이 떨어질수도)</html>", "인생역전의 기회",
+				int result = JOptionPane.showConfirmDialog(null, "<html>가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?<br>(가격이 떨어질 수도)</html>", "인생역전의 기회",
 						JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.CLOSED_OPTION) {
 					return;
@@ -135,7 +135,7 @@ public class BagPanel extends JDialog {
 					
 					bagPanel.setVisible(false);
 
-					game.resultPanel.make(name, pizza);
+					game.resultPanel.make(name, pizza, false);
 					game.stageSelectPanel.setVisible(false);
 					game.resultPanel.setVisible(true);
 				}
@@ -523,7 +523,7 @@ class ColaGamePanel extends JPanel {
 
 		cola.labelOff();
 
-		game.resultPanel.make(name, pizza);
+		game.resultPanel.make(name, pizza, false);
 		game.stageSelectPanel.setVisible(false);
 		game.resultPanel.setVisible(true);
 	}

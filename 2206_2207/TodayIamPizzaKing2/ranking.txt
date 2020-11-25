@@ -2,3 +2,11 @@
 asfd	pizza	-258
 いしさ	いしさ	645
 asd	asdfas	979
+adf	asdf	0
+asdf	adf	454
+asf	asdf	346
+asdf	asdf	0
+asd	asdf	0
+zvc	xcv	0
+asdf	asdf	845
+asdf	asdf	-225
