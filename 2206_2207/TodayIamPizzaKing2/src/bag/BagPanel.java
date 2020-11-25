@@ -393,7 +393,7 @@ class ColaGamePanel extends JPanel {
 
 	SlotMachine sm;
 
-	JLabel back, colaBack, explain;
+	JLabel back, colaBack, explain, result;
 	JButton startBtn;
 	ColaLabel colaLabel;
 	CutLabel cutLabel;
@@ -417,11 +417,12 @@ class ColaGamePanel extends JPanel {
 		cutLabel = new CutLabel(this);
 		add(cutLabel);
 
-		explain = new JLabel("기회는 한 번뿐 잘해봐ㅋ");
+		explain = new JLabel("기회는 한 번뿐 잘 선택하십쇼");
 		explain.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 30));
-		explain.setBounds(400, 170, 500, 50);
+		explain.setBounds(250, 170, 500, 50);
 		add(explain);
-
+		
+		
 		back = new JLabel(colaBackImg);
 		back.setBounds(0, 0, 900, 600);
 		add(back);
@@ -435,16 +436,16 @@ class ColaGamePanel extends JPanel {
 	}
 
 	public void changeExplain(String s) {
-		explain.setText(s);
+		this.explain.setText(s);
 	}
 
 	public void crashCheck() {
 
 		if (colaLabel.getY() < cutLabel.getY()) {
-			ct.stop();
-			changeExplain("유감");
 			
-
+			changeExplain("유감");
+			ct.stop();
+			
 			try {
 				Thread.sleep(2000);
 			} catch (InterruptedException e) {
@@ -463,9 +464,9 @@ class ColaGamePanel extends JPanel {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
+				System.out.println("콜라 획득");
 				this.changeExplain("슬롯머신 돌리러 가즈아ㅏㅏ");	
-				
+	
 				ct.stop();
 
 				cola.bagPanel.setVisible(false);
@@ -473,7 +474,7 @@ class ColaGamePanel extends JPanel {
 
 			} else {
 				changeExplain("유감");
-				System.out.println("패배");
+	
 				ct.stop();
 
 				try {
