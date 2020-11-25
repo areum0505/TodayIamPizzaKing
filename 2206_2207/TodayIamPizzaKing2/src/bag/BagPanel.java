@@ -35,7 +35,7 @@ public class BagPanel extends JDialog {
 	private ImageIcon pepperImg = new ImageIcon("images/main/pepperoni.png");
 	private ImageIcon cheeseImg = new ImageIcon("images/main/cheese.png");
 
-	private JPanel bagPanel;
+	JPanel bagPanel;
 	ColaPanel colaPanel = new ColaPanel(this);
 	ColaGamePanel colaGamePanel;
 
@@ -94,7 +94,7 @@ public class BagPanel extends JDialog {
 		makeButton.setBounds(333, 505, 258, 78);
 		makeButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				int result = JOptionPane.showConfirmDialog(null, "가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?", "인생역전의 기회",
+				int result = JOptionPane.showConfirmDialog(null, "<html>가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?<br>(가격이 떨어질수도)</html>", "인생역전의 기회",
 						JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.CLOSED_OPTION) {
 					return;
@@ -132,6 +132,8 @@ public class BagPanel extends JDialog {
 
 					labelOff();
 					setVisible(false);
+					
+					bagPanel.setVisible(false);
 
 					game.resultPanel.make(name, pizza);
 					game.stageSelectPanel.setVisible(false);
@@ -260,6 +262,14 @@ class ColaLabel extends JLabel {
 			setBounds(getX(), getY(), width, getHeight());
 		} else {
 			cgp.changeExplain("끝났어ㅋ");
+			
+			try {
+				Thread.sleep(2000);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+			cgp.defeat();
 		}
 	}
 
@@ -431,12 +441,12 @@ class ColaGamePanel extends JPanel {
 	public void crashCheck() {
 
 		if (colaLabel.getY() < cutLabel.getY()) {
-			changeExplain("유감");
-			System.out.println("패배");
 			ct.stop();
+			changeExplain("유감");
+			
 
 			try {
-				Thread.sleep(500);
+				Thread.sleep(2000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -447,18 +457,18 @@ class ColaGamePanel extends JPanel {
 					&& cutLabel.getX() + cutLabel.getWidth() > colaLabel.getX()
 					&& colaLabel.getY() + colaLabel.getHeight() > cutLabel.getY()
 					&& cutLabel.getY() + cutLabel.getHeight() > colaLabel.getY()) {
-				changeExplain("슬롯머신 돌리러 가즈아ㅏㅏ");
 
 				try {
-					Thread.sleep(500);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 
-				System.out.println("승리");
+				this.changeExplain("슬롯머신 돌리러 가즈아ㅏㅏ");	
+				
 				ct.stop();
 
-				cola.labelOff();
+				cola.bagPanel.setVisible(false);
 				sm.setVisible(true);
 
 			} else {
@@ -467,11 +477,12 @@ class ColaGamePanel extends JPanel {
 				ct.stop();
 
 				try {
-					Thread.sleep(500);
+					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
 
+				
 				defeat();
 			}
 		}
@@ -531,3 +542,5 @@ class ColaGamePanel extends JPanel {
 		}
 	}
 }
+
+

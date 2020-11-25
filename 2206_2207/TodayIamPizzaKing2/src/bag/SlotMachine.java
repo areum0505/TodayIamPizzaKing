@@ -18,7 +18,7 @@ import code.JTextFieldLimit;
 
 class numLabel extends JLabel implements Runnable {
 	int a = 0;
-	String[] num = new String[]{ "-", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+	String[] num = new String[]{ "-", "+" };
 
 	public numLabel(String text) {
 		setText(text);
@@ -33,7 +33,7 @@ class numLabel extends JLabel implements Runnable {
 	public void run() {
 		while (true) {
 			if (a == 1) {
-				setText(num[(int) (Math.random() * 11)]);
+				setText(num[(int) (Math.random() * 2)]);
 			} else {
 				int n = (int) (Math.random() * 10);
 				setText(String.valueOf(n));
@@ -110,7 +110,7 @@ public class SlotMachine extends JPanel implements ActionListener {
 		}
 
 		try {
-			Thread.sleep(500);
+			Thread.sleep(2000);
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
