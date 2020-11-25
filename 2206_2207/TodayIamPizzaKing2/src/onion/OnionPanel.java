@@ -88,10 +88,6 @@ public class OnionPanel extends JPanel{
 	ImageIcon comIcon[] = { new ImageIcon("./images/onion/enemy_rock.png"), new ImageIcon("./images/onion/enemy_sissor.png"),
 			new ImageIcon("./images/onion/enemy_paper.png") };
 
-	ImageIcon enterRock = new ImageIcon("images/onion/rock_mouseover.png");
-	ImageIcon enterScissors = new ImageIcon("images/onion/scissors_mouseover.png");
-	ImageIcon enterPaper = new ImageIcon("images/onion/paper_mouseover.png");
-	
 	
 	private onionLabel bar;
 	
