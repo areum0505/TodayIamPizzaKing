@@ -373,7 +373,7 @@ class ColaThread extends Thread {
 		// TODO Auto-generated method stub
 		while (true) {
 			try {
-				sleep(15);
+				sleep(5);
 				colaBar.fill();
 			} catch (InterruptedException e) {
 				// TODO: handle exception

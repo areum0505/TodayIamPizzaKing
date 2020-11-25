@@ -37,13 +37,14 @@ public class ResultPanel extends JPanel {
 	private ImageIcon cheeseImg = new ImageIcon("images/result/cheese.png");
 	private ImageIcon colaImg = new ImageIcon("images/result/cola.png");
 
-
 	private JButton firstButton;
 
 	private JLabel dough, sauce, mush, paprika, onion, pepper, cheese; // 피자 재료들
 	private JLabel cola;
 	private JLabel money;
-	
+
+	private JLabel total;
+
 	private JLabel title;
 
 	private String[] name_a, pizza_a;
@@ -57,11 +58,10 @@ public class ResultPanel extends JPanel {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 
-		
-		paprika = new JLabel(paprikaImg); 
+		paprika = new JLabel(paprikaImg);
 		paprika.setBounds(570, 167, 350, 350);
-		paprika.setVisible(true); add(paprika);
-		 
+		paprika.setVisible(true);
+		add(paprika);
 
 		onion = new JLabel(onionImg);
 		onion.setBounds(570, 167, 350, 350);
@@ -92,18 +92,25 @@ public class ResultPanel extends JPanel {
 		dough.setBounds(570, 167, 350, 350);
 		dough.setVisible(true);
 		add(dough);
-		
+
 		cola = new JLabel(colaImg);
-		cola.setBounds(920, 167, 85, 85);
+		cola.setBounds(890, 167, 85, 85);
 		cola.setVisible(false);
 		add(cola);
+
+		total = new JLabel();
+		total.setBounds(940, 160, 300, 100);
+		total.setVisible(true);
+		total.setFont(new Font("나눔바른고딕", Font.PLAIN, 35));
+		total.setHorizontalAlignment(JLabel.CENTER);
+		add(total);
 
 		money = new JLabel("00000원");
 		money.setBounds(940, 330, 300, 100);
 		money.setFont(new Font("나눔바른고딕", Font.PLAIN, 65));
 		money.setHorizontalAlignment(JLabel.CENTER);
 		add(money);
-		
+
 		title = new JLabel();
 		title.setBounds(550, 30, 700, 100);
 		title.setFont(new Font("나눔바른고딕", Font.PLAIN, 50));
@@ -118,7 +125,7 @@ public class ResultPanel extends JPanel {
 		add(first);
 
 		second = new JLabel();
-		second.setBounds(20, 280, 490, 100);
+		second.setBounds(20, 290, 490, 100);
 		second.setFont(new Font("나눔바른고딕", Font.PLAIN, 36));
 		second.setHorizontalAlignment(JLabel.CENTER);
 		second.setVisible(true);
@@ -132,7 +139,8 @@ public class ResultPanel extends JPanel {
 		add(third);
 
 		fail_l = new JLabel();
-		fail_l.setBounds(30, 560, 480, 50);
+		fail_l.setBounds(30, 560, 480, 100);
+		fail_l.setHorizontalAlignment(JLabel.CENTER);
 		fail_l.setFont(new Font("나눔바른고딕", Font.PLAIN, 30));
 		fail_l.setVisible(false);
 		fail_l.setHorizontalAlignment(JLabel.CENTER);
@@ -167,20 +175,20 @@ public class ResultPanel extends JPanel {
 	public void make(String text1, String text2, boolean cola_b) {
 		String name = text1;
 		String pizza = text2;
-		int score = plusScore;
+		int score = 0;
 
 		try {
 			BufferedReader br = new BufferedReader(new FileReader("bag.txt"));
 			BufferedWriter bw = new BufferedWriter(new FileWriter("ranking.txt", true));
 
 			String s = br.readLine();
-			
-			if(cola_b) {
+
+			if (cola_b) {
 				cola.setVisible(true);
 			} else {
 				cola.setVisible(false);
 			}
-			
+
 			if (s == null) {
 				sauce.setVisible(false);
 				mush.setVisible(false);
@@ -231,6 +239,10 @@ public class ResultPanel extends JPanel {
 				score += 1000;
 			}
 
+			total.setText("<html> 피자 : " + score + "원<br> 콜라 : " + plusScore + "원</html>");
+
+			score += plusScore;
+
 			bw.write(name + "\t" + pizza + "\t" + score + "\n");
 
 			br.close();
@@ -245,18 +257,18 @@ public class ResultPanel extends JPanel {
 		getRanking();
 
 		title.setText(name + "의 " + pizza);
-		
+
 		// 점수
 		money.setText(String.valueOf(score) + "원");
 
 		// 순위(1위 ~ 3위)
-		first.setText("<html>1위 " + name_a[0] + "의 " + pizza_a[0] + "<br>&#9; - " + score_a[0] + "원</html>");
+		first.setText("<html>1위 " + name_a[0] + "의<br>" + pizza_a[0] + "은(는) " + score_a[0] + "원</html>");
 		if (name_a.length > 1)
-			second.setText("<html>2위 " + name_a[1] + "의 " + pizza_a[1] + "<br>&#9; - " + score_a[1] + "원</html>");
+			second.setText("<html>2위 " + name_a[1] + "의<br>" + pizza_a[1] + "은(는) " + score_a[1] + "원</html>");
 		else
 			second.setText("");
 		if (name_a.length > 2)
-			third.setText("<html>3위 " + name_a[2] + "의 " + pizza_a[2] + "<br>&#9; - " + score_a[2] + "원</html>");
+			third.setText("<html>3위 " + name_a[2] + "의<br>" + pizza_a[2] + "은(는) " + score_a[2] + "원</html>");
 		else
 			third.setText("");
 
@@ -272,9 +284,9 @@ public class ResultPanel extends JPanel {
 		} else {
 			check = false;
 		}
-		
+
 		if (check) {
-			fail_l.setText(name + "님은 순위에 들지 못했습니다.");
+			fail_l.setText("<html>" + name + "님은 <br>순위에 들지 못했습니다.</html>");
 			fail_l.setVisible(true);
 		}
 
