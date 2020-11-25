@@ -153,7 +153,7 @@ public class SlotMachine extends JPanel implements ActionListener {
 		setVisible(false);
 
 		game.resultPanel.setplusScore(score);
-		game.resultPanel.make(name, pizza);
+		game.resultPanel.make(name, pizza, true);
 		game.stageSelectPanel.setVisible(false);
 		game.resultPanel.setVisible(true);
 	}

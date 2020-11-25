@@ -28,7 +28,6 @@ public class ResultPanel extends JPanel {
 	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
 
 	// 피자 이미지
-<<<<<<< .merge_file_a25684
 	private ImageIcon doughImg = new ImageIcon("images/result/dough.png");
 	private ImageIcon sauceImg = new ImageIcon("images/result/sauce.png");
 	private ImageIcon mushroomImg = new ImageIcon("images/result/mushroom.png");
@@ -36,23 +35,10 @@ public class ResultPanel extends JPanel {
 	private ImageIcon onionImg = new ImageIcon("images/result/onion.png");
 	private ImageIcon pepperoniImg = new ImageIcon("images/result/pepperoni.png");
 	private ImageIcon cheeseImg = new ImageIcon("images/result/cheese.png");
-=======
-	private ImageIcon doughImg = new ImageIcon("images/character/dough.png");
-	private ImageIcon sauceImg = new ImageIcon("images/character/sauce.png");
-	private ImageIcon mushroomImg = new ImageIcon("images/character/mushroom.png");
-	private ImageIcon paprikaImg = new ImageIcon("images/character/paprika.png");
-	private ImageIcon onionImg = new ImageIcon("images/character/onion.png");
-	private ImageIcon pepperoniImg = new ImageIcon("images/character/pepperoni.png");
-	private ImageIcon cheeseImg = new ImageIcon("images/character/cheese.png");
-	
-	private ImageIcon colaImg = new ImageIcon("images/character/cola.png");
-
->>>>>>> .merge_file_a23320
 
 	private JButton firstButton;
 
 	private JLabel dough, sauce, mush, paprika, onion, pepper, cheese; // 피자 재료들
-	private JLabel cola;
 	private JLabel money;
 	
 	private JLabel title;
@@ -103,11 +89,6 @@ public class ResultPanel extends JPanel {
 		dough.setBounds(570, 167, 350, 350);
 		dough.setVisible(true);
 		add(dough);
-		
-		cola = new JLabel(colaImg);
-		cola.setBounds(920, 167, 85, 85);
-		cola.setVisible(false);
-		add(cola);
 
 		money = new JLabel("00000원");
 		money.setBounds(940, 330, 300, 100);
@@ -175,7 +156,7 @@ public class ResultPanel extends JPanel {
 		}
 	}
 
-	public void make(String text1, String text2, boolean cola_b) {
+	public void make(String text1, String text2) {
 		String name = text1;
 		String pizza = text2;
 		int score = plusScore;
@@ -185,13 +166,7 @@ public class ResultPanel extends JPanel {
 			BufferedWriter bw = new BufferedWriter(new FileWriter("ranking.txt", true));
 
 			String s = br.readLine();
-			
-			if(cola_b) {
-				cola.setVisible(true);
-			} else {
-				cola.setVisible(false);
-			}
-			
+
 			if (s == null) {
 				sauce.setVisible(false);
 				mush.setVisible(false);
@@ -283,7 +258,7 @@ public class ResultPanel extends JPanel {
 		} else {
 			check = false;
 		}
-		
+		System.out.println(check);
 		if (check) {
 			fail_l.setText(name + "님은 순위에 들지 못했습니다.");
 			fail_l.setVisible(true);
