@@ -41,7 +41,7 @@ public class Game extends JFrame {
 
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		kit.getImage("images/main/icon.png");
-		setIconImage(Toolkit.getDefaultToolkit().getImage("images/main/icon.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("images/main/pizzaIcon.png"));
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Image cursorimage = tk.getImage("images/main/cursor1.png");

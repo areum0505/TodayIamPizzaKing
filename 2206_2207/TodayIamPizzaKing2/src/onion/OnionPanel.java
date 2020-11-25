@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedWriter;
@@ -33,9 +34,12 @@ import code.Main;
 import code.Music;
 
 class onionLabel extends JLabel {
+	
 	private int barSize = 0; // 현재 그릴 바의 크기
 	private int maxBarSize; // 바의 최대 크기
-
+	
+	Color color = new Color(83, 255, 15);
+	
 	public onionLabel(int maxBarSize) {
 		super();
 		this.maxBarSize = maxBarSize;
@@ -45,28 +49,21 @@ class onionLabel extends JLabel {
 	protected void paintComponent(Graphics g) {
 		// TODO Auto-generated method stub
 		super.paintComponent(g);
-		g.setColor(Color.MAGENTA);
-		int width = (int) (((double) (this.getWidth())) / maxBarSize * barSize); // ?의미해석
+		g.setColor(color);
+		int width = (int) (((double) (this.getWidth())) / maxBarSize * barSize); 
 		if (width == 0)
-			return; // 크기가 0인 경우 바를 그릴 수없음
+			return; 
 		g.fillRect(0, 0, width, this.getHeight());
 	}
 
-	public void fill() { // 바가 증가하는 메서드
+	public void fill() { // 가위바위보를 이겼을 때 바 +100
 
 		barSize += 100;
 		repaint();
 
 	}
 
-	public void consume() { // 바가 감소하는 메서드
-		if (barSize >= 50) {
-			barSize -= 50;
-		}
-		repaint();
-	}
-
-	public void clear() {
+	public void clear() { // 바 0으로 초기화
 		barSize = 0;
 		repaint();
 	}
@@ -173,23 +170,11 @@ public class OnionPanel extends JPanel{
 
 		bar = new onionLabel(300);
 		bar.setOpaque(true);
-		bar.setBackground(Color.pink);
+		bar.setBackground(Color.lightGray);
 		bar.setSize(300,50);
 		bar.setLocation(100,70);
 		add(bar);
 
-		
-		
-//		lspResult = new JLabel();
-//		lspResult.setFont(new Font("돋움", Font.BOLD, 30));
-//		lspResult.setBounds(350, 180, 200, 300);
-//		
-//		add(lspResult);
-	
-		/*
-		 * onionSays = new JLabel("덤벼보시지"); onionSays.setFont(new Font("돋움", Font.BOLD,
-		 * 30)); onionSays.setBounds(400, 200, 200, 300); add(onionSays);
-		 */
 		
 		add(lspScore);
 		add(btnRock);
@@ -244,18 +229,14 @@ public class OnionPanel extends JPanel{
 			win++;
 			gameScore += 100;
 			bar.fill();
-			
 			dropCnt += 1;
 			checkDrop();
 
 		} else if ((com == 1 && user == 2) || (com == 2 && user == 3) || (com == 3 && user == 1)) {
-			if (gameScore >= 50) {
-				gameScore -= 50;
-			}
+		
 			lose++;
 			heartCnt +=-1;
 			checkHeart();
-			//bar.consume();
 		
 		} else {
 			System.out.println("예상치못한오류발생");
@@ -278,7 +259,8 @@ public class OnionPanel extends JPanel{
 		}
 		System.out.println("실행됨");
 	}
-	void checkDrop() {
+	
+	public void checkDrop() {
 		switch(dropCnt) {
 		case 3:
 			comTears.setVisible(true);
@@ -341,25 +323,16 @@ public class OnionPanel extends JPanel{
 	}
 
 	
-	  class MyMouseListener implements MouseListener {
-
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	  class MyMouseListener extends MouseAdapter {
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			// TODO Auto-generated method stub
+		
+			
 			
 		}
 
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -393,11 +366,6 @@ public class OnionPanel extends JPanel{
 			}
 		}
 
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
 	  
 	  }
 	  

@@ -177,8 +177,6 @@ public class PaprikaPanel extends JPanel {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 
-		System.out.println(ran);
-
 		paprikaEnd = new PaprikaEnd(game);
 		paprikaPause = new PaprikaPause(game);
 		add(paprikaPause);
@@ -238,10 +236,7 @@ public class PaprikaPanel extends JPanel {
 		showGreenPap.setVisible(false);
 		showYellowPap.setVisible(false);
 		showRedPap.setVisible(false);
-
-		// showGreenPap.setVisible(true);
-		// showYellowPap.setVisible(true);
-		// showRedPap.setVisible(true);
+		
 
 	}
 
