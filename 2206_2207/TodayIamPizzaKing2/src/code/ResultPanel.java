@@ -28,7 +28,6 @@ public class ResultPanel extends JPanel {
 	private ImageIcon backButtonImg = new ImageIcon("images/main/backButton.png");
 
 	// 피자 이미지
-<<<<<<< .merge_file_a25684
 	private ImageIcon doughImg = new ImageIcon("images/result/dough.png");
 	private ImageIcon sauceImg = new ImageIcon("images/result/sauce.png");
 	private ImageIcon mushroomImg = new ImageIcon("images/result/mushroom.png");
@@ -36,18 +35,8 @@ public class ResultPanel extends JPanel {
 	private ImageIcon onionImg = new ImageIcon("images/result/onion.png");
 	private ImageIcon pepperoniImg = new ImageIcon("images/result/pepperoni.png");
 	private ImageIcon cheeseImg = new ImageIcon("images/result/cheese.png");
-=======
-	private ImageIcon doughImg = new ImageIcon("images/character/dough.png");
-	private ImageIcon sauceImg = new ImageIcon("images/character/sauce.png");
-	private ImageIcon mushroomImg = new ImageIcon("images/character/mushroom.png");
-	private ImageIcon paprikaImg = new ImageIcon("images/character/paprika.png");
-	private ImageIcon onionImg = new ImageIcon("images/character/onion.png");
-	private ImageIcon pepperoniImg = new ImageIcon("images/character/pepperoni.png");
-	private ImageIcon cheeseImg = new ImageIcon("images/character/cheese.png");
-	
-	private ImageIcon colaImg = new ImageIcon("images/character/cola.png");
+	private ImageIcon colaImg = new ImageIcon("images/result/cola.png");
 
->>>>>>> .merge_file_a23320
 
 	private JButton firstButton;
 
