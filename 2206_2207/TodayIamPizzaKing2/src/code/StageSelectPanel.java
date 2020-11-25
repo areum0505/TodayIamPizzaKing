@@ -47,6 +47,7 @@ public class StageSelectPanel extends JPanel{
 	public StageSelectPanel(Game game) {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
+	
 		
 		bagPanel = new BagPanel(game);
 		bagPanel.setVisible(false);
@@ -73,6 +74,10 @@ public class StageSelectPanel extends JPanel{
 		cheeseBtn.setBounds(979, 558, 202, 116);
 		cheeseBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				cheeseExplain.setVisible(true);
 			}
 		});
@@ -82,6 +87,10 @@ public class StageSelectPanel extends JPanel{
 		onionBtn.setBounds(857, 131, 202, 156);
 		onionBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				onionExplain.setVisible(true);
 			}
 		});
@@ -91,6 +100,10 @@ public class StageSelectPanel extends JPanel{
 		paprikaBtn.setBounds(515, 64, 256, 136);
 		paprikaBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				paprikaExplain.setVisible(true);
 			}
 		});
@@ -100,6 +113,10 @@ public class StageSelectPanel extends JPanel{
 		pepperoniBtn.setBounds(960, 353, 202, 133);
 		pepperoniBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				pepperoniExplain.setVisible(true);
 			}
 		});
@@ -109,6 +126,10 @@ public class StageSelectPanel extends JPanel{
 		mushroomBtn.setBounds(176, 157, 222, 160);
 		mushroomBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				mushroomExplain.setVisible(true);
 			}
 		});
@@ -119,6 +140,10 @@ public class StageSelectPanel extends JPanel{
 		sauceBtn.setBounds(103, 394, 202, 266);
 		sauceBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				sauceExplain.setVisible(true);
 			}
 		});
@@ -128,6 +153,10 @@ public class StageSelectPanel extends JPanel{
 		BagBtn.setBounds(482, 273, 315, 447);
 		BagBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				bagPanel = new BagPanel(game);
 				bagPanel.check();
 				bagPanel.setVisible(true);
@@ -139,6 +168,10 @@ public class StageSelectPanel extends JPanel{
 		BackBtn.setBounds(30, 30, 60, 60);
 		BackBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.stageSelectPanel.setVisible(false);
 				game.startPanel.setVisible(true);
 			}

@@ -84,7 +84,6 @@ public class MushroomPanel extends JPanel {
 		heartCnt = 3;
 		checkHeart();
 		
-		System.out.println("¹«Á¶°Ç µÇ¿©¾ßÁü");
 		
 		pizzaMan = new Pizza(man);
 		pizzaMan.setX(560); pizzaMan.setY(500);
@@ -232,7 +231,7 @@ public class MushroomPanel extends JPanel {
 			}
 			mushroomEnd.Fail();
 		}
-		if(score == 200) {
+		if(score == 2000) {
 			
 			pizzaMan.stop();
 			for (FriendMush f_Mush : f_MushList) {
@@ -245,7 +244,7 @@ public class MushroomPanel extends JPanel {
 				hm_Mush.setStop(true);
 			}
 			mushroomEnd.Success();
-			
+			System.out.println("¹ö¼¸ È¹µæ");
 			try {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("bag.txt", true));
 				bw.write("¹ö¼¸ ");

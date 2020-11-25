@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import code.Game;
+import code.Main;
+import code.Music;
 
 public class CheesePause extends JPanel {
 	Game game;
@@ -30,7 +32,11 @@ public class CheesePause extends JPanel {
 		quitButton.setBorderPainted(false);
 		quitButton.setContentAreaFilled(false);
 		quitButton.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {				
+			public void mousePressed(MouseEvent e) {	
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.cheesePanel.setVisible(false);
 				game.cheesePanel.reset();
 				game.stageSelectPanel.setVisible(true);
@@ -44,7 +50,11 @@ public class CheesePause extends JPanel {
 		continueButton.setBorderPainted(false);
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {				
+			public void mousePressed(MouseEvent e) {		
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.cheesePanel.setMouseCursor(game.cheesePanel.getMouseX() + 130, game.cheesePanel.getMouseY() - 20);
 				game.cheesePanel.setCursorImage(true);
 				setVisible(false);

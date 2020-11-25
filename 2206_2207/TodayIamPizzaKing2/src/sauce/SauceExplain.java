@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import code.Game;
+import code.Main;
+import code.Music;
 
 public class SauceExplain extends JDialog{
 
@@ -47,6 +49,10 @@ public class SauceExplain extends JDialog{
 		sauceGameBtn.setBounds(525, 460, 328, 92);
 		sauceGameBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				setVisible(false);
 				game.stageSelectPanel.setVisible(false);
 				game.saucePanel.setVisible(true);

@@ -54,10 +54,11 @@ public class ResultPanel extends JPanel {
 		setLayout(null);
 		setBounds(0, 0, 1280, 720);
 
-		/*
-		 * paprika = new JLabel(paprikaImg); paprika.setBounds(570, 167, 350, 350);
-		 * paprika.setVisible(true); add(paprika);
-		 */
+		
+		paprika = new JLabel(paprikaImg); 
+		paprika.setBounds(570, 167, 350, 350);
+		paprika.setVisible(true); add(paprika);
+		 
 
 		onion = new JLabel(onionImg);
 		onion.setBounds(570, 167, 350, 350);
@@ -136,6 +137,10 @@ public class ResultPanel extends JPanel {
 		firstButton.setContentAreaFilled(false);
 		firstButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				setVisible(false);
 				game.startPanel.setVisible(true);
 			}
@@ -165,7 +170,7 @@ public class ResultPanel extends JPanel {
 			if (s == null) {
 				sauce.setVisible(false);
 				mush.setVisible(false);
-				// paprika.setVisible(false);
+				paprika.setVisible(false);
 				onion.setVisible(false);
 				pepper.setVisible(false);
 				cheese.setVisible(false);
@@ -183,10 +188,10 @@ public class ResultPanel extends JPanel {
 					mush.setVisible(false);
 				}
 				if (s.contains("파프리카")) {
-					// paprika.setVisible(true);
+					paprika.setVisible(true);
 					score += 2000;
 				} else {
-					// paprika.setVisible(false);
+					paprika.setVisible(false);
 				}
 				if (s.contains("양파")) {
 					onion.setVisible(true);

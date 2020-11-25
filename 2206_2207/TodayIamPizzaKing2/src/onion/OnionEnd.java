@@ -2,8 +2,6 @@ package onion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,78 +11,86 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import code.Game;
+import code.Main;
+import code.Music;
+
 
 class OnionEnd extends JDialog {
 	
-	private ImageIcon winImg = new ImageIcon("images/stage/winImg.png");
-	private ImageIcon loseImg = new ImageIcon("images/stage/loseImg.png");
+	private ImageIcon winImg = new ImageIcon("images/onion/onion_win.png");
+	private ImageIcon loseImg = new ImageIcon("images/onion/onion_lose.png");
 	JPanel jp;
 	private JButton ok;
-	JLabel winBack, loseBack;
+	JLabel winBack, loseBack, flagBack;
 	
 	public OnionEnd(Game game) {
 		
-		setSize(800, 540);
+		setSize(800, 530);
 		setLocationRelativeTo(null);	
 		setModal(true);
+		setResizable(false);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 	
-		ok = new JButton("확인");
-		ok.setBounds(235, 356, 330, 110);
+		jp = new JPanel();
+		jp.setLayout(null);
+		jp.setBounds(0,0, 800, 500);
+		
+		
+		flagBack = new JLabel();
+		flagBack.setBounds(0,0, 800, 500);
+		jp.add(flagBack);
+		
+		
+		ok = new JButton();
 		add(ok);
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				game.onionPanel.reset();
-				game.onionPanel.setVisible(false);
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.stageSelectPanel.setVisible(true);
+				game.onionPanel.setVisible(false);
+				game.onionPanel.reset();
+				setVisible(false);
 			}
-		});
+		});		
 		
+		ok.setBorderPainted(false);
+		ok.setContentAreaFilled(false);
 		ok.setVisible(false);
-
-	}
-	public void Success() {
-		setTitle("success");
 		
-		jp = new JPanel();
-		
-		jp.setLayout(null);
-		jp.setBounds(0,0, 800, 500);
-		
-		winBack = new JLabel(winImg);
-		winBack.setBounds(0,0, 800, 500);
-		jp.add(winBack);
-		
-		
-		ok.setVisible(true);
 		
 		add(jp);
+	}
+	public void Success() { //성공했을시
+		setTitle("Success");	
+		
+		flagBack.setIcon(winImg);
+		
+		ok.setBounds(394, 362, 223, 79);
+		ok.setVisible(true);
+	
 		jp.setVisible(true);
 		
 		setVisible(true);
-		
 		
 	}
 	
-	public void Fail() {
+	public void Fail() { //실패했을시
 		
-		setTitle("fail");
-		jp = new JPanel();
+		setTitle("Fail");
 		
-		jp.setLayout(null);
-		jp.setBounds(0,0, 800, 500);
+		flagBack.setIcon(loseImg);
 		
-		loseBack = new JLabel(loseImg);
-		loseBack.setBounds(0,0, 800, 500);
-		jp.add(loseBack);
+		ok.setBounds(394, 362, 223, 79);
+		ok.setVisible(true);
 		
-		
-		add(jp);
 		jp.setVisible(true);
 		
 		setVisible(true);
 	}
+	
 	
 }	

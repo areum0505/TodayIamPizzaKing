@@ -326,8 +326,8 @@ public class PaprikaPanel extends JPanel {
 			score.setText(Integer.toString(win));
 			paprikaCheck();
 			int ran = ((int) (Math.random() * 100) + 1) + 50;
-			System.out.println(ran);
 			enemy1.setLocation(250 + ran, 100);
+			
 		} else if (enemy2.getX() + enemy2.getWidth() > choiceBar.getX()
 				&& choiceBar.getX() + choiceBar.getWidth() > enemy2.getX()
 				&& enemy2.getY() + enemy2.getHeight() > choiceBar.getY()
@@ -337,7 +337,6 @@ public class PaprikaPanel extends JPanel {
 			score.setText(Integer.toString(win));
 			paprikaCheck();
 			int ran = ((int) (Math.random() * 100) + 1) + 50;
-			System.out.println(ran);
 			enemy2.setLocation(400 + ran, 100);
 		} else if (enemy3.getX() + enemy3.getWidth() > choiceBar.getX()
 				&& choiceBar.getX() + choiceBar.getWidth() > enemy3.getX()
@@ -348,7 +347,6 @@ public class PaprikaPanel extends JPanel {
 			scoreCheck();
 			paprikaCheck();
 			int ran = ((int) (Math.random() * 100) + 1) + 50;
-			System.out.println(ran);
 			enemy3.setLocation(550 + ran, 100);
 
 		} else {
@@ -363,12 +361,11 @@ public class PaprikaPanel extends JPanel {
 		showPaprika();
 		if (win == 900) {
 			td.stop();
-			System.out.println("ÇÇ¸ÁÅ¬¸®¾î");
+			System.out.println("ÆÄÇÁ¸®Ä« È¹µæ");
 			score.setText(Integer.toString(win));
 
 			paprikaEnd.Success();
 			win = 0;
-			System.out.println(win);
 			score.setText("000");
 
 			try {

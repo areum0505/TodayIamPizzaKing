@@ -11,12 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import code.Game;
+import code.Main;
+import code.Music;
 
 
 class MushroomEnd extends JDialog {
 	
-	private ImageIcon winImg = new ImageIcon("images/mushroom/mushroomWin.png");
-	private ImageIcon loseImg = new ImageIcon("images/mushroom/mushroomLose.png");
+	private ImageIcon winImg = new ImageIcon("images/mushroom/mushroom_win.png");
+	private ImageIcon loseImg = new ImageIcon("images/mushroom/mushroom_lose.png");
 	JPanel jp;
 	private JButton ok;
 	JLabel winBack, loseBack, flagBack;
@@ -44,17 +46,10 @@ class MushroomEnd extends JDialog {
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				game.mushroomPanel.setVisible(false);
-				game.stageSelectPanel.setVisible(true);
-				game.mushroomPanel.endGame();
-			}
-		});
-		replay = new JButton();
-		add(replay);
-		replay.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				setVisible(false);
 				game.mushroomPanel.setVisible(false);
 				game.stageSelectPanel.setVisible(true);
@@ -63,13 +58,10 @@ class MushroomEnd extends JDialog {
 		});
 		
 		
-		//ok.setBorderPainted(false);
+		ok.setBorderPainted(false);
 		ok.setContentAreaFilled(false);
 		ok.setVisible(false);
 		
-		replay.setBorderPainted(false);
-		replay.setContentAreaFilled(false);
-		replay.setVisible(false);
 		
 		add(jp);
 	}
@@ -93,10 +85,7 @@ class MushroomEnd extends JDialog {
 		
 		flagBack.setIcon(loseImg);
 		
-		replay.setBounds(55, 317, 330, 110);
-		replay.setVisible(true);
-		
-		ok.setBounds(415, 317, 330, 110);
+		ok.setBounds(394, 362, 223, 79);
 		ok.setVisible(true);
 		
 		jp.setVisible(true);

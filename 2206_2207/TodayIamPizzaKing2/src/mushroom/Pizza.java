@@ -54,7 +54,6 @@ class Pizza extends Thread {
 			if (pause) {
 				while (pause) {
 					try {
-						System.out.println("pause ´©¸§");
 						Thread.sleep(1000);
 					} catch (Exception e) {
 						e.printStackTrace();

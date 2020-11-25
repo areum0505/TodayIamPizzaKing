@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import code.Game;
+import code.Main;
+import code.Music;
 
 public class MushroomPause extends JPanel{
 	Game game;
@@ -32,6 +34,10 @@ public class MushroomPause extends JPanel{
 		quitButton.setContentAreaFilled(false);
 		quitButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.stageSelectPanel.setVisible(true);
 				game.mushroomPanel.setVisible(false);
 				game.mushroomPanel.endGame();
@@ -47,7 +53,10 @@ public class MushroomPause extends JPanel{
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.mushroomPanel.pizzaMan.setPause(false);
 				
 				for (FriendMush f_Mush : game.mushroomPanel.f_MushList) {

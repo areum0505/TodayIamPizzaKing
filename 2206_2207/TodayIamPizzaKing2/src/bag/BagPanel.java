@@ -22,6 +22,8 @@ import javax.swing.JTextField;
 
 import code.Game;
 import code.JTextFieldLimit;
+import code.Main;
+import code.Music;
 
 public class BagPanel extends JDialog {
 	private ImageIcon backgroundImage = new ImageIcon("images/main/bagBack.png");
@@ -220,6 +222,10 @@ class ColaPanel extends JPanel {
 
 		startBtn.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				bagPanel.colaPanel.setVisible(false);
 				bagPanel.colaGamePanel.setVisible(true);
 				bagPanel.colaGamePanel.requestFocus();

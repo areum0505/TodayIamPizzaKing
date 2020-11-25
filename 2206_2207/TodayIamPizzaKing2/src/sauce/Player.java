@@ -35,7 +35,7 @@ public class Player extends Thread {
 	private ImageIcon clearImage = new ImageIcon("images/sauce/sauceWithPizza.png");
 	private ImageIcon deadImage = new ImageIcon("images/sauce/sauceSadPizza.png");
 
-	SauceEnd endPanel;
+	SauceEnd sauceEnd;
 
 	public Player(JLabel avatar, int exitY, Game game) {
 		super();
@@ -46,7 +46,7 @@ public class Player extends Thread {
 		avatar.setIcon(standImage);
 		this.exitY = exitY;
 
-		endPanel = new SauceEnd(game);
+		sauceEnd = new SauceEnd(game);
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class Player extends Thread {
 
 	public void checkExit() {
 		if (x > 1174) {
-			System.out.println("clear");
+			System.out.println("¼Ò½º È¹µæ");
 			avatar.setIcon(clearImage);
 			stop();
 			for (int i = 0; i < beamList.size(); i++) {
@@ -138,7 +138,7 @@ public class Player extends Thread {
 				e.printStackTrace();
 			}
 
-			endPanel.Clear();
+			sauceEnd.Success();
 
 		}
 	}
@@ -148,7 +148,7 @@ public class Player extends Thread {
 		avatar.setIcon(deadImage);
 		stop();
 
-		endPanel.Dead();
+		sauceEnd.Fail();
 	}
 
 	public int getX() {

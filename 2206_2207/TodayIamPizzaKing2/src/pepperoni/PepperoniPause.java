@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import code.Game;
+import code.Main;
+import code.Music;
 
 public class PepperoniPause extends JPanel{
 	Game game;
@@ -31,6 +33,10 @@ public class PepperoniPause extends JPanel{
 		quitButton.setContentAreaFilled(false);
 		quitButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.pepperoniPanel.getTh().stop();
 				game.pepperoniPanel.reset();
 				game.stageSelectPanel.setVisible(true);
@@ -46,6 +52,10 @@ public class PepperoniPause extends JPanel{
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.pepperoniPanel.getPepperoni().setPause(false);
 				setVisible(false);
 			}

@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import code.Game;
+import code.Main;
+import code.Music;
 
 public class OnionPause extends JPanel{
 	Game game;
@@ -31,7 +33,10 @@ public class OnionPause extends JPanel{
 		quitButton.setContentAreaFilled(false);
 		quitButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.stageSelectPanel.setVisible(true);
 				game.onionPanel.setVisible(false);
 				game.onionPanel.reset();
@@ -46,7 +51,10 @@ public class OnionPause extends JPanel{
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				setVisible(false);
 			}
 		});

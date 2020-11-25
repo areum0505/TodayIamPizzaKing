@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import code.Game;
+import code.Main;
+import code.Music;
 
 public class SaucePausePanel extends JPanel{
 	Game game;
@@ -32,6 +34,10 @@ public class SaucePausePanel extends JPanel{
 		quitButton.setContentAreaFilled(false);
 		quitButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.saucePanel.getPlayer().stop();
 				for(Beam b : game.saucePanel.getBeam()) {
 					b.setEmptyImg();
@@ -50,6 +56,10 @@ public class SaucePausePanel extends JPanel{
 		continueButton.setContentAreaFilled(false);
 		continueButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				game.saucePanel.getPlayer().setPause(false);
 				for(Beam b : game.saucePanel.getBeam()) {
 					b.setPause(false);

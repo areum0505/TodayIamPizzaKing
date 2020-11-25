@@ -88,6 +88,11 @@ public class OnionPanel extends JPanel{
 	ImageIcon comIcon[] = { new ImageIcon("./images/onion/enemy_rock.png"), new ImageIcon("./images/onion/enemy_sissor.png"),
 			new ImageIcon("./images/onion/enemy_paper.png") };
 
+	ImageIcon enterRock = new ImageIcon("images/onion/rock_mouseover.png");
+	ImageIcon enterScissors = new ImageIcon("images/onion/scissors_mouseover.png");
+	ImageIcon enterPaper = new ImageIcon("images/onion/paper_mouseover.png");
+	
+	
 	private onionLabel bar;
 	
 	JLabel lspScore, lspVS, lspCom, lspUser, lspResult;
@@ -220,7 +225,7 @@ public class OnionPanel extends JPanel{
 
 		int com = (int) (Math.random() * 3) + 1;
 		lspCom.setIcon(comIcon[com - 1]);
-		// 1:¹¬ 2:Âî 3:ºü
+		// 1:¹ÙÀ§ 2:°¡À§ 3:º¸
 
 		if (com == user) {
 			draw++;
@@ -256,8 +261,8 @@ public class OnionPanel extends JPanel{
 				e.printStackTrace();
 			}
 			onionEnd.Success();
+			System.out.println("¾çÆÄ È¹µæ");
 		}
-		System.out.println("½ÇÇàµÊ");
 	}
 	
 	public void checkDrop() {
@@ -301,6 +306,7 @@ public class OnionPanel extends JPanel{
 	
 	public void reset() {
 		heartCnt = 3;
+		checkHeart();
 		dropCnt = 0;
 		gameScore = 0;
 		win = 0;
@@ -309,7 +315,7 @@ public class OnionPanel extends JPanel{
 		gameScore = 0;
 		lspScore.setText(win + "½Â " + draw + "¹« " + lose + "ÆÐ ");
 		
-		lspCom = new JLabel(new ImageIcon("./images/enemy_first.png"));
+		lspCom = new JLabel(new ImageIcon("./images/onion/enemy_first.png"));
 		lspUser = new JLabel(new ImageIcon("./images/onion/pizza_first.png"));
 		
 		comTears.setVisible(false);
@@ -326,30 +332,26 @@ public class OnionPanel extends JPanel{
 	  class MyMouseListener extends MouseAdapter {
 
 		@Override
-		public void mouseEntered(MouseEvent e) {
-			// TODO Auto-generated method stub
-		
-			
-			
-		}
-
-
-		@Override
 		public void mousePressed(MouseEvent e) {
 			// TODO Auto-generated method stub
 			Object ob = e.getSource();
-			Music buttonClick = new Music("buttonClick1.mp3", false);
-			
+	
 			if (ob == btnRock) {
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				lspUser.setIcon(pizzaIcon[0]);
-				buttonClick.start();
 				comTears.setVisible(false);
 				pTears.setVisible(false);
 				chkResult(1);
 				chkOnionResult();
 
 			} else if (ob == btnScissors) {
-				buttonClick.start();
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				comTears.setVisible(false);
 				pTears.setVisible(false);
 				lspUser.setIcon(pizzaIcon[1]);
@@ -357,7 +359,10 @@ public class OnionPanel extends JPanel{
 				chkOnionResult();
 
 			} else if (ob == btnPaper) {
-				buttonClick.start();
+				if (Main.buttonEffect) {
+					Music buttonClick = new Music("buttonClick1.mp3", false);
+					buttonClick.start();
+				}
 				comTears.setVisible(false);
 				pTears.setVisible(false);
 				lspUser.setIcon(pizzaIcon[2]);
