@@ -1,54 +1,155 @@
 package sauce;
 
-import java.awt.Image;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-public class Beam {
+public class Beam extends JLabel implements Runnable {
 	private String type;
-	private boolean isBeam = false;
-	private boolean isStart = false;
-
-	private int beamCount = 0;
 	
 	private int x, y;
 	
-	private Image img;
-	private Image verticalBeam =  new ImageIcon("images/sauce/verticalBeam.png").getImage();
-	private Image preVerticalBeam =  new ImageIcon("images/sauce/preVerticalBeam.gif").getImage();
-	private Image horizontalBeam =  new ImageIcon("images/sauce/horizontalBeam.png").getImage();
-	private Image preHorizontalBeam =  new ImageIcon("images/sauce/preHorizontalBeam.gif").getImage();
+	private boolean isBeam = false;
+	private boolean isStart = false;
+	private int beamCount = 0;
+		
+	private int floor = 5;
+	private int[] beamY = {45, 187, 329, 471, 613};
+	
+	private int count = 0;
+	
+	private boolean stop = false;
+	private ArrayList<Beam> beamList = new ArrayList<>();
+	
+	private boolean pause = false;
+
+	private Player p;
+
+	private ImageIcon emptyHorizontalBeam =  new ImageIcon("images/sauce/emptyHorizontalBeam.png");
+	private ImageIcon emptyVerticalBeam =  new ImageIcon("images/sauce/emptyVerticalBeam.png");
+	private ImageIcon horizontalBeam =  new ImageIcon("images/sauce/horizontalBeam.png");
+	private ImageIcon verticalBeam =  new ImageIcon("images/sauce/verticalBeam.png");
+	private ImageIcon preVerticalBeam =  new ImageIcon("images/sauce/preVerticalBeam.gif");
+	private ImageIcon preHorizontalBeam =  new ImageIcon("images/sauce/preHorizontalBeam.gif");
+	private ImageIcon doingVerticalBeam =  new ImageIcon("images/sauce/doingVerticalBeam.png");
+	private ImageIcon doingHorizontalBeam =  new ImageIcon("images/sauce/doingHorizontalBeam.png");
 	
 	public Beam(String type) {
+		setLayout(null);
 		this.type = type;
 		if(type.equals("horizontal")) {
-			x = 0;
-			y = 750 - 80;
+			x = 2;
+			changeY();
+			setIcon(emptyHorizontalBeam);
+			setBounds(x, y, emptyHorizontalBeam.getIconWidth(), emptyHorizontalBeam.getIconHeight());
 		} else {
-			x = (int)(Math.random()*1260+20);
-			y = 20;
+			changeX();
+			y = 3;
+			setIcon(emptyVerticalBeam);
+			setBounds(x, y, emptyVerticalBeam.getIconWidth(), emptyVerticalBeam.getIconHeight());
 		}
+		setVisible(true);
+	}
+	
+	@Override
+	public void run() {
+		while(!stop) {	
+			count++;
+			
+			check();
+		
+			if(count > 5) {
+				beam();
+			} 			
+			if(count > 12) {
+				beamCount = 0;
+				count = 0;
+				if(type.equals("horizontal")) {
+					changeY();
+				} else {
+					changeX();
+				}
+			} 
+			
+			if(pause) {
+				if(isBeam && !isStart) {
+					if(type.equals("horizontal"))
+						setIcon(doingHorizontalBeam);
+					else
+						setIcon(doingVerticalBeam);
+				}
+				while (pause) {
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			
+			try {
+				Thread.sleep(150);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		setEmptyImg();
 	}
 	
 	public void beam() {
 		if(beamCount < 4) {
 			isBeam = true;
-			if(type.equals("horizontal")) img = preHorizontalBeam;
-			else img = preVerticalBeam;
+			if(type.equals("horizontal")) setIcon(preHorizontalBeam);
+			else setIcon(preVerticalBeam);
 		} else {
 			isStart = true;
-			if(type.equals("horizontal")) img = horizontalBeam;
-			else img = verticalBeam;
+			if(type.equals("horizontal")) setIcon(horizontalBeam);
+			else setIcon(verticalBeam);
 		}
-		if(beamCount > 4) {
+		if(beamCount > 5) {
 			isBeam = false;
 			isStart = false;
+			if(type.equals("horizontal")) setIcon(emptyHorizontalBeam);
+			else setIcon(emptyVerticalBeam);
 		}
 		beamCount++;
+		getParent().repaint();
 	}
 	
 	public void changeX() {
-		x = (int)(Math.random()*1260+20);
+		x = (int)(Math.random()*1210+20);
+	}
+	public void changeY() {
+		floor = (int)(Math.random()*5);
+		y = beamY[floor];
+	}
+	
+	public void check() {
+		if(isStart && type.equals("horizontal")) {
+			if(p.getFloor() == floor) {
+				for(int i = 0; i < beamList.size(); i++) {
+					beamList.get(i).setStop(true);
+				}
+				p.dead();
+			}
+		} 
+		if(isStart && type.equals("vertical")) {
+			if(p.getX() < x + 40 && x + 10 < p.getX() + 92) {
+				for(int i = 0; i < beamList.size(); i++) {
+					beamList.get(i).setStop(true);
+				}
+				p.dead();
+			}
+		}
+	}
+	
+	public void setEmptyImg() {
+		if(type.equals("horizontal")) {
+			setIcon(emptyHorizontalBeam);
+		} else {
+			setIcon(emptyVerticalBeam);
+		}
 	}
 
 	public String getType() {
@@ -98,12 +199,24 @@ public class Beam {
 	public void setY(int y) {
 		this.y = y;
 	}
-
-	public Image getImg() {
-		return img;
+	
+	public void setPlayer(Player p) {
+		this.p = p;
+	}
+	
+	public void setStop(boolean stop) {
+		this.stop = stop;
+	}
+	
+	public void setPause(boolean pause) {
+		this.pause = pause;
+	}
+	
+	public ArrayList<Beam> getBeamList() {
+		return beamList;
 	}
 
-	public void setImg(Image img) {
-		this.img = img;
+	public void setBeamList(ArrayList<Beam> beamList) {
+		this.beamList = beamList;
 	}
 }
