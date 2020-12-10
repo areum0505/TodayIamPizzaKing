@@ -437,6 +437,7 @@ class ColaGamePanel extends JPanel {
 
 	public void changeExplain(String s) {
 		this.explain.setText(s);
+		this.explain.paintImmediately(this.explain.getVisibleRect());
 	}
 
 	public void crashCheck() {
@@ -459,22 +460,20 @@ class ColaGamePanel extends JPanel {
 					&& colaLabel.getY() + colaLabel.getHeight() > cutLabel.getY()
 					&& cutLabel.getY() + cutLabel.getHeight() > colaLabel.getY()) {
 
+				this.changeExplain("슬롯머신 돌리러 가즈아ㅏㅏ");	
+				ct.stop();
+				
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				System.out.println("콜라 획득");
-				this.changeExplain("슬롯머신 돌리러 가즈아ㅏㅏ");	
-	
-				ct.stop();
-
+				
 				cola.bagPanel.setVisible(false);
 				sm.setVisible(true);
 
 			} else {
 				changeExplain("유감");
-	
 				ct.stop();
 
 				try {
@@ -482,7 +481,6 @@ class ColaGamePanel extends JPanel {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-
 				
 				defeat();
 			}
