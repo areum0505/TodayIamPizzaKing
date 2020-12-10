@@ -144,7 +144,7 @@ public class Player extends Thread {
 	}
 
 	public void dead() {
-		System.out.println("dead");
+		//System.out.println("dead");
 		avatar.setIcon(deadImage);
 		stop();
 

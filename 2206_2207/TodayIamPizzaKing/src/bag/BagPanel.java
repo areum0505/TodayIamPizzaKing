@@ -94,7 +94,7 @@ public class BagPanel extends JDialog {
 		makeButton.setBounds(333, 505, 258, 78);
 		makeButton.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
-				int result = JOptionPane.showConfirmDialog(null, "<html>가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?<br>(가격이 떨어질 수도)</html>", "인생역전의 기회",
+				int result = JOptionPane.showConfirmDialog(null, "<html>가격을 불릴 수 있는 기회가 주어졌다 도전하시겠습니까?<br>(가격이 내려갈 수도)</html>", "인생역전의 기회",
 						JOptionPane.YES_NO_OPTION);
 				if (result == JOptionPane.CLOSED_OPTION) {
 					return;
@@ -205,6 +205,7 @@ class ColaPanel extends JPanel {
 	ImageIcon colaStartImg = new ImageIcon("images/cola/colaStart.png");
 
 	JLabel back;
+	
 	JButton startBtn;
 
 	public ColaPanel(BagPanel bagPanel) {
@@ -215,7 +216,9 @@ class ColaPanel extends JPanel {
 		back = new JLabel(colaStartImg);
 		back.setBounds(0, 0, 900, 600);
 		add(back);
-
+		
+		
+		
 		startBtn = new JButton();
 		startBtn.setBorderPainted(false);
 		startBtn.setContentAreaFilled(false);
@@ -261,7 +264,7 @@ class ColaLabel extends JLabel {
 			setHeight(getHeight() + 1);
 			setBounds(getX(), getY(), width, getHeight());
 		} else {
-			cgp.changeExplain("끝났어ㅋ");
+			cgp.changeExplain("콜라가 넘쳐 기회는 사라졌음");
 			
 			try {
 				Thread.sleep(2000);
@@ -387,13 +390,14 @@ class ColaThread extends Thread {
 class ColaGamePanel extends JPanel {
 
 	ImageIcon colaBackImg = new ImageIcon("images/cola/colaColorBack.png");
-
+	ImageIcon colaSuccess = new ImageIcon("images/cola/colaSuccess.png");
+	
 	Game game;
 	BagPanel cola;
 
 	SlotMachine sm;
 
-	JLabel back, colaBack, explain, result;
+	JLabel back, colaBack, explain, result, colaWin;
 	JButton startBtn;
 	ColaLabel colaLabel;
 	CutLabel cutLabel;
@@ -411,13 +415,19 @@ class ColaGamePanel extends JPanel {
 		sm.setVisible(false);
 		add(sm);
 
+		colaWin = new JLabel(colaSuccess);
+		colaWin.setBounds(400,150, 265,265);
+		add(colaWin);
+		colaWin.setVisible(false);
+		
 		colaLabel = new ColaLabel(this);
 		add(colaLabel);
 
 		cutLabel = new CutLabel(this);
 		add(cutLabel);
 
-		explain = new JLabel("기회는 한 번뿐 잘 선택하십쇼");
+		
+		explain = new JLabel("기회는 한 번뿐 잘 선택하세요");
 		explain.setFont(new Font("나눔고딕 ExtraBold", Font.BOLD, 30));
 		explain.setBounds(250, 170, 500, 50);
 		add(explain);
@@ -444,7 +454,7 @@ class ColaGamePanel extends JPanel {
 
 		if (colaLabel.getY() < cutLabel.getY()) {
 			
-			changeExplain("유감");
+			changeExplain("안타깝지만 기회가 사라졌어요");
 			ct.stop();
 			
 			try {
@@ -460,7 +470,9 @@ class ColaGamePanel extends JPanel {
 					&& colaLabel.getY() + colaLabel.getHeight() > cutLabel.getY()
 					&& cutLabel.getY() + cutLabel.getHeight() > colaLabel.getY()) {
 
-				this.changeExplain("슬롯머신 돌리러 가즈아ㅏㅏ");	
+				this.changeExplain("");	
+				this.colaWin.setVisible(true);
+				this.colaWin.paintImmediately(this.colaWin.getVisibleRect());
 				ct.stop();
 				
 				try {
@@ -473,7 +485,7 @@ class ColaGamePanel extends JPanel {
 				sm.setVisible(true);
 
 			} else {
-				changeExplain("유감");
+				changeExplain("안타깝지만 기회가 사라졌어요");
 				ct.stop();
 
 				try {

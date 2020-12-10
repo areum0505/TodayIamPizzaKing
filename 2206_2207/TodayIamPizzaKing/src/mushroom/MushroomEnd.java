@@ -67,7 +67,7 @@ class MushroomEnd extends JDialog {
 	}
 	public void Success() {
 		setTitle("success");	
-		
+		//System.out.println("¹ö¼¸ È¹µæ");
 		flagBack.setIcon(winImg);
 		
 		ok.setBounds(394, 362, 223, 79);

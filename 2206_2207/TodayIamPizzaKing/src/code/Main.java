@@ -6,7 +6,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 		new Game();
-		introMusic = new Music("introMusic.mp3",true);;
+		introMusic = new Music("introMusic.mp3",true);
         introMusic.start();
 	}
 }

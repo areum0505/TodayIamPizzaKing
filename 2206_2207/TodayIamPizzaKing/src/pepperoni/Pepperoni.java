@@ -169,7 +169,6 @@ public class Pepperoni extends JLabel implements Runnable {
 					// System.out.print(temp.getX() + ", " + temp.getY() + "\t");
 					getParent().repaint();
 				}
-				System.out.println();
 			}
 		}
 
@@ -195,6 +194,7 @@ public class Pepperoni extends JLabel implements Runnable {
 			}
 
 			pp.pepperoniEnd.Success();
+			System.out.println("∆‰∆€∑Œ¥œ »πµÊ");
 		}
 	}
 

@@ -205,7 +205,7 @@ public class ResultPanel extends JPanel {
 				}
 				if (s.contains("¹ö¼¸")) {
 					mush.setVisible(true);
-					score += 1500;
+					score += 2000;
 				} else {
 					mush.setVisible(false);
 				}

@@ -66,7 +66,7 @@ class CheeseEnd extends JDialog {
 	}
 	public void Success() { //¼º°øÇßÀ»½Ã
 		setTitle("Success");	
-		
+		System.out.println("Ä¡Áî È¹µæ");
 		flagBack.setIcon(winImg);
 		
 		ok.setBounds(394, 362, 223, 79);

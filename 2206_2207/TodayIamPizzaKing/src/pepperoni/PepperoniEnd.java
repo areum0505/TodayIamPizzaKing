@@ -66,7 +66,6 @@ class PepperoniEnd extends JDialog {
 	}
 	public void Success() { //성공했을시
 		setTitle("Success");	
-		
 		flagBack.setIcon(winImg);
 		
 		ok.setBounds(394, 362, 223, 79);
