@@ -86,6 +86,8 @@ public class RankingDialog extends JDialog {
 			label.setFont(new Font("³ª´®¹Ù¸¥°íµñ", Font.PLAIN, 35));
 			label.setText(name[i] + "ÀÇ " + pizza[i] + " - " + score[i] + "¿ø");
 			panel.add(label, BorderLayout.EAST);
+			
+			panel.repaint();
 
 			outer.add(panel);
 
@@ -97,8 +99,6 @@ public class RankingDialog extends JDialog {
 		scrollPane.setBounds(0, 115, 894, 450);
 		p.add(scrollPane);
 		p.add(back);
-
-		
 	}
 
 	public void getRanking() {
