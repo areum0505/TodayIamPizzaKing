@@ -49,7 +49,10 @@ public class RankingDialog extends JDialog {
 	}
 
 	public void draw() {
-		getRanking();		
+		getRanking();	
+		
+		p.removeAll();
+		p.repaint();
 
 		int y = 10;
 		
