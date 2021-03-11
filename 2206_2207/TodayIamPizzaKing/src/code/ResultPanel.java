@@ -288,6 +288,8 @@ public class ResultPanel extends JPanel {
 		if (check) {
 			fail_l.setText("<html>" + name + "님은 <br>순위에 들지 못했습니다.</html>");
 			fail_l.setVisible(true);
+		} else {
+			fail_l.setVisible(false);
 		}
 
 		try {
