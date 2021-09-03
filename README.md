@@ -1,6 +1,8 @@
 # 오늘은 내가 핏짜왕!
 > 도우가 피자가 되기 위해 재료를 찾아 떠나는 모험기를 담은 게임
 
+[시연 영상](https://youtu.be/IYWNC6syW1w)
+
 <!-- [![NPM Version][npm-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Downloads Stats][npm-downloads]][npm-url] -->
